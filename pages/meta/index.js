@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import Head from 'next/head'
-import Image from 'next/Image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { usePageContext } from '@/pageProvider/PageContext'
 import PropTypes from 'prop-types'
