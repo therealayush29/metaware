@@ -1,0 +1,930 @@
+.dashOuter {
+    background: var(--primary);
+    position: relative;
+    height: calc(100vh - 4px);
+    overflow: hidden;
+    border-right: 4px solid var(--primary);
+    border-left: 4px solid var(--primary);
+    border-bottom: 4px solid var(--primary);
+    z-index: 1;
+}
+
+.dashHdrLogo {
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+.dashHdrLogoLink {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--whiteText);
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mblLogo .mblLogoLink svg {
+    width: 50px;
+    height: 50px;
+}
+
+.mblMenu {
+    /*position: absolute;
+    right: 20px;
+    top: 24px;
+    display: none;*/
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border-radius: 0;
+    width: 30px;
+    height: 30px;
+    color: var(--whiteText);
+}
+
+.dashOuterSmall .mblMenu {
+    left: 20px;
+}
+
+.mblMenu:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.mblMenu svg {
+    width: 17px;
+}
+
+.dashSdbr {
+    background: var(--primary);
+    position: fixed;
+    left: 4px;
+    top: 44px;
+    bottom: 0;
+    width: 100px;
+    padding: 12px 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 99;
+    box-sizing: border-box;
+    /* transition: all 0.3s ease 0s;*/
+}
+
+.dashSdbr::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dashSdbr::-webkit-scrollbar-track {
+    background: var(--mute4);
+}
+
+.dashSdbr::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #ddd;
+}
+
+.dashSdbr::before {
+    background-color: var(--whiteBg);
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 36px;
+    display: none;
+}
+
+.dashOuterSmall .dashSdbr {
+    width: 0;
+    padding: 0;
+}
+
+.sdbrClosebtn {
+    position: fixed;
+    left: 209px;
+    top: 100px;
+}
+
+.sdbrClosebtn {
+    background: var(--whiteBg);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100px;
+    text-align: right;
+    padding: 12px 8px;
+    z-index: 9;
+    display: none;
+    box-sizing: border-box;
+}
+
+.dashOuterSmall .sdbrClosebtn {
+    background: var(--whiteBg);
+    text-align: right;
+}
+
+.sdbrClosebtn button {
+    padding: 0;
+    border-radius: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.sdbrClosebtn button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sdbrClosebtn .btn-close {
+    background: transparent url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230e2b72'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e) center/1em auto no-repeat;
+    padding: 0;
+    opacity: 1;
+    width: 20px;
+    height: 20px;
+    box-shadow: none !important;
+}
+
+.dashMainCard {
+    background-color: var(--mute5);
+    position: relative;
+    margin-left: 100px;
+    padding: 20px;
+    margin-top: 44px;
+    height: calc(100vh - 48px);
+    overflow: auto;
+    box-sizing: border-box;
+    border-radius: 8px;
+    transition: all 0.3s ease 0s;
+}
+
+.dashSubMenuOpen .dashMainCard {
+    border-radius: 0 8px 8px 0;
+}
+
+.dashOuterSmall .dashMainCard,
+.dashOuterSmall.dashSubMenuOpen .dashMainCard {
+    border-radius: 8px;
+}
+
+.dashSubMenuOpen .dashMainCard {
+    margin-left: 300px;
+}
+
+.dashSubMenuClose .dashMainCard {
+    margin-left: 100px;
+}
+
+.dashSubMenuClose .subUl {
+    display: none;
+}
+
+.dashOuterSmall .dashMainCard {
+    margin-left: 0;
+}
+
+.hideSdbrBtn {
+    position: fixed;
+    left: 232px;
+    top: 9px;
+    transition: all 0.3s ease 0s;
+    z-index: 999;
+}
+
+.dashOuterSmall .hideSdbrBtn {
+    left: 68px;
+}
+
+.hideBtn {
+    background: var(--primaryHover);
+    width: 16px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 40px;
+}
+
+.hideBtn span {
+    position: relative;
+}
+
+.sdbrLogo {
+    text-align: center;
+}
+
+.sdbrLogo .sdbrLogoLink {
+    display: inline-block;
+}
+
+.sdbrLogo span svg {
+    transition: all 0.4s ease 0s;
+    height: 60px;
+}
+
+.dashOuterSmall .sdbrLogo span svg {
+    width: 56px;
+    height: 56px;
+}
+
+.sdbrLnkItem {
+    position: relative;
+    overflow: hidden;
+}
+
+.sdbrLnkItem + .sdbrLnkItem {
+    margin-top: 10px;
+}
+
+.sdbrLnkItemMenu {
+    position: relative;
+}
+
+.sdbrLnkItemMenu>i {
+    position: absolute;
+    right: 14px;
+    top: 11px;
+    cursor: pointer;
+}
+
+.sdbrLnkItemMenu>i svg {
+    width: 14px;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--gray) !important;
+    border: 0 !important;
+    background: transparent !important;
+    position: relative;
+    transition: all 0.3s ease 0s;
+    border-left: 3px solid transparent;
+    padding: 0;
+    height: 62px;
+    width: 100%;
+    justify-content: flex-start;
+    font-family: "Segoe UI" !important;
+    font-size: inherit;
+    letter-spacing: inherit;
+    line-height: initial;
+    font-weight: initial;
+    text-transform: inherit;
+    border-radius: 5px !important;
+    text-align: center;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor i {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    display: none;
+}
+
+.sdbrLnkItem .dashOuterSmall i {
+    display: none;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor i svg {
+    height: 18px;
+    width: 16px;
+}
+
+.sdbrLnkItem.open .sdbrLnkAnchor i svg {
+    height: 15px;
+    width: 14px;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor:hover span {
+    color: var(--primary);
+    border-color: var(--menuHover7) !important;
+    background: var(--menuHover7) !important;
+}
+
+.sdbrLnkItem.active .sdbrLnkAnchor span,
+.sdbrLnkItem.active .sdbrLnkAnchor:hover span {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    background: var(--menuHover7) !important;
+}
+
+.sdbrLnkItem.open .sdbrLnkAnchor span,
+.sdbrLnkItem.open .sdbrLnkAnchor:hover span {
+    color: var(--whiteText) !important;
+    border-color: var(--primaryHover) !important;
+    background: var(--primaryHover) !important;
+}
+
+.sdbrLnkItem.active .sdbrLnkAnchor>span,
+.sdbrLnkItem.open .sdbrLnkAnchor>span {
+    color: var(--white);
+}
+
+.sdbrLnkItem .sdbrLnkAnchor:hover span svg,
+.sdbrLnkItem.active .sdbrLnkAnchor:hover span svg,
+.sdbrLnkItem.open .sdbrLnkAnchor:hover span svg {
+    transform: scale(1.2);
+}
+
+
+.sdbrLnkItem .sdbrLnkAnchor>span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    color: var(--whiteText);
+    line-height: 40px;
+    height: 40px;
+    border-radius: 6px;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor>span svg {
+    width: 20px;
+    transform: scale(1);
+    transition: all 0.3s ease 0s;
+}
+
+.sdbrLnkItem h4 {
+    font-size: 13px;
+    color: var(--whiteText);
+    font-weight: 500;
+    margin: 4px 0 0 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.sdbrLnkItem.active .sdbrLnkAnchor h4,
+.sdbrLnkItem.active .sdbrLnkAnchor:hover h4 {
+    font-weight: 500;
+}
+
+.sdbrLnkItem .sdbrLnkAnchor > span:last-child {
+    display: none;
+}
+.grpHdg {
+    font-size: 13px !important;
+    display: flex !important;
+    text-align: left;
+    line-height: 32px !important;
+    position: relative !important;
+    color: var(--gray) !important;
+    width: 100%;
+    justify-content: flex-start !important;
+    letter-spacing: inherit !important;
+    border-radius: 0 !important;
+    background: var(--whiteBg) !important;
+    font-weight: 700 !important;
+    padding-left: 0 !important;
+    border-bottom: 1px solid var(--border);
+    box-sizing: border-box;
+    text-transform: uppercase !important;
+}
+
+.sdbrsubMenu {
+    display: flex !important;
+    text-align: left;
+    line-height: 32px !important;
+    position: relative !important;
+    color: var(--greyLight) !important;
+    transition: all ease 0.3s !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    width: 100%;
+    justify-content: flex-start !important;
+    font-family: "Segoe UI" !important;
+    font-size: inherit !important;
+    letter-spacing: inherit !important;
+    font-weight: initial !important;
+    text-transform: inherit !important;
+    border-radius: 5px !important;
+}
+/*.sdbrsubMenu::before {
+    position: absolute;
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+    left: 20px;
+    top: 12px;
+    background: var(--gray);
+}*/
+
+.sdbrsubMenu:hover {
+    background: var(--menuHover2) !important;
+    background: var(--primary) !important;
+    color: var(--whiteText) !important;
+}
+
+.sdbrsubMenu:hover::before {
+    background: var(--gray) !important;
+}
+
+.sdbrLnkItemMenu.open .sdbrsubMenu,
+.sdbrLnkItemMenu.open .sdbrsubMenu:hover {
+    color: var(--whiteText) !important;
+    border-color: var(--primary) !important;
+    background: var(--primary) !important;
+}
+
+.sdbrLnkItemMenu.open .sdbrsubMenu::before,
+.sdbrLnkItemMenu.open .sdbrsubMenu:hover::before {
+    background: var(--primary) !important;
+}
+
+.sdbrLnkItemMenu.active .sdbrsubMenu,
+.sdbrLnkItemMenu.active .sdbrsubMenu:hover {
+    background: var(--primary) !important;
+    color: var(--whiteText) !important;
+}
+
+.sdbrLnkItemMenu .sdbrsubMenu:hover {
+    background: var(--menuHover4) !important;
+    color: var(--grayText) !important;
+}
+
+.sdbrLnkItemMenu.active .sdbrsubMenu::before,
+.sdbrLnkItemMenu.active .sdbrsubMenu:hover::before {
+    background: var(--primary) !important;
+}
+
+.sdbrsubMenu h4 {
+    margin: 0;
+}
+
+.sdbrLnkItemMenu.open .sdbrsubMenu h4,
+.sdbrLnkItemMenu.open .sdbrsubMenu:hover h4 {
+    font-weight: 500;
+}
+
+.subSubUl {
+    position: relative;
+    padding-left: 16px;
+}
+
+.subSubUl li h4 {
+    font-size: 14px;
+    padding-left: 6px;
+    color: var(--greyLight);
+}
+.subSubUl > li.active a h4,
+.subSubUl > li.active a:hover h4 {
+    font-weight: 500;
+    color: var(--whiteText);
+}
+
+.subSubUl li a {
+    display: flex;
+    padding-left: 10px;
+    text-align: left;
+    line-height: 32px;
+    position: relative;
+    color: var(--greyLight)!important;
+    transition: all ease 0.6s;
+    margin-bottom: 0;
+    justify-content: flex-start;
+    border-radius: 5px;
+}
+.subSubUl li a::before {
+    position: absolute;
+    content: "#";
+    width: 14px;
+    height: 14px;
+    /* background: var(--gray); */
+    border-radius: 0;
+    left: 0;
+    top: 0;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease 0s;
+}
+
+.subSubUl li a:hover {
+    /* background-color: var(--menuHover); */
+    color: var(--whiteText) !important;
+}
+.subSubUl li a:hover h4 {
+    color: var(--whiteText) !important;
+}
+
+/*.subSubUl li a:hover::before {
+    background: var(--primary);
+}*/
+
+.subSubUl > li.active a,
+.subSubUl > li.active a:hover {
+    color: var(--whiteText)!important;
+}
+
+.subSubUl > li.active a::before,
+.subSubUl > li.active a:hover::before {
+    /* background: var(--primary); */
+}
+
+.dashOuterSmall .sdbrLnkItem  .sdbrLnkAnchor i {
+    display: none;
+
+}
+
+.sdbrSubSubMenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 20px;
+}
+
+.sdbrSubSubMenu h4 {
+    margin: 0;
+}
+
+.subUl {
+    background: var(--primaryHover);
+    position: fixed;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 104px;
+    top: 44px;
+    bottom: 4px;
+    border-radius: 8px 0 0 8px;
+    width: 200px;
+}
+
+.subType {
+    padding: 7.6px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.subType h5 {
+    font-size: 16px;
+    color: var(--whiteText);
+    font-weight: 500;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.subType h5 i {
+    background-color: var(--menuHover);
+    color: var(--primary);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.subType h5 i svg {
+    width: 16px;
+}
+
+.subUl > div > ul {
+    padding: 10px;
+}
+
+.subUl > div + div,
+.subUl > div li + li,
+.subUl > div li li {
+    margin-top: 4px;
+}
+
+.subUl > div li:empty {
+    display: none;
+}
+
+.dashOuterSmall .subUl {
+    display: none;
+}
+
+.subUl > li + li {
+    border-top: 1px solid var(--border);
+}
+
+.subUl .sdbrsubMenu {
+    padding: 8px !important;
+    height: 32px;
+}
+
+.sdbrLnkItem .subUl button > h4 {
+    font-size: 14px;
+    color: var(--greyLight);
+    margin: 0;
+}
+
+.sdbrLnkItem .subUl .sdbrsubMenu:hover > h4,
+.sdbrLnkItem .subUl .sdbrsubMenu:hover > i {
+    color: var(--grayText) !important;
+}
+
+.sdbrLnkItem .subUl .sdbrLnkItemMenu.active .sdbrsubMenu > h4,
+.sdbrLnkItem .subUl .sdbrLnkItemMenu.active .sdbrsubMenu > i,
+.sdbrLnkItem .subUl .sdbrLnkItemMenu.open .sdbrsubMenu > h4,
+.sdbrLnkItem .subUl .sdbrLnkItemMenu.open .sdbrsubMenu > i {
+    color: var(--whiteText) !important;
+}
+
+.subUl li i {
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 30px;
+    width: 20px;
+    font-size: 18px;
+    color: var(--greyLight);
+    font-weight: 500;
+}
+
+.subUl li .sdbrLnkDropMenu svg {
+    height: 10px;
+    width: 10px;
+}
+
+.subUl li .sdbrLnkDropMenu.open svg {
+    height: 9px;
+    width: 9px;
+}
+
+.dashOuterSmall .sdbrLnkItem .sdbrLnkAnchor {
+    justify-content: flex-start;
+}
+
+.dashOuterSmall .sdbrLnkItem h4 {
+    width: 0;
+    visibility: hidden;
+    margin-left: 0;
+    display: none;
+}
+
+.dashHeader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 44px;
+    z-index: 9;
+    box-sizing: border-box;
+}
+
+.dashHeaderTop {
+    background-color: var(--primary);
+    padding: 6px 16px;
+    height: 44px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+/*.dashHeaderTop::before {
+    background-image: url('/../bg-effect.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .03;
+    z-index: -1;
+}*/
+
+.dashHeaderBtm {
+    position: relative;
+    background-color: var(--whiteBg);
+    padding: 10px 16px;
+    height: 48px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+    margin-bottom: 16px;
+}
+
+.dashFooter {
+    background-color: var(--secondary);
+    padding: 10px 16px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    box-sizing: border-box;
+}
+.cpyrghtText {
+    font-size: 14px;
+    color: var(--whiteText);
+}
+.cpyrghtText a {
+    color: var(--menuHover2);
+}
+
+@media (max-width:1199px) {
+    .dashOuterSmall::before {
+        background: rgba(0,0,0,0.5);
+        position: fixed;
+        content: "";
+        right: 0;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        opacity: 0.8;
+        z-index: 99;
+    }
+
+    .dashSdbr {
+        left: -240px;
+        top: 0;
+        padding: 24px 0 140px 0;
+    }
+
+    .dashOuterSmall .dashSdbr {
+        left: 0;
+        width: 100px;
+    }
+
+    .sdbrClosebtn {
+        display: none;
+    }
+
+    .dashOuterSmall .sdbrClosebtn {
+        display: block;
+    }
+
+    .dashMainCard {
+        margin-left: 0;
+        padding: 16px;
+        margin-top: 44px;
+        height: calc(100vh - 48px);
+    }
+
+    .dashSubMenuOpen .dashMainCard {
+        margin-left: 0;
+        border-radius: 8px;
+    }
+
+    .dashOuterSmall .dashMainCard {
+        margin-left: 0;
+        overflow: hidden;
+    }
+
+    .dashHeader {
+        border: 0;
+    }
+
+    .hideSdbrBtn {
+        display: none;
+    }
+
+    .sdbrLogo span svg,
+    .dashOuterSmall .sdbrLogo span svg {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .dashOuterSmall .sdbrLnkItem .sdbrLnkAnchor {
+        justify-content: flex-start;
+    }
+
+    .dashOuterSmall .sdbrLnkItem h4 {
+        width: auto;
+        visibility: visible;
+        display: block;
+        padding-left: 6px;
+    }
+
+    .dashSdbr {
+        padding: 0;
+    }
+
+    .dashOuterSmall .dashSdbr {
+        padding: 12px 8px;
+        border-radius: 0;
+        bottom: 0;
+        top: 0;
+    }
+
+    .sdbrLnksList {
+        margin-top: 36px;
+    }
+
+    .subUl {
+        display: none;
+    }
+
+    .dashOuterSmall .subUl {
+        display: block;
+        top: 0;
+        bottom: 0;
+        left: 100px;
+    }
+
+    .dashFooter {
+        padding: 10px 16px;
+    }
+    .dashHeaderBtm {
+        margin-left: 0;
+    }
+}
+
+
+.profileHdr {
+    float: right;
+}
+.profileList ul {
+    padding: 10px !important;
+    margin: 0;
+}
+.profileHdr button {
+    padding: 0;
+}
+.profileIcon {
+    background-color: transparent;
+    color: var(--whiteText);
+    border: 1px solid var(--whiteText);
+    font-size: 14px;
+    font-weight: 500;
+    width: 28.4px;
+    height: 28.4px;
+}
+
+.profileIcon:hover {
+    color: var(--menuHover2);
+}
+
+.profileList .MuiAvatar-circular {
+    width: 32px;
+    height: 32px;
+}
+
+.profileList ul {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.profileList li {
+    margin-top: 0px;
+    font-size: 14px;
+
+}
+
+.profileList li .profileIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.profileHdrCol {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.themeBtn {
+    position: fixed;
+    right: 60px;
+    top: 3px;
+    z-index: 999;
+}
+
+.tourBtn {
+    position: fixed;
+    right: 109px;
+    top: 3px;
+    z-index: 999;
+}
+
+.themeico {
+    background-color: transparent;
+    color: var(--whiteText);
+    font-size: 14px;
+    font-weight: 500;
+    width: 28.4px;
+    height: 28.4px;
+}
+
+.tourico {
+    background-color: transparent;
+    color: var(--whiteText);
+    font-size: 14px;
+    font-weight: 500;
+    width: 28.4px;
+    height: 28.4px;
+}
+
+.themeBtn button:hover .themeico,
+.themeico:hover {
+    color: var(--menuHover1);
+}
+.tourBtn button:hover .tourico,
+.tourico:hover {
+    color: var(--menuHover1);
+}

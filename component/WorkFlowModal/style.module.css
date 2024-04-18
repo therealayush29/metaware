@@ -1,0 +1,175 @@
+.workFlowOuter {
+    padding: 32px;
+}
+.workFlowHdr {
+    margin-bottom: 16px;
+}
+.workFlowMdlTtl {
+    max-width: 480px;
+}
+.workFlowMdlTtl h2 {
+    font-size: 32px;
+    color: var(--primary);
+    font-weight: 700;
+    line-height: 40px;
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+.workFlowMdlTtl p {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+}
+.workFlowMdlExplrBtn button {
+    width: 180px;
+    line-height: 40px;
+}
+.workFlowAvncdHdng h4 {
+    font-size: 18px;
+    color: var(--gray);
+    font-weight: 700;
+    line-height: 26px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.workFlowStepsNav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 16px;
+    z-index: 1;
+}
+.workFlowStepsNav::before {
+    background-color: var(--primary);
+    position: absolute;
+    content: "";
+    left: 30%;
+    top: 16px;
+    right: 30%;
+    height: 1px;
+    z-index: -1;
+}
+.workFlowStepsFrstNav.workFlowStepsNav::before {
+    left: 15%;
+    right: 15%;
+}
+.workFlowStepsNav span {
+    background-color: var(--primary);
+    font-size: 15px;
+    color: var(--whiteText);
+    font-weight: 500;
+    line-height: 32px;
+    padding: 0 16px;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.workFlowStepsNav span.active {
+    background-color: var(--menuHover);
+    color: var(--primary);
+}
+.workFlowIntroCard ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.workFlowIntroCard ul li + li {
+    margin-top: 8px;
+}
+.workFlowIntroCard ul li p {
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 0;
+}
+.workFlowIntroCard ul li span {
+    width: 100%;
+    border-bottom: 1px dashed var(--primary);
+    margin: 0 16px;
+}
+.workFlowIntroCard ul li i {
+    background-color: var(--menuHover);
+    color: var(--primary);
+    font-style: normal;
+    font-weight: 500;
+    min-width: 25px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+}
+.workFlowIntroCard h4 {
+    font-size: 18px;
+    margin: 16px 0;
+}
+.workFlowCard {
+    position: relative;
+    padding: 24px;
+    border: 2px dashed var(--primary);
+    border-radius: 8px;
+}
+.workFlowCardMedia {
+    position: relative;
+    min-width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+}
+.workFlowCardMedia::before {
+    background-color: var(--menuHover7);
+    position: absolute;
+    content: "";
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.workFlowCardInfo {
+    text-align: left;
+}
+.stepCount {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 15px;
+    color: var(--gray);
+    font-weight: 500;
+}
+.workFlowCardInfo h3 {
+    font-size: 22px;
+    color: var(--gray);
+    font-weight: 700;
+    line-height: 30px;
+    margin-top: 0;
+    margin-bottom: 16px; 
+}
+.workFlowCardInfo p {
+    font-size: 14px;
+    color: var(--vt-c-blue);
+    font-weight: 500;
+    margin: 10px 0 0 0;
+}
+.workFlowCardInfo ul {
+    margin-top: 20px;
+}
+.workFlowCardInfo ul li {
+    margin-top: 10px;
+}
+.workFlowBtm {
+    margin-top: 16px;
+}
+.workFlowBtm button {
+    padding: 0 16px !important;
+}

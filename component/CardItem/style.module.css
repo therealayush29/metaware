@@ -1,0 +1,95 @@
+.cardCol{
+position: relative;
+}
+
+.cardColInner {
+    display: block;
+}
+.cardColInner {
+    position: relative;
+    background: var(--whiteBg);
+    display: block;
+    color: var(--gray);
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover {
+    box-shadow: 0 0 20px rgba(35,32,32,.04);
+}
+.cardColInner span {
+    background-color: var(--menuHover3);
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    min-height: 100px;
+    border-radius: 5px;
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover span {
+    background-color: var(--menuHover2);
+}
+.cardColInner span svg {
+    width: 46px;
+    height: 46px;
+}
+.cardColInner:hover span svg path {
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover span svg path {
+    color: var(--primary);
+}
+.cardColInner span img {
+    width: auto;
+    height: 46px;
+}
+.cardColInner h3 {
+    font-size: 18px;
+    color: var(--gray);
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0 0 6px 0;
+    text-transform: capitalize;
+}
+.cardColInner p {
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
+
+.contextMenu{
+    position: absolute;
+    bottom:-50px;
+    right: -180px;
+    width: 180px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+}
+.contextMenu ul {
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin: 0;
+  list-style: none;
+}
+/* hover */
+.contextMenu ul li:hover {
+  cursor: pointer;
+  background-color: #f4f4f4;
+}
+.contextMenu ul li a {
+    display: block;
+    color: var(--gray);
+    padding: 4px 10px;
+}
+.contextMenu ul li:hover a {
+    color: var(--primary);
+}

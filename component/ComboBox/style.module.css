@@ -1,0 +1,65 @@
+.comboBoxDiv {
+    position: relative;
+} 
+
+.comboTextarea.error  {
+    outline: 2px solid var(--red)!important;
+} 
+
+.comboTextarea {
+    background-color: transparent;
+    width: 100%;
+    height: 40px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    color: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    resize: vertical;
+    outline: 0;
+    resize:vertical;
+} 
+
+.comboTextarea:focus {
+    outline: 2px solid var(--primary);
+}
+.comboBoxDiv > div:first-child,
+.comboBoxDiv > div:first-child > div {
+    display: block;
+}
+.comboDropdown {
+    background-color: var(--whiteBg);
+    position: absolute;
+    border-radius: 0 0 4px 4px !important;
+    top: 100%;
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+    left: 0;
+    right: 0;
+    max-height: 130px;
+    overflow: auto;
+    z-index: 9;
+}
+.comboDropMenu {
+    background-color: var(--whiteBg);
+    height: auto;
+    padding: 0 12px;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 33px;
+    font-weight: 400;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    color: var(--gray);
+    word-wrap: break-word;
+    cursor: pointer;
+}
+.comboDropMenu:hover {
+    background-color: var(--mute3);
+}
+
+.comboTextarea:disabled {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.07);
+    resize:none;
+}

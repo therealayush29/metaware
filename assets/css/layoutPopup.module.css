@@ -1,0 +1,82 @@
+.popupOuterContent {
+    background-color: var(--whiteBg);
+    box-shadow: rgba(0, 0, 0, 0.133) 0px 1.6px 3.6px 0px, rgba(0, 0, 0, 0.11) 0px 0.3px 0.9px 0px;
+    height: calc(100vh - 88px);
+}
+
+.popupOuterTblContent.popupOuterContent {
+    background-color: transparent;
+    box-shadow: none;
+    height: calc(100vh - 88px);
+}
+
+.popupHdrContent {
+    padding: 9.6px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.popupOuterTblContent .popupHdrContent {
+    border-bottom: 0;
+    background-color: var(--whiteBg);
+    padding: 8px 12px 8px 16px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+    margin-bottom: 8px;
+}
+
+.popupHdrContent > div {
+    align-items: center;
+}
+
+.popupHdrTtl {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.popupHdrTtl h3 {
+    font-size: 1.25rem;
+    color: var(--secondary);
+    line-height: 26px;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-transform: capitalize;
+}
+
+.popupHdrOptns {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.popupCloseBtn button {
+    padding: 6px;
+    width: 36px;
+    height: 36px;
+}
+
+.popupBodyContent {
+    padding: 16px;
+    overflow-y: auto;
+    height: calc(100vh - 264px);
+}
+
+.popupOuterTblContent .popupBodyContent {
+    padding: 0;
+    height: calc(100vh - 152px);
+}
+
+.popupOuterFtrContent .popupBodyContent {
+    height: calc(100vh - 230px);
+}
+
+.popupFtrContent {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}

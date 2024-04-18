@@ -1,0 +1,1743 @@
+:root {
+  --secondary: #2b3e50;
+  --secondaryHover: #1e2c3a;
+  --activeHover: #95ceff;
+  --whiteBg: #ffffff;
+  --groupbg: #d2ebff;
+  --black: #323130;
+  --black1: #323130;
+  --greyLight: #d9d9d9;
+  --greyDark: #323130;
+  --whiteText: #ffffff;
+  --border: #D9D9D9;
+  --border2: #bcbcbc;
+  --mute: #F8F8F8;
+  --mute2: #e5e2e2;
+  --mute3: #F5F5F5;
+  --mute4: #f0f0f0;
+  --mute5: #f2f2f2;
+  --mute6: #e8eaf5;
+  --mute7: #fafafa;
+  --gray: #323130;
+  --red: #d32f2f;
+}
+
+:root {
+  --primary: #78327e;
+  --primaryHover: #402146;
+  --menuHover: #e3d0e4;
+  --menuHover2: #d0c4d1;
+  --menuHover3: #e3d0e4;
+  --menuHover4: #c0b3c1;
+  --menuHover5: #c3a9c5;
+  --menuHover6: #b7a1b9;
+  --menuHover7: #fdf0fe;
+}
+
+.dashOuterPurple {
+  --primary: #0078d4;
+  --primaryHover: #0c548f;
+  --menuHover: #eef7ff;
+  --menuHover2: #b3d6f2;
+  --menuHover3: #d9e2ea;
+  --menuHover4: #d2ebff;
+  --menuHover5: #bbe1ff;
+  --menuHover6: #6ec0ff;
+  --menuHover7: #edf7ff;
+}
+
+*,
+*:focus {
+  outline: 0;
+}
+
+/* * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+*::selection {
+  background: none;
+}
+*::-moz-selection {
+  background: none;
+}*/
+
+body {
+  font-family: "Segoe UI" !important;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-x: hidden;
+  color: var(--gray) !important;
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+img {
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.breadCrumbsDiv {
+  /*position: fixed;*/
+  right: 20px;
+  top: 54px;
+  z-index: 9;
+  color: var(--gray);
+}
+.breadCrumbsDiv a {
+  color: var(--gray);
+  text-transform: capitalize;
+  font-size: 14px;
+  display: inline-block;
+}
+.breadCrumbsDiv p {
+  color: var(--primary);
+  text-transform: capitalize;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+/* Drop Down */
+
+.positnInput .MuiFormControl-root{
+  width: 100%!important;
+  position: relative!important;
+  margin-bottom: 10px!important;
+}
+
+
+.positnInput {
+  position: relative;
+}
+
+.btnDotBox {
+  position: absolute;
+  bottom: 11px;
+  right: 0;
+}
+
+.ruleFieldDiv {
+  position: relative;
+}
+
+.clickListBtn {
+  position: absolute;
+  top: 9px;
+  right: 0;
+}
+.clickListBtn button {
+  min-width: auto;
+  border-radius: 50%;
+}
+.clickListBtn button span {
+  display: none;
+}
+
+.dropBtn button {
+  min-width: auto;
+  border-radius: 50%;
+  padding: 0;
+  color: var(--primary);
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+}
+.dropBigBtn.dropBtn button {
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+}
+.dropBtn button::before {
+  background-color: var(--menuHover);
+  position: absolute;
+  content: "";
+  left: -4px;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  transition: all 0.3s ease 0s;
+  opacity: 0;
+  z-index: -1;
+}
+.dropBigBtn.dropBtn button::before {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.dropBtn button:hover {
+  background-color: transparent;
+}
+.dropBtn button:hover::before {
+  opacity: 1;
+}
+.dropBtn button span {
+  display: none;
+}
+.dropBtn button svg {
+  width: 18px;
+  height: 18px;
+}
+.dropBigBtn.dropBtn button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.MuiList-root.MuiList-padding.MuiMenu-list {
+  padding: 0;
+}
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters .MuiTypography-root,
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters {
+  font-size: 14px;
+}
+
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters > .MuiBox-root > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters > .MuiBox-root ~ .MuiChip-root.MuiChip-outlined.MuiChip-sizeSmall {
+  font-size: 0.7125rem;
+  height: 20px;
+}
+
+.MuiButton-containedPrimary {
+  background-color: var(--primary);
+  font-size: 14px;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 32px;
+  min-width: 120px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.MuiButton-containedPrimary:hover {
+  background-color: var(--primaryHover);
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+.MuiFormLabel-root.MuiInputLabel-root.Mui-focused {
+  color: var(--primary) !important;
+}
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary) !important;
+}
+
+.MuiRadio-root.MuiRadio-colorPrimary:hover {
+  background-color: var(--menuHover);
+}
+
+.MuiRadio-root.MuiRadio-colorPrimary.Mui-checked {
+  color: var(--primary);
+}
+
+.MuiIconButton-colorPrimary {
+  color: var(--primary);
+}
+
+.MuiIconButton-colorPrimary:hover {
+  background-color: var(--menuHover) !important;
+}
+
+.MuiButton-outlined.MuiButton-outlinedPrimary {
+  font-size: 14px;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 32px;
+  min-width: 120px;
+  text-transform: capitalize;
+  font-weight: 500;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
+  background-color: var(--menuHover);
+}
+
+.MuiAlert-message {
+  padding: 0;
+}
+
+.commonTable.hidden {
+  display: none;
+}
+
+.commonTable .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense {
+  background-color: var(--mute7);
+  border: 1px solid #dfe3e9;
+}
+
+.commonTable .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  box-shadow: none;
+  border-radius: 0;
+  overflow: hidden;
+  background-color: var(--menuHover2);
+  background-color: var(--mute5);
+  color: var(--secondary);
+}
+
+.commonTable .Mui-TableHeadCell-Content-Wrapper {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.commonTable thead tr {
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+}
+.commonTable thead tr th {
+  border-bottom: 8px solid var(--mute5);
+  border-top: 8px solid var(--mute5);
+}
+.commonTable tbody tr {
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+}
+.commonTable .MuiTableCell-root.MuiTableCell-body {
+  font-size: 14px;
+  color: var(--secondary);
+  padding: 0.3rem 0.5rem;
+  border-bottom: 8px solid var(--mute5);
+}
+.commonTable tbody tr:hover td {
+  background-color: #e8e8e8;
+}
+
+.commonTable .MuiInputBase-input {
+  height: 30px;
+  font-size: 14px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+.commonTable .MuiInputBase-input.MuiInputBase-inputMultiline {
+  height: 40px !important;
+  padding: 6px 10px !important;
+}
+
+.commonTable .MuiOutlinedInput-notchedOutline {
+  border-width: 0;
+}
+.commonTable .MuiOutlinedInput-notchedOutline.Mui-focused {
+  border-width: 1px;
+}
+
+tr.Mui-selected {
+  background-color: var(--menuHover5) !important;
+}
+
+tr.Mui-selected:hover td {
+  background-color: var(--menuHover6) !important;
+}
+
+tr.Mui-selected .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
+  color: var(--black);
+}
+
+tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
+  color: var(--black1);
+}
+
+.commonTable .MuiTablePagination-selectLabel,
+.commonTable .MuiTablePagination-displayedRows {
+  font-size: 14px;
+}
+
+.commonTableNew.commonTable .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.commonTableNew.commonTable .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  background-color: transparent;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root {
+  background-color: transparent;
+}
+
+.commonTableNew tr.Mui-selected {
+  background-color: transparent !important;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root td {
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+.commonTableNew tr.Mui-selected:hover td {
+  background-color: transparent;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root td > span {
+  background-color: var(--mute7);
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  width: 100%;
+  height: 40px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root td:first-child > span {
+  border-radius: 6px 0 0 6px;
+  justify-content: flex-start;
+}
+.commonTableNew.commonTable tbody tr.MuiTableRow-root td:last-child > span {
+  border-radius: 0 6px 6px 0;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root:nth-child(2n) td > span {
+  background-color: var(--whiteBg);
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root:hover td > span {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.commonTableNew tr.Mui-selected td > span {
+  background-color: var(--menuHover5) !important;
+}
+
+.commonTableNew tr.Mui-selected:hover td > span {
+  background-color: var(--menuHover6) !important;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root td .MuiTextField-root {
+  background-color: var(--mute7) !important;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  margin-top: 8px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+.commonTableNew.commonTable tbody tr.MuiTableRow-root:nth-child(2n) td .MuiTextField-root {
+  background-color: var(--whiteBg) !important;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root:hover td > .MuiTextField-root {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root:hover td > .MuiTextField-root:hover {
+  outline: 1px solid rgba(0, 0, 0, 0.6);
+  outline-offset: -1px;
+  text-overflow: clip;
+}
+
+.commonTableNew.commonTable tbody tr.MuiTableRow-root.Mui-selected td .MuiTextField-root {
+  background-color: var(--menuHover5) !important;
+}
+
+.commonTableNew .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense {
+  background-color: var(--mute7);
+  border-radius: 6px;
+  border: 1px solid #dfe3e9;
+  margin-bottom: 8px;
+}
+
+.commonTableNew .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense:last-child {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.Mui-checked.MuiCheckbox-root.MuiCheckbox-colorPrimary,
+.MuiCheckbox-root.MuiCheckbox-indeterminate.MuiCheckbox-colorPrimary {
+  color: var(--primary) !important;
+}
+
+.Mui-TableHeadCell-Content-Wrapper.MuiBox-root {
+  color: var(--gray);
+}
+
+.MuiCheckbox-root.MuiCheckbox-colorPrimary:hover {
+  background-color: var(--menuHover);
+}
+
+.MuiOutlinedInput-root.MuiInputBase-colorPrimary {
+  color: var(--gray);
+}
+
+.MuiOutlinedInput-root.MuiInputBase-multiline {
+  padding: 0;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiDialog-paper {
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+  border-radius: 0;
+  color: var(--gray);
+}
+
+.MuiButton-root.MuiButton-outlined.MuiButton-outlinedSecondary {
+  border-color: rgba(43,62,80,0.5);
+  color: var(--secondary);
+  font-size: 14px;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 32px;
+  min-width: 130px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.MuiButton-root.MuiButton-outlined.MuiButton-outlinedSecondary:hover {
+  background-color: var(--menuHover3);
+  border-color: var(--secondary);
+}
+
+.MuiButton-root.MuiButton-contained.MuiButton-containedSecondary {
+  background-color: var(--secondary);
+  font-size: 14px;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 32px;
+  min-width: 120px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.MuiButton-root.MuiButton-contained.MuiButton-containedSecondary:hover {
+  background-color: var(--secondaryHover);
+}
+
+.MuiButton-root.MuiButton-contained.MuiButton-containedSecondary.Mui-disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.ruleTableList .MuiPaper-root.MuiPaper-elevation {
+  background-color: var(--menuHover4);
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+  border-radius: 5px;
+  color: var(--gray);
+}
+.ruleTableList .MuiPaper-root.MuiPaper-elevation th {
+  color: var(--secondary);
+}
+.ruleTableList .MuiPaper-root.MuiPaper-elevation td {
+  color: var(--gray);
+}
+
+.MuiListSubheader-root {
+  background-color: var(--mute5);
+  font-size: 13px;
+  color: var(--secondary);
+  line-height: 33px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.MuiMenuItem-root.MuiMenuItem-gutters.Mui-selected {
+  background-color: var(--menuHover);
+  color: var(--primary);
+  font-weight: 500;
+}
+.fieldLabel {
+  color: var(--secondary) !important;
+}
+.fieldRequired {
+  color: red;
+}
+.headingColor {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--secondary) !important;
+  text-transform: capitalize
+}
+
+.headingColor span {
+  font-weight: 400;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+.MuiIconButton-root:hover {
+  background-color: var(--menuHover);
+  color: var(--primary);
+}
+.MuiIconButton-root.MuiIconButton-colorError:hover {
+  background-color: rgba(211, 47, 47, 0.04);
+  color: var(--red);
+}
+.MuiIconButton-root:hover .MuiAvatar-root.MuiAvatar-circular {
+  color: var(--primary);
+}
+.MuiFormControlLabel-label {
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.ruleEditorForm form {
+  margin-top: 30px;
+}
+.ruleEditorForm .MuiFormControl-root.MuiTextField-root,
+.ruleEditorForm .MuiInputBase-root.MuiOutlinedInput-root {
+  display: block;
+}
+.ruleEditorForm .ruleFieldDiv .MuiFormControl-root.MuiTextField-root,
+.ruleEditorForm .ruleFieldDiv .MuiInputBase-root.MuiOutlinedInput-root {
+  display: flex;
+}
+
+.ruleEditorForm .MuiInputBase-input.MuiOutlinedInput-input,
+.ruleEditorForm .MuiInputBase-formControl.MuiInputBase-multiline {
+  padding: 5.5px 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  height: 32px;
+}
+
+
+.ruleEditorForm .MuiInputBase-root.MuiInputBase-multiline {
+  height: 74px;
+}
+
+.ruleEditorForm textarea.MuiInputBase-input.MuiOutlinedInput-input {
+  padding: 0;
+}
+
+.ruleEditorForm .fieldLabel {
+  min-width: 90px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.MuiFormHelperText-root.Mui-error{
+  margin: 0;
+}
+
+.ruleTabs {
+  margin-top: 20px;
+}
+.dataGridTabs.ruleTabs {
+  margin-top: 0;
+}
+
+.ruleTabs .MuiBox-root {
+  padding: 0;
+}
+
+.ruleTabs .MuiTableCell-root.MuiTableCell-head {
+  padding: 6px;
+  font-size: 14px;
+}
+.ruleTabs .MuiTableCell-root.MuiTableCell-body {
+  padding: 6px 10px;
+}
+.ruleTabs .MuiTableCell-root.MuiTableCell-body label {
+  margin-right: 0;
+}
+
+.dataGridTabs > .MuiBox-root > .MuiBox-root:first-child {
+  background-color: var(--whiteBg);
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+}
+
+.MuiTabs-root {
+  min-height: 36px;
+}
+.MuiTab-root.MuiTab-textColorPrimary {
+  font-size: 14px;
+  padding: 6px 12px;
+  min-height: 36px;
+  text-transform: capitalize;
+}
+.MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
+  color: var(--primary);
+}
+.MuiTabs-indicator {
+  background-color: var(--primary);
+}
+
+.ruleTabs .ruleTableList ~ button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.sharedRuleFunctionsDiv h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.sharedRuleFunctions {
+  position: relative;
+  background-color: var(--mute5);
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.shrdRuleFnctnForm {
+
+}
+
+.shrdRuleFnctnForm .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input {
+  background-color: var(--whiteBg);
+  padding: 4.5px 24px 4.5px 12px;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.normalSelect {
+  position: relative;
+  z-index: 9;
+}
+.normalSelect i {
+  position: absolute;
+  right: 0;
+  top: 3px;
+  pointer-events: none;
+  z-index: 1;
+}
+.normalSelect .select-search-has-focus ~ i {
+  transform: rotate(180deg);
+  top: -2px;
+}
+.normalSelect .select-search-container {
+  width: 100%;
+}
+.normalSelect .select-search-input {
+  background-color: var(--whiteBg);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  padding: 4.5px 12px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 4px;
+  color: var(--secondary);
+}
+.normalSelect .select-search-container:not(.select-search-is-disabled).select-search-has-focus .select-search-input,
+.normalSelect .select-search-container:not(.select-search-is-disabled) .select-search-input:hover {
+  border-color: var(--secondary);
+}
+.normalSelect .select-search-has-focus .select-search-input {
+  border-color: var(--primary) !important;
+  outline: 1px solid var(--primary);
+}
+.normalSelect .select-search-select {
+  background-color: var(--whiteBg);
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+  border: 0;
+  border-radius: 4px;
+}
+.normalSelect .select-search-container:not(.select-search-is-multiple) .select-search-select {
+  top: 33px;
+}
+.normalSelect .select-search-option {
+  background-color: var(--whiteBg);
+  font-size: 13px;
+  padding: 6px 12px;
+  height: 30px;
+  color: var(--secondary);
+  font-family: "Segoe UI" !important;
+}
+.normalSelect .select-search-option.select-search-is-selected {
+  background-color: var(--menuHover);
+  color: var(--primary);
+  font-weight: 500;
+}
+.normalSelect .select-search-is-highlighted,
+.normalSelect .select-search-option:not(.select-search-is-selected):hover {
+  background-color: var(--mute3);
+}
+
+.functionSelect .select-search-container {
+  width: 100%;
+}
+
+.functionSelect .select-search-value {
+  margin: 12px 0 0 0;
+}
+
+.functionSelect .select-search-value .select-search-input {
+  background-color: var(--whiteBg);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  padding: 4.5px 12px;
+  height: 32px;
+  border-radius: 4px 4px 0 0;
+  color: var(--secondary);
+}
+
+.functionSelect .select-search-container:not(.select-search-is-disabled).select-search-has-focus .select-search-input,
+.functionSelect .select-search-container:not(.select-search-is-disabled) .select-search-input:hover {
+  border-color: var(--primary);
+  outline: 1px solid var(--primary);
+}
+
+.functionSelect .select-search-select {
+  background-color: var(--whiteBg);
+  display: block !important;
+  position: relative !important;
+  top: inherit !important;
+  border: 1px solid rgba(0, 0, 0, 0.25) !important;
+  box-shadow: none;
+  max-height: 220px;
+  border-radius: 00 4px 4px;
+}
+
+.functionSelect .select-search-has-focus .select-search-select {
+  border-color: var(--primary) !important;
+  outline: 1px solid var(--primary);
+}
+
+.functionSelect .select-search-option {
+  background-color: var(--whiteBg);
+  font-size: 13px;
+  padding: 6px 12px;
+  height: 30px;
+  color: var(--secondary);
+}
+
+.functionSelect .select-search-option.select-search-is-selected {
+  background-color: var(--menuHover) !important;
+  color: var(--primary);
+}
+
+.functionSelect .select-search-is-highlighted,
+.functionSelect .select-search-option:not(.select-search-is-selected):hover {
+  background-color: var(--mute3);
+}
+
+.shrdRuleFnctnInfo p {
+  font-size: 14px;
+  margin-top: 0;
+}
+
+.pageViewPopup {
+  top: 64px;
+  left: 120px;
+  right: 20px;
+  bottom: 24px;
+  padding: 0;;
+}
+.pageViewPopup.pageViewPopupFull {
+  left: 20px;
+}
+.pageViewPopup .MuiBackdrop-root.MuiModal-backdrop {
+  display: none;
+}
+.pageViewPopup .MuiDialog-container.MuiDialog-scrollPaper {
+  width: 100%;
+  display: block;
+}
+.pageViewPopup .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper {
+  margin: 0;
+  box-shadow: rgba(0, 0, 0, 0.133) 0px 1.6px 3.6px 0px, rgba(0, 0, 0, 0.11) 0px 0.3px 0.9px 0px;
+  max-height: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+.customForm .MuiFormLabel-root.MuiFormLabel-colorPrimary {
+  font-size: 14px;
+  line-height: 32px;
+  text-transform: capitalize;
+}
+
+.customForm .MuiFormControl-root.MuiTextField-root {
+  display: block;
+}
+.customForm .MuiInputBase-root.MuiOutlinedInput-root {
+  display: block;
+}
+.customForm .MuiInputBase-input.MuiOutlinedInput-input {
+  font-size: 14px;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 6px 12px;
+}
+
+.colorField .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary {
+  padding-left: 12px;
+}
+.colorField .MuiInputBase-root.MuiOutlinedInput-root {
+  display: inline-flex;
+}
+
+/**.dataGridTabs .MuiTableCell-root.MuiTableCell-head {
+  padding: 6px;
+  font-size: 14px;
+}
+.dataGridTabs .MuiTableCell-root.MuiTableCell-body {
+  padding: 6px 10px;
+}**/
+.dataGridTabs .MuiTableCell-root.MuiTableCell-body label {
+  margin-right: 0;
+}
+
+.dataGridTabs > .MuiBox-root > div > .MuiBox-root {
+  padding-bottom: 0;
+}
+
+.commonHeightTable > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 267px);
+}
+
+.commonModalHeightTable > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 330px);
+}
+
+.commonDataHeightTable > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 350px);
+}
+
+.commonMetaHeightTable  > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 325px);
+}
+
+.commonMetaModalHeightTable  > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 270px);
+}
+
+.noMapOuter > div {
+  padding: 0 !important;
+}
+
+.sourceMapViewPopup .MuiPaper-root.MuiPaper-elevation {
+  background: transparent;
+  box-shadow: none !important;
+}
+
+.sourceMapViewPopup .MuiDialogContent-root.MuiDialogContent-dividers {
+  border: 0;
+  padding: 0;
+}
+
+.srcMapMdlTopHdrTtl {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.srcMapMdlTopHdrTtl h3 {
+  font-size: 1.15rem;
+  color: var(--gray);
+  line-height: 26px;
+  font-weight: 600;
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-transform: capitalize;
+}
+
+.srcMapMdlTopHdrTtl h3 svg {
+  width: 24px;
+  height: 24px;
+  color: var(--primary);
+}
+
+.srcMapMdlTopHdrOptns {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.srcMapMdlTopHdrOptns > span > div {
+  background-color: rgba(46, 125, 50, 0.1);
+}
+
+.srcMapMdlTopHdrOptns > span > div > span {
+  position: relative;
+  padding-left: 20px;
+}
+
+.srcMapMdlTopHdrOptns > span > div > span::before {
+  background-color: #2e7d32;
+  position: absolute;
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+  top: 6px;
+  left: 10px;
+}
+
+.srcMapMdlTopHdr {
+  background-color: var(--whiteBg);
+  padding: 8px 12px 8px 16px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+}
+
+.srcMapMdlHdrCloseBtn button {
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+}
+
+.mdlHdrIconsOuter {
+  background-color: var(--mute7);
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid #dfe3e9;
+  margin: 8px 0;
+  box-sizing: border-box;
+  height: 45px;
+}
+
+.mdlHdrIcons span {
+  display: inline-flex;
+}
+
+.mdlHdrIcons span + span {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+
+.mdlHdrIcons button {
+  width: auto;
+  height: 24px;
+  padding: 0 4px;
+  font-size: 14px;
+  text-transform: capitalize;
+  color: #9e9e9e;
+}
+
+.mdlHdrIcons button:hover {
+  background-color: transparent;
+}
+
+.mdlHdrIcons button svg {
+  width: 24px;
+  margin-right: 6px;
+}
+
+.mdlHdrIcons .mdlActiveIcon {
+  color: var(--primary);
+}
+
+.mdlHdrButtons button + button {
+  margin-left: 12px;
+}
+
+.mdlHdrButtons button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sourceMapModalBody {
+  position: relative;
+  height: calc(100% - 0px);
+}
+
+.tidBitOuterDiv {
+  height: 100%;
+}
+
+.tbiPrprtsOuterDiv {
+  position: relative;
+  background-color: var(--whiteBg);
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.tbiPrprtsOuterDiv > button {
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.tbiPrprtsOuterDiv > button:hover,
+.tbiPrprtsOuterDiv > button:focus {
+  background-color: transparent;
+}
+
+.tbiPrprtsOuterDiv h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.tbiPrprtsBody {
+  height: calc(100vh - 347px);
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.tbiPrprtsBody p {
+  margin: 0;
+}
+
+.tbiPrprtsBody p + p {
+  margin-top: 1em;
+}
+
+.customForm {
+  position: relative;
+  /*padding-bottom: 44px;*/
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.tbiPrprtsBody .MuiFormControl-root.MuiFormControl-fullWidth + .MuiFormControl-root.MuiFormControl-fullWidth {
+  margin-top: 8px;
+}
+
+.tbiPrprtsBody .customForm .MuiFormLabel-root.MuiFormLabel-colorPrimary {
+  font-size: 13px;
+  line-height: 30px;
+}
+
+.tbiPrprtsBtn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.tbiPrprtsBtn button {
+  width: 100%;
+}
+
+.tidBitTblDiv {
+  box-sizing: border-box;
+}
+
+.tidBitTblActiveDiv {
+  height: calc(100vh - 360px);
+}
+
+.tidBitTblPrptsActiveDiv {
+  padding-left: 16px;
+  margin-left: 16px;
+  border-left: 1px solid var(--border);
+}
+
+.tidBitHdr {
+  background-color: var(--whiteBg);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  position: -webkit-sticky;
+  position: relative;
+  top: 0;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.tidBitDataHdr {
+  margin-top: 0;
+}
+
+.tidBitHdr::before {
+  /*background-color: var(--primary);*/
+  position: absolute;
+  content: "";
+  left: 12px;
+  bottom: 0;
+  width: 80px;
+  height: 2px;
+  z-index: -1;
+}
+
+.tidBitHdr h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.tidBitHdrBtns button {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+}
+
+.tidBitHdrLnks a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.tidBitHdrLnks a + a {
+  margin-left: 16px;
+}
+
+.tidBitHdrLnks button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tidBitHdrLnks button + button {
+  margin-left: 12px;
+}
+
+.tidBitTblBody {
+  height: calc(100vh - 261px);
+  overflow: auto;
+}
+
+.tidBitTblActiveDiv .tidBitTblBody {
+  height: calc(100vh - 506px);
+}
+
+.tidBitTblBody > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 347px);
+  min-height: calc(100vh - 261px);
+}
+
+.tidBitTblActiveDiv .tidBitTblBody > .MuiPaper-root > .MuiTableContainer-root {
+  max-height: calc(100vh - 433px);
+  min-height: calc(100vh - 433px);
+}
+
+.tidBitDataTblBody {
+  height: calc(100vh - 212px);
+  overflow: auto;
+}
+
+.tidBitDataTblBody table thead tr th:first-child,
+.tidBitDataTblBody table tbody tr td:first-child {
+  display: none;
+}
+
+.tidBitDataTblBody table thead tr th:nth-child(2),
+.tidBitDataTblBody table tbody tr td:nth-child(2) {
+  padding-left: 24px !important;
+}
+
+.tidBitTblActiveDiv .tidBitTblBody {
+  height: calc(100vh - 433px);
+}
+
+/*.tidBitTblBody .MuiDataGrid-columnHeaders {
+  background-color: var(--whiteBg);
+  border: 0;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  margin-bottom: 8px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.tidBitTblBody .MuiDataGrid-root.MuiDataGrid-root--densityStandard,
+.tidBitTblBody .MuiDataGrid-cell {
+  border: 0;
+}
+
+.tidBitTblBody .MuiDataGrid-row {
+  background-color: var(--mute7);
+  border-radius: 6px;
+}
+
+.tidBitTblBody .MuiDataGrid-row:nth-child(2n) {
+  background-color: var(--whiteBg);
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
+  box-shadow: none;
+}
+.tidBitTblBody .MuiDataGrid-row:nth-child(2n):hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.tidBitTblBody .MuiDataGrid-row.Mui-selected:nth-child(2n) {
+  background-color: rgba(25, 118, 210, 0.08);
+}
+.tidBitTblBody .MuiDataGrid-row.Mui-selected:nth-child(2n):hover {
+  background-color: rgba(25, 118, 210, 0.12);
+}
+
+.tidBitTblBody .MuiDataGrid-row + .MuiDataGrid-row {
+  margin-top: 8px;
+}
+
+.tidBitTblBody .MuiDataGrid-cell > div span {
+  background-color: var(--mute3);
+  margin-left: 12px;
+  border: 1px solid var(--border);
+  padding: 2px 12px;
+  line-height: 32px;
+  border-radius: 4px;
+}
+
+.tidBitTblBody .MuiDataGrid-columnHeader:nth-child(4),
+.tidBitTblBody .MuiDataGrid-row .MuiDataGrid-cell:nth-child(4) {
+  border-left: 1px solid var(--border);
+  padding-left: 32px;
+}
+
+.tidBitTblBody .MuiDataGrid-columnHeader:nth-child(4),
+.tidBitTblBody .MuiDataGrid-row .MuiDataGrid-cell:nth-child(4) {
+  border-left: 8px solid var(--mute5);
+  margin-left: 32px;
+}
+
+.tidBitTblBody .MuiDataGrid-cell {
+  outline: 0 !important;
+}
+.tidBitTblBody .MuiDataGrid-cell--editing {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.tidBitTblBody .MuiDataGrid-footerContainer {
+  background-color: var(--mute7);
+  border-radius: 6px;
+  border: 1px solid #dfe3e9;
+  margin-top: 8px;
+}
+
+.tidBitTblBody .MuiDataGrid-footerContainer .MuiTablePagination-selectLabel,
+.tidBitTblBody .MuiDataGrid-footerContainer .MuiTablePagination-input {
+  display: none;
+}*/
+
+.tidBitTblBody table {
+  display: table;
+}
+.tidBitTblBody table thead,
+.tidBitTblBody table tbody {
+  display: table-row-group;
+}
+.tidBitTblBody table thead tr,
+.tidBitTblBody table tbody tr {
+  display: table-row;
+}
+.tidBitTblBody table tbody tr {
+  position: static;
+  transform: inherit !important;
+}
+.tidBitTblBody table thead tr th,
+.tidBitTblBody table tbody tr td {
+  display: table-cell;
+}
+
+.tidBitTblBody thead tr th:nth-child(1),
+.tidBitTblBody tbody tr td:nth-child(1) {
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.tidBitTblBody thead tr th:nth-child(2),
+.tidBitTblBody thead tr th:nth-child(4),
+.tidBitTblBody tbody tr td:nth-child(2),
+.tidBitTblBody tbody tr td:nth-child(4) {
+  overflow: visible;
+  border-left: 6px solid var(--mute5);
+}
+
+.tidBitTblActRow {
+  z-index: 9;
+}
+
+.tidBitTblBody.commonTable thead tr th {
+  border-top: 0;
+}
+
+.granlrtyLink {
+  margin-top: 20px;
+}
+
+.granlrtyLink a {
+  display: block;
+  border: 2px dashed var(--border);
+  color: var(--gray);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.monitorTabsOuter {
+  position: relative;
+  margin-top: 8px;
+}
+
+.monitorTabsActiveOuter.monitorTabsOuter {
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+
+.monitorTabsOuter > button {
+  padding: 0;
+}
+
+.monitorTabsOuter > button:hover {
+  background-color: transparent;
+}
+
+.monitorTabs {
+  background-color: var(--mute7);
+  padding: 0 12px 0 0;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid #dfe3e9;
+  border-bottom: 0;
+}
+
+.monitorTabContent > div {
+  padding: 0;
+}
+
+.monitorOuterDiv {
+  position: relative;
+  background-color: var(--gray);
+  border-radius: 0 0 6px 6px;
+  height: 114px;
+  z-index: 2;
+}
+
+.monitorOuterDiv h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.monitorOuterDiv > button {
+  top: 0;
+  right: 0;
+  color: var(--whiteText);
+  z-index: 2;
+}
+
+.monitorOuterDiv > button:hover,
+.monitorOuterDiv > button:focus {
+  background-color: transparent;
+}
+
+.monitorOuterDiv .react-terminal-wrapper {
+  background: var(--gray);
+  font-size: 14px;
+  max-height: 114px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 0 0 6px 6px;
+}
+
+.monitorOuterDiv .react-terminal-window-buttons {
+  display: none;
+}
+
+.advcnSlctBtn .fieldLabel {
+  cursor: pointer;
+}
+.advcnSlctBtn .fieldLabel svg {
+  margin-left: 10px;
+  width: 13px;
+  height: 13px;
+}
+
+.dockerBtn {
+  position: absolute;
+  top: -8px;
+  left: -16px;
+  z-index: 9;
+}
+/*.dockerBtn.active {
+  left: 20px;
+}*/
+.dockerBtn.fullPageActive {
+  left: -16px;
+}
+.dockerBtn.active.fullPageActive {
+  left: -16px;
+}
+
+.dockerBtn button {
+  background: var(--primary);
+  padding: 0;
+  border-radius: 6px 0 0 6px;
+  width: 24px;
+  height: 46px;
+  color: var(--whiteText);
+}
+
+.dockerBtn button:hover {
+  background-color: var(--menuHover2);
+  color: var(--primary);
+}
+
+.dockerBtn button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.metaSdbrFrm.customForm .MuiFormLabel-root.MuiFormLabel-colorPrimary {
+  font-size: 13px;
+  line-height: 30px;
+  text-transform: capitalize;
+  top: -15px;
+}
+.metaSdbrFrm.customForm .MuiFormLabel-root.MuiFormLabel-colorPrimary.MuiInputLabel-shrink {
+  top: 0;
+}
+.metaSdbrFrm.customForm .MuiInputBase-input.MuiOutlinedInput-input {
+  font-size: 13px;
+}
+
+
+/*ayush*/
+
+.MuiTableCell-root:hover {
+  outline: 0
+}
+
+.tidBitTblBody .MuiTableRow-root  {
+  height: 52px;
+}
+
+.tidBitTblBody .MuiTableCell-root.MuiTableCell-head.MuiTableCell-stickyHeader > div{
+  height: 39px;
+}
+
+.tidBitTblBody .MuiTableBody-root .MuiTableRow-root .MuiInputBase-input {
+  padding: 13px 14px;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .name,
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .type,
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .nullable,
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .infoTip {
+  display: inline-block;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .name > span {
+  font-weight: 500;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .infoTip > span svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .infoTip > span{
+  margin-left: 6px;
+  position: relative;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .type > span {
+  background-color: var(--mute3);
+  margin-left: 6px;
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  line-height: 32px;
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 500;
+  border-radius: 4px;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .nullable > span {
+  //background-color: var(--mute3);
+  margin-left: 4px;
+  //border: 1px solid var(--border);
+  //padding: 2px 8px;
+  line-height: 32px;
+  font-size: 14px;
+  color: var(--primary);
+  //font-weight: 500;
+  //border-radius: 4px;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableCell-root .nullable.red > span {
+  //background-color: rgb(253, 237, 237);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.customTable {
+  width: 100%;
+  border: 1px solid var(--border);
+}
+.customTable tr th,
+.customTable tr td {
+  border: 1px solid var(--border);
+}
+
+.nkBtnDiv button {
+  min-width: 180px;
+}
+.nkBtnDiv button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.rstMta button {
+  min-width: 100px;
+}
+
+.glowingButton button {
+  animation: glowing 1300ms infinite;
+}
+@keyframes glowing {
+  0% {
+    background-color: var(--primary);
+    box-shadow: 0 0 5px rgba(0,0,0,.45);
+  }
+  50% {
+    background-color: var(--primaryHover);
+    box-shadow: 0 0 20px rgba(0,0,0,.45);
+  }
+  100% {
+    background-color: var(--primary);
+    box-shadow: 0 0 5px rgba(0,0,0,.45);
+  }
+}
+
+
+.commonActionTable table thead tr th:first-child {
+  width: 2px;
+  padding-right: 0 !important;
+}
+.commonActionTable table thead tr th:first-child .Mui-TableHeadCell-Content-Wrapper {
+  color: #fff !important;
+  font-size: 0px;
+}
+.commonActionTable table tbody tr td:first-child {
+  padding-right: 0 !important;
+}
+.commonActionTable table tbody tr td:first-child > button {
+  display: none;
+}
+.commonActionTable table tbody tr td:first-child > div > button {
+  padding: 0;
+  color: var(--secondary);
+}
+.commonActionTable table tbody tr td:first-child > div > button:hover {
+  background-color: transparent !important;
+  color: var(--primary);
+}
+
+
+.comboTextMultiDrop .MuiInputBase-input.MuiOutlinedInput-input {
+  font-size: 14px;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.tidBitTblBody .MuiTableBody-root .MuiTableRow-root .comboTextMultiDrop .MuiInputBase-input {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+}
+.comboTextMultiDropInput {
+  display: flex;
+  gap: 0.5rem;
+}
+.comboTextMultiDropInput button {
+  min-width: 36px;
+}
+.comboTextMultiDropInput button span {
+  margin: 0;
+}
+.comboTextMultiDropInput button svg {
+  width: 20px;
+  height: 20px;
+}
+.comboTextMultiDropInput button + button {
+  margin-left: 12px;
+}
+
+/***Work Flow Css Start***/
+.workFlowModal .MuiDialog-paper.MuiDialog-paperScrollPaper {
+  width: 960px;
+  max-width: 960px;
+  border-radius: 10px !important;
+}
+.workFlowModal .MuiDialog-paper.MuiDialog-paperScrollPaper > .MuiDialogContent-root {
+  padding: 0;
+}
+/***Work Flow Css End***/
+
+/** source and loader design start **/
+.sourceRuntime {
+  background-color: var(--mute5);
+  position: relative;
+  border: 1px solid var(--border);
+  padding: 12px;
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+  transition: all 0.3s ease 0s;
+  border-radius: 6px;
+}
+.loaderRuntime {
+  background-color: var(--mute5);
+  position: relative;
+  border: 2px solid var(--border);
+  padding: 12px;
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+  transition: all 0.3s ease 0s;
+  border-radius: 6px;
+}
+/** source and loader design end **/
+.uploadIcon {
+  position: relative;
+}
+
+.uploadIcon input.upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  font-size: 20px;
+  cursor: pointer;
+  height: 36px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.containUpload {
+  display: flex;
+  align-items: center;
+}
+
+.containUpload input {
+  border: none;
+  font-size: 12px;
+  padding-left: 0;
+  width: 250px;
+}
+.uploadIcon {
+    margin: 0 10px 0 10px;
+}
+
+.uploadIcon .MuiButton-containedPrimary {
+  padding: 8px;
+  min-width: 60px;
+}

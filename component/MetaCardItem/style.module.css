@@ -1,0 +1,86 @@
+.metaSdbrCol {
+  background-color: var(--whiteBg);
+  position: relative;
+  display: block;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+  transition: all 0.3s ease 0s;
+}
+.metaSdbrCol + .metaSdbrCol {
+  margin-top: 16px;
+}
+.metaSdbrCol:hover {
+  background-color: var(--menuHover);
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.05);
+}
+.metaSdbrColHdr {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease 0s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.metaSdbrCol:hover .metaSdbrColHdr {
+  border-color: var(--menuHover5);
+}
+.metaSdbrColHdr h4 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.metaSdbrColHdr h4 svg,
+.metaSdbrColHdr h4 img {
+  width: 20px;
+  height: 20px;
+}
+.metaSdbrColBody {
+  padding: 10px 12px;
+}
+.metaSdbrColIcon {
+  margin-bottom: 8px;
+}
+.metaSdbrColIcon span {
+  background-color: var(--menuHover3);
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  border-radius: 5px;
+  transition: all 0.3s ease 0s;
+}
+.metaSdbrCol:hover .metaSdbrColIcon span {
+  background-color: var(--menuHover4);
+  color: var(--primary);
+}
+.metaSdbrColIcon span svg,
+.metaSdbrColIcon span img {
+  width: 44px;
+  height: 44px;
+}
+.metaSdbrColBtn {
+  text-align: center;
+}
+.metaSdbrColBtn span {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--secondary);
+  font-weight: 500;
+  padding: 4px 12px;
+  border: 1px solid rgba(43,62,80,0.5);
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease 0s;
+}
+.metaSdbrCol:hover .metaSdbrColBtn span {
+  background-color: var(--primary);
+  color: var(--whiteText);
+  border-color: var(--primary);
+}

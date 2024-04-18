@@ -1,0 +1,58 @@
+.cardColInner {
+    display: block;
+}
+.cardColInner {
+    position: relative;
+    background: var(--whiteBg);
+    display: block;
+    color: var(--black);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover {
+    background-color: var(--menuHover2);
+    box-shadow: 0 0 20px rgba(35,32,32,.04);
+    border-color: var(--primary);
+}
+.cardColInner span {
+    background-color: var(--mute5);
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px;
+    min-height: 100px;
+    border-radius: 6px;
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover span {
+    background-color: var(--primary);
+}
+.cardColInner span svg {
+    width: 36px;
+    height: 36px;
+}
+.cardColInner:hover span svg path {
+    transition: all 0.3s ease 0s;
+}
+.cardColInner:hover span svg path {
+    color: var(--whiteText);
+}
+.cardColInner h3 {
+    font-size: 15px;
+    color: var(--black);
+    font-weight: 500;
+    line-height: 22px;
+    margin: 0 0 6px 0;
+    text-transform: capitalize;
+}
+.cardColInner p {
+    font-size: 13px;
+    color: var(--black);
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
