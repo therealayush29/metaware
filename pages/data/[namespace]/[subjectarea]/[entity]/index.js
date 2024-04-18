@@ -615,7 +615,7 @@ const DashboardTable = () => {
   }
 
   useEffect(() => {
-    if (namespace && subjectarea && entity) {
+    if (namespace && subjectarea && entity && type === 'staging') {
       fetchDqData(
         namespace,
         subjectarea,
