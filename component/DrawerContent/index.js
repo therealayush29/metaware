@@ -280,13 +280,38 @@ const DrawerContent = ({
     setDeleteId(null)
     setDeleteConfirmation(false)
   }
-  const handleDelete = (id) => {
-    toast.error('Rule has been deleted')
-    const updatedCheckRules = checkRules.filter((item) => item.id !== id)
-    const updatedActionRules = actionRules.filter((item) => item.id !== id)
-    setCheckRules(updatedCheckRules)
-    setActionRules(updatedActionRules)
+  const handleDelete = async (id) => {
     closeDeleteConfirmation()
+    if (id.startsWith('ne')) {
+      // Perform local deletion
+      const updatedCheckRules = checkRules.filter((item) => item.id !== id)
+      const updatedActionRules = actionRules.filter((item) => item.id !== id)
+      setCheckRules(updatedCheckRules)
+      setActionRules(updatedActionRules)
+      toast.error(`Deletion was successful for ${id}`)
+    } else {
+      // Make API call for deletion
+      const requestBody = { ids: [id] }
+      const url = `${apiUrl}/mw/delete_rules?ns=${namespace}&sa=${subjectarea}&en=${entity}`
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+        })
+        if (response.ok) {
+          toast.error(`Deletion was successful for ${id}`)
+          refetch()
+        } else {
+          throw new Error('Network response was not ok')
+        }
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error)
+        toast.info('An error occurred during deletion')
+      }
+    }
   }
 
   const handleActionApply = async () => {
