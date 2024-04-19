@@ -339,7 +339,7 @@ const DrawerContent = ({
         })
       }
       if (checkedRules.length > 0) {
-        const createResponse = await fetch(`${apiUrl}/mw/${namespace}/${subjectarea}/${entity}/create_apply_rulesets`, {
+        const createResponse = await fetch(`${apiUrl}/mw/${namespace}/${subjectarea}/${entity}/create_apply_ruleset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
