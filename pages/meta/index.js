@@ -255,6 +255,47 @@ export default function Meta () {
     }
   }, [metaNspace])
 
+  useEffect(() => {
+    // Find function logic
+    const findFunction = () => {
+      if (metaNspace && namespaceValue && nameSpaceType) {
+        const selectedNamespaceObj = metaNspace.find(
+          (ns) => ns.name === namespaceValue && ns.type === nameSpaceType
+        )
+        setSelectedNamespace(selectedNamespaceObj)
+
+        if (
+          selectedNamespaceObj &&
+          (selectedNamespaceObj.name !== namespaceValue ||
+            selectedNamespaceObj.type !== nameSpaceType)
+        ) {
+          setSelectedSubjectArea([])
+        }
+
+        if (selectedNamespaceObj) {
+          const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
+            sa.entities.map((en) => ({
+              name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+              value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+              id: sa.id
+            }))
+          )
+          setAssOption(associationOpt)
+        }
+      }
+      if (selectedNamespace && subjectareaValue) {
+        const selectedSubjectAreaObj = selectedNamespace?.subjectareas.find(
+          (area) => area.name === subjectareaValue
+        )
+        setSelectedSubjectArea(selectedSubjectAreaObj)
+      }
+    }
+    // Call the find function
+    findFunction()
+
+    // Specify dependencies for the useEffect hook
+  }, [metaNspace, namespaceValue, nameSpaceType, selectedNamespace, subjectareaValue])
+
   const addNullFieldsToTable = () => {
     const existingNullFields = metaNamespace.some(
       (row) => row.type === '' || row.name === ''
@@ -287,27 +328,6 @@ export default function Meta () {
       namespaceValue: newValue,
       nameSpaceType: groupName
     }))
-    const selectedNamespaceObj = metaNspace.find(
-      (ns) => ns.name === newValue && ns.type === groupName
-    )
-    setSelectedNamespace(selectedNamespaceObj)
-    if (
-      selectedNamespaceObj &&
-      (selectedNamespaceObj.name !== namespaceValue ||
-        selectedNamespaceObj.type !== nameSpaceType)
-    ) {
-      setSelectedSubjectArea([])
-    }
-    if (selectedNamespaceObj) {
-      const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
-        sa.entities.map((en) => ({
-          name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-          value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-          id: sa.id
-        }))
-      )
-      setAssOption(associationOpt)
-    }
   }
 
   const handleSubjectareaChange = (event) => {
@@ -315,7 +335,7 @@ export default function Meta () {
       ...prevState,
       subjectareaValue: event.target.value
     }))
-    const selectedSubjectAreaObj = selectedNamespace.subjectareas.find(
+    const selectedSubjectAreaObj = selectedNamespace?.subjectareas.find(
       (area) => area.name === event.target.value
     )
     setSelectedSubjectArea(selectedSubjectAreaObj)
