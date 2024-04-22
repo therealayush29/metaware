@@ -60,6 +60,7 @@ const ComboBox = ({
 
   useEffect(() => {
     setInputValue(valueSrc)
+    setPersonName(valueSrc)
   }, [valueSrc])
 
   const dropdownValues = metaNamespace.map((item) => item?.name)
@@ -202,7 +203,7 @@ const ComboBox = ({
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
               multiple
-              value={personName}
+              value={Array.isArray(personName) ? personName : []}
               onChange={handleChange}
               renderValue={(selected) => selected.join(', ')}
               MenuProps={MenuProps}

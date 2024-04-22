@@ -157,6 +157,14 @@ query Meta_ruleset($mapId: String!) {
               view_name
           }
       }
+      entity {
+        entityNaturalKeysByTargetEnId {
+          source_natural_key
+           target_meta_id
+          source_natural_key_order
+        }
+      id
+      }
   }
 }`
 

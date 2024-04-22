@@ -277,23 +277,24 @@ const MappingScreen = ({ children }) => {
         name: meta.name,
         type: meta.type
       }))
-
       const metaRuleset = ruleData.meta_ruleset.flatMap((ruleset) =>
         ruleset.ruleset_rules.map((rule) => ({
           metaId: rule.meta_id,
           ruleExpression: rule.rule.rule_expression
         }))
       )
-
+      const entityNaturalKeys = ruleData.meta_ruleset.flatMap((ruleset) =>
+        ruleset.entity.entityNaturalKeysByTargetEnId.map((naturalKey) => naturalKey.source_natural_key)
+      )
       const newData = metaMeta.map((meta) => ({
         id: meta.id,
         name: meta.name,
         type: meta.type,
         rule:
-          metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression ||
-          null
+          meta.type === 'id'
+            ? entityNaturalKeys.join(', ') || null
+            : metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression || null
       }))
-
       setMetaNamespace(newData)
       setIsLoading(false)
     }
