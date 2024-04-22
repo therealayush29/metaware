@@ -679,16 +679,16 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   min-height: 36px!important;
 }
 .MuiTab-root.MuiTab-textColorPrimary {
-  font-size: 14px;
-  padding: 6px 12px;
-  min-height: 36px;
-  text-transform: capitalize;
+  font-size: 14px!important;
+  padding: 6px 12px!important;
+  min-height: 36px!important;
+  text-transform: capitalize!important;
 }
 .MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
-  color: var(--primary);
+  color: var(--primary)!important;
 }
 .MuiTabs-indicator {
-  background-color: var(--primary);
+  background-color: var(--primary)!important;
 }
 
 .ruleTabs .ruleTableList ~ button {
