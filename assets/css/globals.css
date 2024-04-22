@@ -264,15 +264,15 @@ img {
 }
 
 .MuiRadio-root.MuiRadio-colorPrimary:hover {
-  background-color: var(--menuHover);
+  background-color: var(--menuHover)!important;
 }
 
 .MuiRadio-root.MuiRadio-colorPrimary.Mui-checked {
-  color: var(--primary);
+  color: var(--primary)!important;
 }
 
 .MuiIconButton-colorPrimary {
-  color: var(--primary);
+  color: var(--primary)!important;
 }
 
 .MuiIconButton-colorPrimary:hover {
@@ -676,7 +676,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 }
 
 .MuiTabs-root {
-  min-height: 36px;
+  min-height: 36px!important;
 }
 .MuiTab-root.MuiTab-textColorPrimary {
   font-size: 14px;
