@@ -119,7 +119,7 @@ const MetaEntity = () => {
         const namespaceType = namespace.type
         const namespaceName = namespace.name
         const isMatchingNamespace =
-          (!nsType || namespaceType === nsType) && (!ns || namespaceName === ns)
+          (namespaceType === nsType) && (namespaceName === ns)
 
         if (isMatchingNamespace || (!nsType && !ns && !sa)) {
           return namespace.subjectareas.flatMap((subjectarea) => {
