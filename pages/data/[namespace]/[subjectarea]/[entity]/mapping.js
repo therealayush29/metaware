@@ -143,6 +143,7 @@ const MappingScreen = ({ children }) => {
   const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
   const { sourceData, selectedCellId, isActive, resetForm, openNamespace } =
     usePageContext()
+  console.log('selectedCellId', selectedCellId)
   const sourceValues = selectedCellId && selectedCellId.map_sources ? selectedCellId.map_sources.split(' > ') : []
   const [sourceNs, sourceSa, sourceEn] = sourceValues
   const ns =
@@ -284,7 +285,7 @@ const MappingScreen = ({ children }) => {
         }))
       )
       const entityNaturalKeys = ruleData.meta_ruleset.flatMap((ruleset) =>
-        ruleset.entity.entityNaturalKeysByTargetEnId.map((naturalKey) => naturalKey.source_natural_key)
+        ruleset.entity.entityNaturalKeysByTargetEnId.map((naturalKey) => naturalKey?.source_natural_key)
       )
       const newData = metaMeta.map((meta) => ({
         id: meta.id,
@@ -573,7 +574,7 @@ const MappingScreen = ({ children }) => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <div className="srcMapMdlTopHdrTtl">
-                  <h3>{mapName}</h3>
+                 {mapName && <h3>{mapName}</h3>}
                 </div>
               </Grid>
               <Grid item xs>

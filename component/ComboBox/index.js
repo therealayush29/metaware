@@ -105,7 +105,7 @@ const ComboBox = ({
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [textareaRef])
 
   const handleInputChange = (e) => {
     const value = e.target.value
