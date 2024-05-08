@@ -26,6 +26,9 @@ export default function GlossarySearchResults () {
   const { query } = router
   const queryString = query.query
   const { loading, error, data } = useEntityResult(client)
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
   const [checkAll, setAllCheck] = useState(true)
   const [checkEntity, setEntityCheck] = useState(false)
   const [checkMeta, setMetaCheck] = useState(false)
@@ -39,11 +42,14 @@ export default function GlossarySearchResults () {
   const handleMetaCheckChange = (event) => {
     setMetaCheck(event.target.checked)
   }
+  // eslint-disable-next-line camelcase
   const { meta_namespace } = data ?? {}
 
   const entitiesAndMeta = useMemo(() => {
+    // eslint-disable-next-line camelcase
     if (!meta_namespace) return []
 
+    // eslint-disable-next-line camelcase
     return meta_namespace.flatMap((ns) => {
       const namespace = ns.name
       return ns.subjectareas.flatMap((sa) => {
@@ -55,6 +61,7 @@ export default function GlossarySearchResults () {
         })).concat(sa.meta ?? [])
       })
     })
+  // eslint-disable-next-line camelcase
   }, [meta_namespace])
 
   useEffect(() => {

@@ -16,8 +16,6 @@ import GlossaryIcon from '@/component/Icons/IconGlossary'
 import SearchIcon from '@/component/Icons/IconSearch'
 import SearchIconNew from '@/component/Icons/IconSearchNew'
 import layoutStyle from '@/assets/css/layout.module.css'
-
-import { useEntitySearch } from '@/Hooks/EntitySearch'
 import { useEntityResult } from '@/Hooks/EntityResult'
 import client from '@/apollo-client'
 import Link from 'next/link'
@@ -28,7 +26,7 @@ export default function Glossary () {
   const [searchResultsVisible, setSearchResultsVisible] = useState(false)
   const searchResultsRef = useRef(null)
   useEffect(() => {
-    function handleClickOutside(event) {
+    function handleClickOutside (event) {
       if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
         setSearchResultsVisible(false)
       }
@@ -44,6 +42,9 @@ export default function Glossary () {
   }
 
   const { loading, error, data } = useEntityResult(client)
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
   let totalCount = 0
   let _totalMetaCount = 0
   if (search !== '' && data) { // Only calculate totalCount if search is not blank
