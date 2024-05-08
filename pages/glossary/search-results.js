@@ -26,7 +26,6 @@ export default function GlossarySearchResults () {
   const { query } = router
   const queryString = query.query
   const { loading, error, data } = useEntityResult(client)
-  console.log('data', data)
   const [checkAll, setAllCheck] = useState(true)
   const [checkEntity, setEntityCheck] = useState(false)
   const [checkMeta, setMetaCheck] = useState(false)
