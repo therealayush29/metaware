@@ -216,4 +216,53 @@ query Meta_entity($enId: String!) {
   }
 }
 `
-export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME }
+const METAENTITYSEARCH = gql`
+query Meta_namespace($search: String!) {
+  meta_namespace(where: { type: { _eq: "glossary" } }) {
+      id
+      name
+      type
+      subjectareas {
+          id
+          name
+          type
+          entities(where: { name: { _ilike: $search } }) {
+              description
+              id
+              name
+              type
+          }
+      }
+  }
+}
+`
+const ENTITYSEARCHRESULT = gql`
+query Meta_namespace {
+  meta_namespace(where: { type: { _eq: "glossary" } }) {
+      id
+      name
+      type
+      subjectareas {
+          id
+          name
+          type
+          entities {
+              description
+              id
+              name
+              type
+              meta {
+                  description
+                  en_id
+                  id
+                  is_unique
+                  name
+                  nullable
+              }
+          }
+      }
+  }
+}
+`
+
+export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH }

@@ -727,6 +727,200 @@
     color: var(--menuHover2);
 }
 
+.dashBody {
+    height: 100%;
+}
+.srchBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 64px);
+}
+.srchInrBlock {
+    width: 80%;
+}
+.srchForm {
+    position: relative;
+    padding: 0 220px;
+}
+.srchForm i {
+    position: absolute;
+    left: 0;
+    top: -90px;
+}
+.srchForm i svg path:nth-child(3) {
+    fill: var(--menuHover)
+}
+.srchForm i svg path:nth-child(4) {
+    fill: var(--primary)
+}
+.srchForm form {
+    position: relative;
+}
+.srchFrmGroup {
+    position: relative;
+}
+.srchFrmGroup input {
+    font-size: 14px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px 72px 8px 12px;
+}
+.srchFrmGroup button {
+    position: absolute;
+    height: 40px;
+    min-width: 60px !important;
+    top: 0;
+    right: 0;
+}
+.srchList {
+    background-color: var(--whiteBg);
+    position: absolute;
+    left: 0;
+    top: 40px;
+    right: 0;
+    margin: 0 !important;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+    max-height: 162px;
+    overflow: auto;
+}
+.srchList li + li {
+    border-top: 1px solid var(--border);
+}
+.srchList li a {
+    display: block;
+    padding: 6px 12px;
+    transition: all 0.3s ease 0s;
+}
+.srchList li a:hover {
+    background-color: var(--mute4);
+}
+.srchNote {
+    text-align: center;
+    margin-top: 12px;
+}
+.srchNote p {
+    color: var(--primary);
+    margin: 0;
+}
+.srchNote p span {
+    font-weight: 600;
+}
+
+.srchResultBlock {
+    height: calc(100vh - 152px);
+    overflow: hidden;
+}
+
+.srchRsltFltrCol {
+    background-color: var(--whiteBg);
+    width: 220px;
+    height: calc(100vh - 176px);
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+}
+
+.srchRsltFltrHdng {
+    background-color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.srchRsltFltrHdng h4 {
+    font-size: 16px;
+    color: var(--whiteText);
+    font-weight: 500;
+    margin: 0;
+}
+
+.srchRsltFltrWdgt {
+    padding: 0;
+}
+
+.srchResultList {
+    height: calc(100vh - 152px);
+    overflow: auto;
+}
+
+.srchResultCol {
+    position: relative;
+    background: var(--whiteBg);
+    color: var(--gray);
+    display: flex;
+    gap: 1.5rem;
+    padding: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    transition: all 0.3s ease 0s;
+}
+
+.srchResultCol + .srchResultCol {
+    margin-top: 16px;
+}
+
+.srchResultCol:hover {
+    background-color: var(--menuHover);
+}
+
+.srchRsltIcon {
+
+}
+
+.srchRsltIcon i {
+    color: var(--primary);
+}
+
+.srchRsltIcon i svg {
+    width: 32px;
+    height: 32px;
+}
+
+.srchRsltInfo {
+
+}
+
+.srchRsltInfo h3 {
+    font-size: 18px;
+    color: var(--secondary);
+    font-weight: 500;
+    margin: 0 0 10px 0;
+}
+
+.srchRsltInfo p {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+}
+
+.srchRsltInfo h6 {
+    background-color: var(--menuHover);
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 500;
+    margin: 0;
+    display: inline-block;
+    padding: 2px 8px 4px 8px;
+    border-radius: 5px;
+    transition: all 0.3s ease 0s;
+}
+
+.srchResultCol:hover .srchRsltInfo h6 {
+    background-color: var(--primary);
+    color: var(--whiteText);
+}
+
+.srchRsltInfo h6 span {
+    color: var(--primary);
+    transition: all 0.3s ease 0s;
+}
+
+.srchResultCol:hover .srchRsltInfo h6 span {
+    color: var(--whiteText);
+}
+
 @media (max-width:1199px) {
     .dashOuterSmall::before {
         background: rgba(0,0,0,0.5);

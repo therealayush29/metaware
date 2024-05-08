@@ -109,6 +109,7 @@ export default function Sidebar (props) {
       name: 'subjectareaRuntime'
     }
   ]
+
   return (
     <div className={`${layoutStyle.sdbrLnksList} first-step`}>
       <SidebarLinkItem
@@ -192,7 +193,7 @@ export default function Sidebar (props) {
       <>
       {groupedDataNamespace &&
         Object.entries(groupedDataNamespace)
-          .filter(([type]) => ['staging', 'model', 'glossary'].includes(type))
+          .filter(([type]) => ['staging', 'model'].includes(type))
           .map(([type, items]) => (
           <SidebarLinkItem
             showSidebar
@@ -228,6 +229,15 @@ export default function Sidebar (props) {
           </SidebarLinkItem>
           ))}
       </>
+
+      <SidebarLinkItem
+        showSidebar
+        name="Glossary"
+        icon={<GlossaryIcon />}
+        openNamespace={openNamespace}
+        customClass={activeMenu === 'Glossary' ? layoutStyle.active : 'null'}
+        onClick={() => pageRouting('/glossary/search')}
+      />
 
       {linkData && linkData.map((data, index) => (
         <SidebarLinkItem
