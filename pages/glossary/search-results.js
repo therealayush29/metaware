@@ -34,14 +34,38 @@ export default function GlossarySearchResults () {
   const [checkMeta, setMetaCheck] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const handleAllCheckChange = (event) => {
-    setAllCheck(event.target.checked)
+    const isChecked = event.target.checked
+    setAllCheck(isChecked)
+    if (isChecked) {
+      setEntityCheck(false)
+      setMetaCheck(false)
+    }
   }
+
   const handleEntityCheckChange = (event) => {
-    setEntityCheck(event.target.checked)
+    const isChecked = event.target.checked
+    setEntityCheck(isChecked)
+    if (!isChecked && !checkMeta) {
+      setAllCheck(true)
+    } else if (isChecked && checkMeta) {
+      setAllCheck(false)
+    } else {
+      setAllCheck(false)
+    }
   }
+
   const handleMetaCheckChange = (event) => {
-    setMetaCheck(event.target.checked)
+    const isChecked = event.target.checked
+    setMetaCheck(isChecked)
+    if (!isChecked && !checkEntity) {
+      setAllCheck(true)
+    } else if (isChecked && checkEntity) {
+      setAllCheck(false)
+    } else {
+      setAllCheck(false)
+    }
   }
+
   // eslint-disable-next-line camelcase
   const { meta_namespace } = data ?? {}
 
@@ -70,17 +94,27 @@ export default function GlossarySearchResults () {
       return
     }
 
-    const filteredResults = entitiesAndMeta.filter((item) => {
-      const entityName = item.name ?? ''
-      const metaNames = item.meta?.map(metaItem => metaItem.name) ?? []
-      const entityMatches = entityName.includes(queryString)
-      const metaMatches = metaNames.filter(metaName => metaName === queryString)
-      return metaMatches || (entityMatches && (metaNames.length > 0 || !metaMatches))
-    })
+    let filteredResults = []
 
-    console.log('entities', filteredResults)
+    if (checkEntity && !checkMeta) {
+      filteredResults = entitiesAndMeta.filter((item) => {
+        return item.name === queryString
+      })
+    } else if (!checkEntity && checkMeta) {
+      filteredResults = entitiesAndMeta.flatMap((sa) => {
+        return sa.meta.filter(meta => meta.name === queryString)
+      })
+    } else {
+      filteredResults = entitiesAndMeta.filter((item) => {
+        const entityName = item.name ?? ''
+        const metaNames = item.meta?.map(metaItem => metaItem.name) ?? []
+        const entityMatches = entityName.includes(queryString)
+        const metaMatches = metaNames.includes(queryString)
+        return entityMatches || metaMatches
+      })
+    }
     setSearchResults(filteredResults)
-  }, [query, entitiesAndMeta])
+  }, [query, entitiesAndMeta, checkEntity, checkMeta])
 
   return (
     <>
@@ -116,10 +150,11 @@ export default function GlossarySearchResults () {
                       label='All'
                       control={
                         <Checkbox
-                          checked={setAllCheck}
+                          checked={checkAll}
                           onChange={handleAllCheckChange}
                           color="primary"
                           value={checkAll}
+                          disabled={(!checkEntity && !checkMeta) || (!checkEntity || !checkMeta) || (checkEntity && checkMeta)}
                         />
                       }
                     />
