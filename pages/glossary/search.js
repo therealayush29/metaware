@@ -24,6 +24,7 @@ export default function Glossary () {
   const router = useRouter()
   const [search, setSearch] = useState('')
   const [searchResultsVisible, setSearchResultsVisible] = useState(false)
+  const [cursor, setCursor] = useState(-1)
   const searchResultsRef = useRef(null)
   useEffect(() => {
     function handleClickOutside (event) {
@@ -45,6 +46,35 @@ export default function Glossary () {
   if (error) {
     return <div>Error: {error.message}</div>
   }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown' && cursor < filteredCombinedItems.length - 1) {
+      setCursor((prevCursor) => (prevCursor + 1))
+    } else if (e.key === 'ArrowUp' && cursor > 0) {
+      setCursor((prevCursor) => (prevCursor - 1))
+    } else if (e.key === 'Enter' && cursor !== -1) {
+      // Check if an item is selected
+      e.preventDefault() // Prevent form submission if needed
+      const selectedItem = filteredCombinedItems[cursor]
+      // Perform your action here, for example, navigating to the selected item
+      router.push(`/glossary/search-results?query=${selectedItem.type === 'entity' ? selectedItem.data.name : selectedItem.data.name}`)
+    }
+  }
+
+  const combinedItems = []
+  if (data) {
+    data.meta_namespace.forEach((namespace) => {
+      namespace.subjectareas.forEach((subjectarea) => {
+        combinedItems.push(...subjectarea.entities.map(entity => ({ type: 'entity', data: entity })))
+        combinedItems.push(...subjectarea.entities.flatMap(entity => entity.meta.map(metaItem => ({ type: 'meta', data: metaItem }))))
+      })
+    })
+  }
+
+  const filteredCombinedItems = combinedItems.filter(item =>
+    item.data.name.toLowerCase().includes(search.toLowerCase())
+  )
+
   let totalCount = 0
   let _totalMetaCount = 0
   if (search !== '' && data) { // Only calculate totalCount if search is not blank
@@ -93,9 +123,11 @@ export default function Glossary () {
                     name="search"
                     type="search"
                     autoComplete='off'
+                    placeholder='Search entity or meta'
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
                     onFocus={() => setSearchResultsVisible(true)}
+                    onKeyDown={handleKeyDown}
                   />
                   <Button
                     color="primary"
@@ -104,31 +136,17 @@ export default function Glossary () {
                   ><SearchIcon /></Button>
                 </FormControl>
                 {searchResultsVisible && (
-                  <div className={`${layoutStyle.srchList}`} ref={searchResultsRef}>
+                  <div className={`${layoutStyle.srchList}`} ref={searchResultsRef} >
                       <ul>
                       {loading && <li><Link href="#">Loading...</Link></li>}
                       {search !== '' && data && (
                           <>
-                          {data.meta_namespace.map((namespace) => (
-                              <React.Fragment key={namespace.id}>
-                              {namespace.subjectareas.map((subjectarea) => (
-                                  <React.Fragment key={subjectarea.id}>
-                                  {subjectarea.entities
-                                    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
-                                    .map((item) => (
-                                          <li key={item.id}><Link href={`search-results?query=${item.name}`} onClick={() => setSearch(item.name)}>{item.name}</Link></li>
-                                    ))}
-                                    {subjectarea.entities
-                                      .flatMap((item) =>
-                                        item.meta
-                                          .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
-                                          .map((meta) => (
-                                          <li key={meta.id}><Link href={`search-results?query=${meta.name}`} onClick={() => setSearch(meta.name)}>{meta.name}</Link></li>
-                                          ))
-                                      )}
-                                  </React.Fragment>
-                              ))}
-                              </React.Fragment>
+                          {filteredCombinedItems.map((combinedItem, index) => (
+                            <li key={index}>
+                              <Link className={cursor === index ? `${layoutStyle.active}` : null} href={`search-results?query=${combinedItem.type === 'entity' ? combinedItem.data.name : combinedItem.data.name}`} onClick={() => setSearch(combinedItem.type === 'entity' ? combinedItem.data.name : combinedItem.data.name)}>
+                                {combinedItem.type === 'entity' ? combinedItem.data.name : combinedItem.data.name}
+                              </Link>
+                            </li>
                           ))}
                           </>
                       )}

@@ -796,6 +796,11 @@
 .srchList li a:hover {
     background-color: var(--mute4);
 }
+
+.srchList li a.active {
+    background-color: var(--mute4);
+}
+
 .srchNote {
     text-align: center;
     margin-top: 12px;
