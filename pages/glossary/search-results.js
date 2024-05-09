@@ -20,6 +20,7 @@ import EntityIcon from '../../component/Icons/IconEntity'
 import layoutStyle from '@/assets/css/layout.module.css'
 import { useEntityResult } from '@/Hooks/EntityResult'
 import client from '../../apollo-client'
+import SearchDetail from '../../component/SearchDetail'
 
 export default function GlossarySearchResults () {
   const router = useRouter()
@@ -32,7 +33,19 @@ export default function GlossarySearchResults () {
   const [checkAll, setAllCheck] = useState(true)
   const [checkEntity, setEntityCheck] = useState(false)
   const [checkMeta, setMetaCheck] = useState(false)
+  const [openDetail, setOpenDetail] = useState(false)
   const [searchResults, setSearchResults] = useState([])
+  const [detailArr, setDetailArr] = useState([])
+
+  const handleDetailclick = (id, name) => {
+    const DetailValue = [
+      { id, name }
+    ]
+    setDetailArr(DetailValue)
+    setOpenDetail(true)
+  }
+  console.log('detailArr', detailArr)
+
   const handleAllCheckChange = (event) => {
     const isChecked = event.target.checked
     setAllCheck(isChecked)
@@ -161,7 +174,7 @@ export default function GlossarySearchResults () {
                   </FormControl>
                   <FormControl fullWidth>
                     <FormControlLabel
-                      label='Entity'
+                      label='Entity Name'
                       control={
                         <Checkbox
                           onChange={handleEntityCheckChange}
@@ -173,7 +186,7 @@ export default function GlossarySearchResults () {
                   </FormControl>
                   <FormControl fullWidth>
                     <FormControlLabel
-                      label='Meta'
+                      label='Meta Name'
                       control={
                         <Checkbox
                           onChange={handleMetaCheckChange}
@@ -197,7 +210,7 @@ export default function GlossarySearchResults () {
                     {searchResults
                       .filter(entity => entity.name === queryString)
                       .map(result => (
-                        <div key={result.id} className={`${layoutStyle.srchResultCol}`}>
+                        <div key={result.id} className={`${layoutStyle.srchResultCol}`} onClick={() => handleDetailclick(result.id, result.name)}>
                           <div className={`${layoutStyle.srchRsltIcon}`}>
                             <i>{<EntityIcon />}</i>
                           </div>
@@ -216,7 +229,7 @@ export default function GlossarySearchResults () {
                       return sa.meta
                         .filter(meta => meta.name === queryString)
                         .map((result) => (
-                          <div key={result.id} className={`${layoutStyle.srchResultCol}`}>
+                          <div key={result.id} className={`${layoutStyle.srchResultCol}`} onClick={() => handleDetailclick(result.id, result.name)}>
                             <div className={`${layoutStyle.srchRsltIcon}`}>
                               <i>{<MetaIcon />}</i>
                             </div>
@@ -242,6 +255,11 @@ export default function GlossarySearchResults () {
             </Grid>
           </Grid>
         </div>
+        <SearchDetail
+        open={openDetail}
+        onClose={() => setOpenDetail(false)}
+        detail={detailArr}
+        />
       </MainCard>
     </>
   )
