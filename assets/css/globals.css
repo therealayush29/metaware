@@ -1763,7 +1763,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   border-radius: 6px;
   box-sizing: border-box;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
-  min-height: auto;
+  min-height: auto!important;
   margin-bottom: 10px;
 }
 
