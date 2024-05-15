@@ -872,6 +872,14 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   height: 100%;
 }
 
+.searchViewPopup .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper {
+  background-color: transparent;
+  box-shadow: none;
+  max-height: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
 .customForm .MuiFormLabel-root.MuiFormLabel-colorPrimary {
   font-size: 14px;
   line-height: 32px;
@@ -905,6 +913,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 .dataGridTabs .MuiTableCell-root.MuiTableCell-body {
   padding: 6px 10px;
 }**/
+
 .dataGridTabs .MuiTableCell-root.MuiTableCell-body label {
   margin-right: 0;
 }
@@ -1739,4 +1748,94 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 .uploadIcon .MuiButton-containedPrimary {
   padding: 8px;
   min-width: 60px;
+}
+
+.srchAccrdn .MuiAccordion-rounded {
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.srchAccrdn .MuiAccordionSummary-root {
+  position: relative;
+  background-color: var(--whiteBg);
+  padding: 10px 16px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+  min-height: auto;
+  margin-bottom: 10px;
+}
+
+.srchAccrdn .MuiAccordionSummary-root.Mui-expanded {
+  font-size: 15px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.srchAccrdn .MuiAccordionSummary-content {
+  margin: 0 !important;
+}
+
+.srchAccrdn .MuiAccordionDetails-root {
+  background-color: var(--whiteBg);
+  padding: 16px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+  min-height: auto;
+  margin-bottom: 10px;
+}
+
+.srchAccrdn .MuiAccordionDetails-root p {
+  margin: 0;
+}
+
+.srchAccrdn .MuiAccordionDetails-root p + p {
+  margin-top: 16px;
+}
+
+.hideTblFilters .MuiToolbar-gutters.MuiToolbar-dense {
+  display: none;
+}
+
+.srchAccrdn .commonTable thead tr th {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+.srchAccrdn .commonTable .MuiTableCell-root.MuiTableCell-body {
+  padding: 10px;
+  border-bottom: 0;
+}
+
+.srchMetaInfo li {
+  background-color: var(--menuHover3);
+  font-size: 14px;
+  color: var(--primary);
+  padding: 6px;
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+  display: flex;
+}
+
+.srchMetaInfo li + li {
+  margin-top: 12px;
+}
+
+.srchMetaInfo li span {
+  font-weight: 600;
+  width: 40%;
+}
+
+.srchMetaInfo li i {
+  font-style: normal;
+  width: 20%;
+}
+
+.srchMetaInfo li em {
+  color: var(--black);
+  font-style: normal;
+  font-weight: 600;
+  width: 40%;
 }

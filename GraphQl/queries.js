@@ -251,6 +251,7 @@ query Meta_namespace {
               id
               name
               type
+              tags
               meta {
                   description
                   en_id
@@ -258,11 +259,27 @@ query Meta_namespace {
                   is_unique
                   name
                   nullable
+                  tags
               }
           }
       }
   }
 }
 `
+const METADETAILS = gql`
+  query Meta_meta($id: String!) {
+    meta_meta(where: { id: { _eq: $id } }) {
+      alias
+      default
+      description
+      id
+      length
+      name
+      order
+      subtype
+      tags
+      type
+    }
+  }`
 
-export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH }
+export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH, METADETAILS }
