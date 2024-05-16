@@ -128,8 +128,8 @@ const ComboBox = ({
     onInputChange(selectedValue)
   }
 
-  const [personName, setPersonName] = React.useState([])
-  const [isExpressionMode, setIsExpressionMode] = React.useState(false)
+  const [personName, setPersonName] = useState([])
+  const [isExpressionMode, setIsExpressionMode] = useState(false)
   const ITEM_HEIGHT = 48
   const ITEM_PADDING_TOP = 8
   const MenuProps = {
@@ -216,7 +216,7 @@ const ComboBox = ({
                   value={value}
                   disabled={isExpressionMode && value !== 'expression'}
                 >
-                  <Checkbox checked={personName.indexOf(value) > -1} size='xl' />
+                  <Checkbox checked={personName?.indexOf(value) > -1} size='xl' />
                   <ListItemText primary={value} />
                 </MenuItem>
                 ))}
@@ -224,7 +224,7 @@ const ComboBox = ({
                 value="expression"
                 disabled={isExpressionMode && 'expression' !== 'expression'}
               >
-                <Checkbox checked={personName.indexOf('expression') > -1} size='xl' />
+                <Checkbox checked={personName?.indexOf('expression') > -1} size='xl' />
                 <ListItemText primary="expression" />
               </MenuItem>
             </Select>

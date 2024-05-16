@@ -293,7 +293,7 @@ const MappingScreen = ({ children }) => {
         type: meta.type,
         rule:
           meta.type === 'id'
-            ? entityNaturalKeys.join(', ') || null
+            ? entityNaturalKeys || null
             : metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression || null
       }))
       setMetaNamespace(newData)
