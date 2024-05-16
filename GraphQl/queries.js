@@ -282,4 +282,25 @@ const METADETAILS = gql`
     }
   }`
 
-export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH, METADETAILS }
+const METADETAILSASSO = gql`
+query Meta_glossary_association($id: String!) {
+  meta_glossary_association(where: { glossary_id: { _eq: $id } }) {
+      glossary_id
+      id
+      glossary_association_type {
+          description
+          id
+          short_description
+      }
+      metum {
+          description
+          glossary_associations {
+              associated_id
+              association_type_code
+          }
+      }
+  }
+}
+`
+
+export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH, METADETAILS, METADETAILSASSO }

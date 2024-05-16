@@ -8,6 +8,7 @@ import MetaIcon from '@/component/Icons/IconMeta'
 import layoutStyle from '@/assets/css/layout.module.css'
 import client from '../../apollo-client'
 import { useMetaDetails } from '../../Hooks/MetaDetails'
+import { useMetaDetailsAsso } from '../../Hooks/MetaDetailsAsso'
 
 function CustomTabPanel (props) {
   const { children, value, index, ...other } = props
@@ -38,39 +39,6 @@ function a11yProps (index) {
   }
 }
 
-const data1 = [
-  {
-    associationName: 'Common',
-    relationshipPath: 'party_first_name',
-    relationshipTypes: ''
-  },
-  {
-    associationName: 'Organization',
-    relationshipPath: 'org_description',
-    relationshipTypes: ''
-  },
-  {
-    associationName: 'Year',
-    relationshipPath: 'year_founded',
-    relationshipTypes: ''
-  },
-  {
-    associationName: 'Common',
-    relationshipPath: 'party_first_name',
-    relationshipTypes: ''
-  },
-  {
-    associationName: 'Organization',
-    relationshipPath: 'org_description',
-    relationshipTypes: ''
-  },
-  {
-    associationName: 'Year',
-    relationshipPath: 'year_founded',
-    relationshipTypes: ''
-  }
-]
-
 const SearchMetaDetail = ({
   customClass,
   open,
@@ -97,6 +65,19 @@ const SearchMetaDetail = ({
   const order = data?.meta_meta.map(item => item.order)
   const [value, setValue] = useState(0)
 
+  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso(id, client)
+  if (errorAss) {
+    return <div>Error: {errorAss.message}</div>
+  }
+  const data1 = dataAss?.meta_glossary_association.flatMap(entry => {
+    const id = entry.id
+    const glossaryId = entry.glossary_id
+    const assoType = entry.glossary_association_type.short_description
+    const associatedMeta = entry.metum.description
+    const associatedIds = entry.metum.glossary_associations.map(assoc => assoc.associated_id)
+    return { id, glossaryId, assoType, associatedMeta, associatedIds }
+  })
+
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -104,18 +85,28 @@ const SearchMetaDetail = ({
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'associationName',
-        header: 'Association Name',
+        accessorKey: 'id',
+        header: 'ID',
         size: 150
       },
       {
-        accessorKey: 'relationshipPath',
-        header: 'Path',
+        accessorKey: 'glossaryId',
+        header: 'glossary_id',
         size: 150
       },
       {
-        accessorKey: 'relationshipTypes',
-        header: 'Relationship Types',
+        accessorKey: 'assoType',
+        header: 'Association Type',
+        size: 150
+      },
+      {
+        accessorKey: 'associatedMeta',
+        header: 'Associated Meta Name',
+        size: 150
+      },
+      {
+        accessorKey: 'associatedIds',
+        header: 'Associated Meta Id',
         size: 150
       }
     ],
@@ -194,7 +185,8 @@ const SearchMetaDetail = ({
                             <div className={'commonTable commonMetaHeightTable hideTblFilters'}>
                               <MaterialReactTable
                                 columns={columns}
-                                data={data1}
+                                data={data1 || []}
+                                state={loadingAss}
                                 enableGrouping={false}
                                 muiTableContainerProps={{ sx: { maxHeight: '460px' } }}
                                 enableColumnResizing={false}
