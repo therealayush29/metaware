@@ -5,7 +5,6 @@ import { usePageContext } from '@/pageProvider/PageContext'
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
 import { useMapData } from '@/Hooks/MappingData'
-import client from '@/apollo-client'
 import {
   Box,
   Drawer,
@@ -385,7 +384,6 @@ const DashboardTable = () => {
     setDeleteConfirmation(false)
   }
   const [deleteData] = useMutation(DATA_ENTRIES_DELETE, {
-    client
     // refetchQueries: [{ query: DATA_ENTRIES_QUERY }], // Refetch the data after deletion
   })
   const handleDeleteRows = (selectedRows) => {
@@ -455,7 +453,7 @@ const DashboardTable = () => {
     goToMappingPage()
     setSelectedCellId(row)
   }
-  const { loading, data, refetch } = useMapData(client)
+  const { loading, data, refetch } = useMapData()
   useEffect(() => {
     if (loading) {
       setIsLoadingMap(true)

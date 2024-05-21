@@ -48,7 +48,6 @@ import SelectSearch from 'react-select-search'
 import 'react-select-search/style.css'
 import { useEntries } from '@/Hooks/Entries'
 import { useMetaEntity } from '@/Hooks/metaEntity'
-import client from '@/apollo-client'
 
 import layoutStyle from '@/assets/css/layout.module.css'
 
@@ -192,15 +191,14 @@ export default function Meta () {
     loading: enLoading,
     // eslint-disable-next-line no-unused-vars
     error: enError
-  } = useMetaEntity(entity, type, client)
+  } = useMetaEntity(entity, type)
 
   // eslint-disable-next-line no-unused-vars
   const { data, loading, error, refetch } = useEntries(
     entity,
     subjectarea,
     type,
-    namespace,
-    client
+    namespace
   )
   useEffect(() => {
     if (loading) {

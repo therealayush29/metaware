@@ -28,7 +28,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useRuleLang } from '@/Hooks/RuleLang'
 import { usePageContext } from '../../pageProvider/PageContext'
-import client from '../../apollo-client'
 const ExpandedRuleEditor = ({
   customClass,
   openPopup,
@@ -48,7 +47,7 @@ const ExpandedRuleEditor = ({
   const [parameters, setParameters] = useState([''])
   const [colorValue, setColorValue] = useState('#3f51b5')
   const [checkSharedRule, setCheckSharedRule] = useState(false)
-  const { loading, error, data } = useRuleLang(client)
+  const { loading, error, data } = useRuleLang()
   const { checkRules, setCheckRules, resetForm, actionRules, setActionRules, functionValue, setFunctionValue, handleInputChange, errorMsgDescription, setErrorMsgDescription, handleRadioChange, formData, setFormData, errorMsgName, setErrorMsgName, errorMsgRule, setErrorMsgRule } = usePageContext()
   const category = [
     { id: 1, name: 'Custom tag' },

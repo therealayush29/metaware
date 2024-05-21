@@ -17,7 +17,6 @@ import SearchIcon from '@/component/Icons/IconSearch'
 import SearchIconNew from '@/component/Icons/IconSearchNew'
 import layoutStyle from '@/assets/css/layout.module.css'
 import { useEntityResult } from '@/Hooks/EntityResult'
-import client from '@/apollo-client'
 import Link from 'next/link'
 
 export default function Glossary () {
@@ -42,7 +41,7 @@ export default function Glossary () {
     router.push(`/glossary/search-results?query=${search.toLowerCase()}`)
   }
 
-  const { loading, error, data } = useEntityResult(client)
+  const { loading, error, data } = useEntityResult()
   if (error) {
     return <div>Error: {error.message}</div>
   }

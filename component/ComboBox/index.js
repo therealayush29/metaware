@@ -13,7 +13,6 @@ import {
   RotateLeftRounded as RotateLeftRoundedIcon
 } from '@mui/icons-material'
 import { useEntries } from '@/Hooks/Entries'
-import client from '../../apollo-client'
 import style from './style.module.css'
 
 const ComboBox = ({
@@ -46,8 +45,7 @@ const ComboBox = ({
     entity,
     subjectarea,
     type,
-    namespace,
-    client
+    namespace
   )
   useEffect(() => {
     if (loading) {

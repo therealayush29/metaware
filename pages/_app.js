@@ -5,6 +5,7 @@ import '@/assets/css/select-dropdown.css'
 import '@/assets/css/responsive.css'
 import PropTypes from 'prop-types'
 import { TourProvider } from '@reactour/tour'
+import { withApollo } from '@/client/Withapollo-client'
 
 import { Buffer } from 'buffer'
 global.Buffer = Buffer
@@ -37,11 +38,7 @@ const steps = [
     content: 'this is meta table'
   }
 ]
-export default function App ({ Component, pageProps }) {
-  App.propTypes = {
-    pageProps: PropTypes.object,
-    Component: PropTypes.func.isRequired
-  }
+function App ({ Component, pageProps }) {
   return (
       <>
         <PageProvider>
@@ -74,3 +71,8 @@ export default function App ({ Component, pageProps }) {
       </>
   )
 }
+App.propTypes = {
+  pageProps: PropTypes.object,
+  Component: PropTypes.func.isRequired
+}
+export default withApollo(App)

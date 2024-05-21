@@ -25,7 +25,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MetaIcon from '@/component/Icons/IconMeta'
 import { useMetaRunTime } from '../../Hooks/MetaRunTime'
-import client from '../../apollo-client'
 
 export default function MetaRuntime () {
   const router = useRouter()
@@ -39,7 +38,7 @@ export default function MetaRuntime () {
   const [formData, setFormData] = useState([])
 
   // eslint-disable-next-line no-unused-vars
-  const { loading, data, error } = useMetaRunTime(enId, client)
+  const { loading, data, error } = useMetaRunTime(enId)
 
   useEffect(() => {
     // Check if data is available and if runtime data exists

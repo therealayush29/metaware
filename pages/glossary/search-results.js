@@ -20,19 +20,20 @@ import MetaIcon from '@/component/Icons/IconMeta'
 import EntityIcon from '../../component/Icons/IconEntity'
 
 import layoutStyle from '@/assets/css/layout.module.css'
-import { useEntityResult } from '@/Hooks/EntityResult'
-import client from '../../apollo-client'
+import { createApolloClient } from '@/client/apollo-client'
 import SearchMetaDetail from '@/component/SearchMetaDetail'
 import SearchEntityDetail from '@/component/SearchEntityDetail'
+import { ENTITYSEARCHRESULT } from '../../GraphQl/queries'
+import PropTypes from 'prop-types'
 
-export default function GlossarySearchResults () {
+export default function GlossarySearchResults ({ data, loading }) {
+  GlossarySearchResults.propTypes = {
+    data: PropTypes.Array,
+    loading: PropTypes.bool
+  }
   const router = useRouter()
   const { query } = router
   const queryString = query.query
-  const { loading, error, data } = useEntityResult(client)
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
   const [checkAll, setAllCheck] = useState(true)
   const [checkEntity, setEntityCheck] = useState(false)
   const [checkMeta, setMetaCheck] = useState(false)
@@ -383,4 +384,29 @@ export default function GlossarySearchResults () {
       </MainCard>
     </>
   )
+}
+export async function getServerSideProps () {
+  const apolloClient = createApolloClient()
+
+  try {
+    const { loading, error, data } = await apolloClient.query({
+      query: ENTITYSEARCHRESULT,
+      context: {
+        ssr: true
+      }
+    })
+    if (error) {
+      return {
+        props: { error: error.message }
+      }
+    }
+
+    return {
+      props: { data, loading }
+    }
+  } catch (error) {
+    return {
+      props: { error: error.message }
+    }
+  }
 }

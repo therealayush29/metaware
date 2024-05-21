@@ -6,7 +6,6 @@ import { MaterialReactTable } from 'material-react-table'
 import CardHeadingItem from '@/component/CardHeading'
 import MetaIcon from '@/component/Icons/IconMeta'
 import layoutStyle from '@/assets/css/layout.module.css'
-import client from '../../apollo-client'
 import { useMetaDetails } from '../../Hooks/MetaDetails'
 import { useMetaDetailsAsso } from '../../Hooks/MetaDetailsAsso'
 
@@ -52,7 +51,7 @@ const SearchMetaDetail = ({
     detail: PropTypes.array.isRequired
   }
   const id = detail[0].id
-  const { loading, error, data } = useMetaDetails(id, client)
+  const { loading, error, data } = useMetaDetails(id)
   if (error) {
     return <div>Error: {error.message}</div>
   }
@@ -65,7 +64,7 @@ const SearchMetaDetail = ({
   const order = data?.meta_meta.map(item => item.order)
   const [value, setValue] = useState(0)
 
-  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso(id, client)
+  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso(id)
   if (errorAss) {
     return <div>Error: {errorAss.message}</div>
   }

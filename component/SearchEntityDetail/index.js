@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Dialog, DialogActions, DialogContent, Grid, IconButton, Stack, Tab, Tabs } from '@mui/material'
-import { Close as CloseIcon } from '@mui/icons-material'
+import { Box, Dialog, DialogActions, DialogContent, Grid, IconButton, Stack, Tab, Tabs, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import { Close as CloseIcon, ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import { MaterialReactTable } from 'material-react-table'
 
 import CardHeadingItem from '@/component/CardHeading'
@@ -43,148 +43,19 @@ function a11yProps (index) {
 
 const data = [
   {
-    name: 'party_first_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_full_name',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
+    name: 'party_first_name'
   },
   {
-    name: 'party_full_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_full_name',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
+    name: 'party_full_name'
   },
   {
-    name: 'org_id',
-    type: 'id',
-    subtype: 'association',
-    nullable: 'true',
-    description: 'org id',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '4',
-    association: ''
+    name: 'org_id'
   },
   {
-    name: 'party_type',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_type',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '3',
-    association: ''
+    name: 'party_type'
   },
   {
-    name: 'party_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_name1',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '2',
-    association: ''
-  },
-  {
-    name: 'id',
-    type: 'id',
-    subtype: '.',
-    nullable: 'false',
-    description: 'id',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
-  },
-  {
-    name: 'party_first_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_full_name',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
-  },
-  {
-    name: 'party_full_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_full_name',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
-  },
-  {
-    name: 'org_id',
-    type: 'id',
-    subtype: 'association',
-    nullable: 'true',
-    description: 'org id',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '4',
-    association: ''
-  },
-  {
-    name: 'party_type',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_type',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '3',
-    association: ''
-  },
-  {
-    name: 'party_name',
-    type: '.',
-    subtype: '.',
-    nullable: 'true',
-    description: 'party_name1',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '2',
-    association: ''
-  },
-  {
-    name: 'id',
-    type: 'id',
-    subtype: '.',
-    nullable: 'false',
-    description: 'id',
-    alias: '',
-    default: '',
-    is_unique: 'false',
-    order: '1',
-    association: ''
+    name: 'party_name'
   }
 ]
 
@@ -213,51 +84,6 @@ const SearchEntityDetail = ({
         accessorKey: 'name',
         header: 'Name',
         size: 200
-      },
-      {
-        accessorKey: 'type',
-        header: 'Type',
-        size: 150
-      },
-      {
-        accessorKey: 'subtype',
-        header: 'Sub-Type',
-        size: 150
-      },
-      {
-        accessorKey: 'nullable',
-        header: 'Nullable',
-        size: 150
-      },
-      {
-        accessorKey: 'description',
-        header: 'Description',
-        size: 200
-      },
-      {
-        accessorKey: 'alias',
-        header: 'Alias',
-        size: 150
-      },
-      {
-        accessorKey: 'default',
-        header: 'Default',
-        size: 150
-      },
-      {
-        accessorKey: 'is_unique',
-        header: 'Is Unique',
-        size: 150
-      },
-      {
-        accessorKey: 'order',
-        header: 'Order',
-        size: 100
-      },
-      {
-        accessorKey: 'association',
-        header: 'Association',
-        size: 150
       }
     ],
     []
@@ -265,20 +91,8 @@ const SearchEntityDetail = ({
   return (
     <>
       <Dialog open={open} onClose={onClose} className={`pageViewPopup searchViewPopup ${customClass}`}>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 4,
-            color: (theme) => theme.palette.grey[500]
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
         <DialogContent sx={{ p: 0 }}>
-        <div className={`${layoutStyle.dashHeaderBtm}`}>
+          <div className={`${layoutStyle.dashHeaderBtm}`}>
             <Grid container spacing={2}>
               <Grid item xs>
                 <CardHeadingItem
@@ -312,7 +126,81 @@ const SearchEntityDetail = ({
                   </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                  <div className={'commonTable commonMetaHeightTable'}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={9}>
+                      <div className='srchAccrdn'>
+                        <Accordion defaultExpanded>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1-content"
+                            id="panel1-header"
+                          >
+                            Entity Description
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                      <div className='srchAccrdn'>
+                        <Accordion defaultExpanded>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2-content"
+                            id="panel2-header"
+                          >
+                            Meta
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className={'commonTable commonMetaHeightTable hideTblFilters'}>
+                              <MaterialReactTable
+                                columns={columns}
+                                data={data}
+                                enableGrouping={false}
+                                muiTableContainerProps={{ sx: { maxHeight: '460px' } }}
+                                enableColumnResizing={false}
+                                enableColumnOrdering={false}
+                                enableStickyHeader
+                                enableStickyFooter
+                                enablePagination
+                                enableFilters={false}
+                                muiTableBodyCellProps={({ column }) => ({
+                                  sx: {
+                                    cursor: 'pointer'
+                                  }
+                                })}
+                              />
+                            </div>
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <div className='srchAccrdn'>
+                        <Accordion defaultExpanded>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel3-content"
+                            id="panel3-header"
+                          >
+                            Entity Info
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className='srchMetaInfo'>
+                              <ul>
+                                <li><span>Type</span><i>:</i><em>Text</em></li>
+                                <li><span>Alias</span><i>:</i><em>OrgName</em></li>
+                                <li><span>Length</span><i>:</i><em>5</em></li>
+                                <li><span>Default</span><i>:</i><em>None</em></li>
+                                <li><span>Tags</span><i>:</i><em>Green</em></li>
+                              </ul>
+                            </div>
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                    </Grid>
+                  </Grid>
+                  {/* <div className={'commonTable commonMetaHeightTable'}>
                     <MaterialReactTable
                       columns={columns}
                       data={data}
@@ -328,7 +216,7 @@ const SearchEntityDetail = ({
                         }
                       })}
                     />
-                  </div>
+                  </div> */}
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
                   Relationship
@@ -336,8 +224,6 @@ const SearchEntityDetail = ({
               </Box>
             </Stack>
           </div>
-          <DialogActions sx={{ py: 1.2, px: 2, justifyContent: 'flex-start' }}>
-          </DialogActions>
         </DialogContent>
       </Dialog>
     </>

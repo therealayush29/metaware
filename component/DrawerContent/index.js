@@ -35,7 +35,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { usePageContext } from '../../pageProvider/PageContext'
 import DeleteConfirmationDialog from '@/component/DeleteConfirmationDialog'
 import { useDqRules } from '../../Hooks/DqRules'
-import client from '../../apollo-client'
 import { useMetaName } from '../../Hooks/MetaName'
 function CustomTabPanel (props) {
   const {
@@ -112,8 +111,8 @@ const DrawerContent = ({
   const filteredCheckRules = checkRules.filter(rule => rule.meta && rule.meta.includes(columnId))
   const filteredActionRules = actionRules.filter(rule => rule.meta && rule.meta.includes(columnId))
 
-  const { loading: metaLoading, data: metaName } = useMetaName(enId, columnId, client)
-  const { loading, data, refetch } = useDqRules(enId, client)
+  const { loading: metaLoading, data: metaName } = useMetaName(enId, columnId)
+  const { loading, data, refetch } = useDqRules(enId)
 
   useEffect(() => {
     if (!loading && data && data.meta_ruleset_rules) {

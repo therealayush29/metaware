@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { usePageContext } from '@/pageProvider/PageContext'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import client from '@/apollo-client'
 import { Grid } from '@mui/material'
 import { useEntity } from '@/Hooks/Entity'
 import MainCard from '@/component/MainCard'
@@ -29,7 +28,7 @@ export default function subjectareas () {
   }
   const [Isloading, setIsLoading] = useState(false)
   const [metaNamespace, setMetaNamespace] = useState([])
-  const { data, loading } = useEntity(id, client)
+  const { data, loading } = useEntity(id)
   useEffect(() => {
     if (loading) {
       setIsLoading(true) // Set loading state to true while data is being fetched

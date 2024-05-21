@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { usePageContext } from '@/pageProvider/PageContext'
-import { ApolloProvider } from '@apollo/client'
-import client from '../../apollo-client'
 import PropTypes from 'prop-types'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { useTour } from '@reactour/tour'
@@ -50,7 +48,6 @@ export default function MainCard (props) {
 
   return (
     <>
-      <ApolloProvider client={client}>
       <section className={`${layoutStyle.dashOuter} ${layoutStyle.dashOuterMedium} ${isActive ? layoutStyle.dashOuterSmall : null} ${customClass} ${openNamespace === typeValue ? layoutStyle.dashSubMenuOpen : null}`}>
         <div className={`${layoutStyle.themeBtn}`}>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -108,7 +105,6 @@ export default function MainCard (props) {
           </div>
         </div>
       </section>
-      </ApolloProvider>
     </>
   )
 }

@@ -41,7 +41,6 @@ import SourceIcon from '@/component/Icons/IconSource'
 import DataIcon from '@/component/Icons/IconData'
 import { useEntries } from '@/Hooks/Entries'
 import { useMapSrcData } from '@/Hooks/MappingSrcData'
-import client from '@/apollo-client'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MainCard from '@/component/MainCard'
@@ -260,14 +259,13 @@ const MappingScreen = ({ children }) => {
     }
   ]
 
-  const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId, client)
+  const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId)
 
   const { data, loading } = useEntries(
     entity,
     subjectarea,
     type,
-    namespace,
-    client
+    namespace
   )
 
   useEffect(() => {
