@@ -1,9 +1,14 @@
+import React, { useMemo } from 'react'
 import { ApolloProvider } from '@apollo/client'
-import { useMemo } from 'react'
 import { createApolloClient } from '@/client/apollo-client'
+import PropTypes from 'prop-types'
 
 export function withApollo (PageComponent) {
   const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
+    WithApollo.propTypes = {
+      apolloClient: PropTypes.any,
+      apolloState: PropTypes.any
+    }
     const client = useMemo(() => apolloClient || createApolloClient(apolloState), [apolloClient, apolloState])
     return (
       <ApolloProvider client={client}>
