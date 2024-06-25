@@ -82,8 +82,6 @@ const CreateNewRowModal = ({
     }
   }
 
-  console.log('data', fileUploadUrl)
-
   const handleFileChange = (event) => {
     // Extracting the file name from the file input
     const filePath = event.target.value

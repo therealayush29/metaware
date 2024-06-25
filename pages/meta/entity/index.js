@@ -31,8 +31,7 @@ const MetaEntity = () => {
   const goToPrevPage = () => {
     router.push('/meta')
   }
-  const { enNewRow, entityData, setEntityData, updatedCells, setUpdatedCells, setenNewRow } = usePageContext()
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
+  const { enNewRow, entityData, setEntityData, updatedCells, setUpdatedCells, setenNewRow, RestURL } = usePageContext()
   const [modeEntity, setModeEntity] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
@@ -320,7 +319,7 @@ const MetaEntity = () => {
         }
       })
 
-      const url = `${apiUrl}/mw/{ns}/{sa}/create_en`
+      const url = `${RestURL}/mw/{ns}/{sa}/create_en`
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -378,7 +377,7 @@ const MetaEntity = () => {
       return
     }
     const requestBody = { ids: idsToSend }
-    const url = `${apiUrl}/mw/delete_en`
+    const url = `${RestURL}/mw/delete_en`
     try {
       const response = await fetch(url, {
         method: 'POST',

@@ -26,8 +26,7 @@ const CreateNewMapRowModal = ({ customClass, open, refetch, onClose }) => {
     refetch: PropTypes.func,
     onClose: PropTypes.func
   }
-  const { metaNspace } = usePageContext()
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
+  const { metaNspace, RestURL } = usePageContext()
   const initialState = {
     name: '',
     namespace: '',
@@ -116,7 +115,7 @@ const CreateNewMapRowModal = ({ customClass, open, refetch, onClose }) => {
         source_filter: '.'
       }
       const response = await fetch(
-        `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/create_map`,
+        `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_map`,
         {
           method: 'POST',
           headers: {

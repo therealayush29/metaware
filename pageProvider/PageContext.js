@@ -12,7 +12,7 @@ export const PageProvider = ({ children }) => {
   PageProvider.propTypes = {
     children: PropTypes.node.isRequired
   }
-
+  const RestURL = process.env.NEXT_PUBLIC_URL
   const initialState = {
     name: '',
     rule_expression: '',
@@ -163,6 +163,7 @@ export const PageProvider = ({ children }) => {
     // eslint-disable-next-line react/react-in-jsx-scope
     <PageContext.Provider
       value={{
+        RestURL,
         columns,
         setColumns,
         tabData,

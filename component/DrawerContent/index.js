@@ -96,7 +96,6 @@ const DrawerContent = ({
       }
     ]
   }
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
   const [isEditing, setIsEditing] = useState(false)
   const [editId, setEditId] = useState(null)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
@@ -105,7 +104,7 @@ const DrawerContent = ({
   const [actionedRules, setActionedRules] = useState([])
   const [dataRules, setDataRules] = useState([])
   const [error, setError] = useState(null)
-  const { isApplying, setIsApplying, resetForm, checkRules, setCheckRules, actionRules, setActionRules, valueTab, handleTabChange, handleInputChange, handleRadioChange, formData, setFormData, errorMsgName, setErrorMsgName, errorMsgRule, setErrorMsgRule } = usePageContext()
+  const { RestURL, isApplying, setIsApplying, resetForm, checkRules, setCheckRules, actionRules, setActionRules, valueTab, handleTabChange, handleInputChange, handleRadioChange, formData, setFormData, errorMsgName, setErrorMsgName, errorMsgRule, setErrorMsgRule } = usePageContext()
   const filteredCheckRules = checkRules?.filter(rule => rule.meta && rule.meta.includes(columnId))
   const filteredActionRules = actionRules?.filter(rule => rule.meta && rule.meta.includes(columnId))
 
@@ -282,7 +281,7 @@ const DrawerContent = ({
     } else {
       // Make API call for deletion
       const requestBody = { ids: [id] }
-      const url = `${apiUrl}/mw/delete_rules?ns=${namespace}&sa=${subjectarea}&en=${entity}`
+      const url = `${RestURL}/mw/delete_rules?ns=${namespace}&sa=${subjectarea}&en=${entity}`
       try {
         const response = await fetch(url, {
           method: 'POST',
@@ -319,7 +318,7 @@ const DrawerContent = ({
         })
       }
       if (actionedRules.length > 0) {
-        const createResponse = await fetch(`${apiUrl}/mw/${namespace}/${subjectarea}/${entity}/create_apply_ruleset`, {
+        const createResponse = await fetch(`${RestURL}/mw/${namespace}/${subjectarea}/${entity}/create_apply_ruleset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -354,7 +353,7 @@ const DrawerContent = ({
         })
       }
       if (checkedRules.length > 0) {
-        const createResponse = await fetch(`${apiUrl}/mw/${namespace}/${subjectarea}/${entity}/create_apply_ruleset`, {
+        const createResponse = await fetch(`${RestURL}/mw/${namespace}/${subjectarea}/${entity}/create_apply_ruleset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

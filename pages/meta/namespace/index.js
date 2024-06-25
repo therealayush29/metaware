@@ -26,6 +26,7 @@ import PopupHeader from '@/component/Popup/PopupHeader'
 import PopupBody from '@/component/Popup/PopupBody'
 import DeleteConfirmationDialog from '@/component/DeleteConfirmationDialog'
 import MetaIcon from '@/component/Icons/IconMeta'
+import { usePageContext } from '@/pageProvider/PageContext'
 
 const MetaNamespace = () => {
   const router = useRouter()
@@ -34,7 +35,7 @@ const MetaNamespace = () => {
     router.push('/meta')
   }
 
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
+  const { RestURL } = usePageContext()
   const [mode, setMode] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
   const [namespaceType, setNamespaceType] = useState([])
@@ -204,7 +205,7 @@ const MetaNamespace = () => {
         tags: {},
         custom_props: {}
       }))
-      const url = `${apiUrl}/mw/create_ns`
+      const url = `${RestURL}/mw/create_ns`
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -255,7 +256,7 @@ const MetaNamespace = () => {
       return updatedMetaNamespace
     })
     const requestBody = { ids: idsToSend }
-    const url = `${apiUrl}/mw/delete_ns`
+    const url = `${RestURL}/mw/delete_ns`
     try {
       const response = await fetch(url, {
         method: 'POST',

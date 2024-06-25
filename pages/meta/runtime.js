@@ -25,10 +25,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MetaIcon from '@/component/Icons/IconMeta'
 import { useMetaRunTime } from '../../Hooks/MetaRunTime'
+import { usePageContext } from '@/pageProvider/PageContext'
 
 export default function MetaRuntime () {
   const router = useRouter()
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
+  const { RestURL } = usePageContext
 
   const { type, namespace, subjectarea, entity, enId } = router.query
 
@@ -213,7 +214,7 @@ export default function MetaRuntime () {
       //     ...(type === 'model' && checkedAdvance === true && { requiresMastering })
       //   }
       const response = await fetch(
-        `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/update_entity_runtime?en_id=${enId}`,
+        `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/update_entity_runtime?en_id=${enId}`,
         {
           method: 'POST',
           headers: {

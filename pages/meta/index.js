@@ -57,6 +57,7 @@ export default function Meta () {
   }
   const router = useRouter()
   const {
+    RestURL,
     updatedCells,
     setUpdatedCells,
     isActive,
@@ -82,7 +83,6 @@ export default function Meta () {
     name: 'Dashboard',
     namespace: 'Meta'
   }
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [isDockerValue, setDockerValue] = useState(false)
   const handleDockerClick = () => {
     setDockerValue((prevState) => !prevState)
@@ -511,7 +511,7 @@ export default function Meta () {
           }))
         }
 
-        const url = `${apiUrl}/mw/${namespace}/${subjectarea}/${entity}/create_meta`
+        const url = `${RestURL}/mw/${namespace}/${subjectarea}/${entity}/create_meta`
         const response = await fetch(url, {
           method: 'POST',
           headers: {
@@ -545,7 +545,7 @@ export default function Meta () {
             association_type_code: 'link'
           }
         }).find(() => true)
-        const urlAsso = `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/create_meta_association`
+        const urlAsso = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_meta_association`
         const response = await fetch(urlAsso, {
           method: 'POST',
           headers: {
@@ -605,7 +605,7 @@ export default function Meta () {
       return
     }
     const requestBody = { ids: idsToSend }
-    const url = `${apiUrl}/mw/delete_ns`
+    const url = `${RestURL}/mw/delete_ns`
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -1111,7 +1111,7 @@ export default function Meta () {
         namespace={namespace}
         subjectarea={subjectarea}
         entity={entity}
-        apiUrl={apiUrl}
+        RestURL={RestURL}
         />
       </MainCard>
     </>

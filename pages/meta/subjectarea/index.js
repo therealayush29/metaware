@@ -27,13 +27,12 @@ const MetaSubjectarea = () => {
   const goToPrevPage = () => {
     router.push('/meta')
   }
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
+  const { saNewRow, setsaNewRow, subjectareaData, setSubjectareaData, updatedCells, setUpdatedCells, RestURL } = usePageContext()
   const [modeSubjectarea, setModeSubjectarea] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { saNewRow, setsaNewRow, subjectareaData, setSubjectareaData, updatedCells, setUpdatedCells } = usePageContext()
 
   const { loading, data, refetch } = useMeta()
   const [subjectareaoptions, setSubjectAreaOptions] = useState([])
@@ -228,7 +227,7 @@ const MetaSubjectarea = () => {
         }
       })
 
-      const url = `${apiUrl}/mw/{ns}/create_sa`
+      const url = `${RestURL}/mw/{ns}/create_sa`
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -286,7 +285,7 @@ const MetaSubjectarea = () => {
       return
     }
     const requestBody = { ids: idsToSend }
-    const url = `${apiUrl}/mw/delete_sa`
+    const url = `${RestURL}/mw/delete_sa`
     try {
       const response = await fetch(url, {
         method: 'POST',

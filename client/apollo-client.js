@@ -3,16 +3,16 @@ import { setContext } from '@apollo/client/link/context'
 import fetch from 'isomorphic-unfetch'
 
 const adminSecret = '9kPV1Tvkh7Wl0b3BJ9isfyvr4qdm3dNJZku3YHqDJ3D3lNAzafQnupSOTDFaQRe2'
-
+const RestURL = process.env.NEXT_PUBLIC_URL
 const httpLink = createHttpLink({
-  uri: 'https://mw-bqfztwl5za-ue.a.run.app/graphql',
+  uri: `${RestURL}/graphql`,
   fetch
 })
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
-      ...headers,
+      ...headers
       // 'x-hasura-admin-secret': adminSecret
     }
   }

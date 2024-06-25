@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { usePageContext } from '@/pageProvider/PageContext'
@@ -138,8 +138,7 @@ const MappingScreen = ({ children }) => {
     )
   }
 
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
-  const { sourceData, selectedCellId, isActive, resetForm, openNamespace } =
+  const { RestURL, sourceData, selectedCellId, isActive, resetForm, openNamespace } =
     usePageContext()
   const sourceValues = selectedCellId && selectedCellId.map_sources ? selectedCellId.map_sources.split(' > ') : []
   const [sourceNs, sourceSa, sourceEn] = sourceValues
@@ -177,19 +176,20 @@ const MappingScreen = ({ children }) => {
   const [sourceModalOpen, setSourceModalOpen] = useState(false)
   const [granularityModalOpen, setGranularityModalOpen] = useState(false)
 
-  const columns = [
-    {
-      accessorKey: 'id',
-      header: 'ID',
-      width: 100,
-      enableEditing: false
-    },
-    {
-      accessorKey: 'nameTypeNullable',
-      header: 'Target Name',
-      enableEditing: false,
-      Cell: ({ cell }) => {
-        return (
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'id',
+        header: 'ID',
+        width: 100,
+        enableEditing: false
+      },
+      {
+        accessorKey: 'nameTypeNullable',
+        header: 'Target Name',
+        enableEditing: false,
+        Cell: ({ cell }) => {
+          return (
           <>
             <div className={'name'}>
               <span>{cell.row.original.name}</span>
@@ -221,15 +221,15 @@ const MappingScreen = ({ children }) => {
               <span>{cell.row.original.type === 'id' ? <BootstrapTooltip title={`Select unique identifiers on the source ${ns}.${sa}.${en} that represents ${namespace}.${subjectarea}.${entity}`} placement="top" ><InfoIcon /></BootstrapTooltip> : ''}</span>
             </div>
           </>
-        )
-      }
-    },
-    {
-      accessorKey: 'rule',
-      header: 'Rule',
-      width: 450,
-      editable: true,
-      Edit: ({ cell }) => (
+          )
+        }
+      },
+      {
+        accessorKey: 'rule',
+        header: 'Rule',
+        width: 450,
+        editable: true,
+        Edit: ({ cell }) => (
         <ComboBox
           entity={enId}
           subjectarea={sa}
@@ -253,9 +253,11 @@ const MappingScreen = ({ children }) => {
             setIsCellEditing(true)
           }}
         />
-      )
-    }
-  ]
+        )
+      }
+    ],
+    []
+  )
 
   const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId)
   useEffect(() => {
@@ -274,6 +276,7 @@ const MappingScreen = ({ children }) => {
       setIsLoading(false)
     }
   }, [ruleLoading, ruleData])
+  console.log('metaNamespace', metaNamespace)
 
   // useEffect(() => {
   //   if (!loading && !ruleLoading && data && ruleData) {
@@ -423,7 +426,7 @@ const MappingScreen = ({ children }) => {
           }))
         }
       }
-      const url = `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/create_en_natural_keys`
+      const url = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_en_natural_keys`
       // Make the API call
       const response = await fetch(url, {
         method: 'POST',
@@ -436,7 +439,7 @@ const MappingScreen = ({ children }) => {
       // Handle response
       if (response.ok) {
         toast.info('wait process is running')
-        const url = `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/{map_id}/save_map`
+        const url = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/{map_id}/save_map`
         const mapResponse = await fetch(url, {
           method: 'POST',
           headers: {
@@ -465,7 +468,7 @@ const MappingScreen = ({ children }) => {
   const handleRunBtn = async () => {
     try {
       setIsRunning(true)
-      const secondUrl = `${apiUrl}/data/${namespace}/${subjectarea}/${entity}/{map}/save_map?map_id=${mapId}`
+      const secondUrl = `${RestURL}/data/${namespace}/${subjectarea}/${entity}/{map}/save_map?map_id=${mapId}`
       const secondResponse = await fetch(secondUrl, {
         method: 'POST',
         headers: {
@@ -476,7 +479,7 @@ const MappingScreen = ({ children }) => {
       if (secondResponse.ok) {
         setIsRunning(true)
         toast.info('wait dont close this screen')
-        const runUrl = `${apiUrl}/data/${namespace}/${subjectarea}/${entity}/{map}/run_map?map_id=${mapId}`
+        const runUrl = `${RestURL}/data/${namespace}/${subjectarea}/${entity}/{map}/run_map?map_id=${mapId}`
         const thirdResponse = await fetch(runUrl, {
           method: 'POST',
           headers: {

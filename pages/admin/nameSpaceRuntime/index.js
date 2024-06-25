@@ -27,7 +27,7 @@ import MetaIcon from '@/component/Icons/IconMeta'
 import SelectSearch from 'react-select-search'
 
 export default function nameSpaceRuntime () {
-  const { metaNspace } = usePageContext()
+  const { metaNspace, RestURL } = usePageContext()
   const goToPrevPage = () => {
     window.history.back()
   }
@@ -37,7 +37,6 @@ export default function nameSpaceRuntime () {
     group: [],
     archiveDays: ''
   }
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [errorMsg, setErrorMsg] = useState(false)
   const [formData, setFormData] = useState(initialState)
   const [namespaceOptions, setNamespaceOptions] = useState()
@@ -109,7 +108,7 @@ export default function nameSpaceRuntime () {
           database_type: databaseType
         }
         const response = await fetch(
-          `${apiUrl}/meta/${namespace}/${namespaceId}/update_namespace_runtime`,
+          `${RestURL}/meta/${namespace}/${namespaceId}/update_namespace_runtime`,
           {
             method: 'POST',
             headers: {

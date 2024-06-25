@@ -25,11 +25,10 @@ import MetaIcon from '@/component/Icons/IconMeta'
 import SelectSearch from 'react-select-search'
 
 export default function subjectareaRuntime () {
-  const { metaNspace } = usePageContext()
+  const { metaNspace, RestURL } = usePageContext()
   const goToPrevPage = () => {
     window.history.back()
   }
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [errorMsg, setErrorMsg] = useState(false)
   const [formData, setFormData] = useState([])
   const [namespaceOptions, setNamespaceOptions] = useState()
@@ -115,7 +114,7 @@ export default function subjectareaRuntime () {
           folder_max_size: parseInt(folderMaxSize)
         }
         const response = await fetch(
-          `${apiUrl}/meta/${namespace}/${subjectarea}/${subjectareaId}/update_subjectarea_runtime`,
+          `${RestURL}/meta/${namespace}/${subjectarea}/${subjectareaId}/update_subjectarea_runtime`,
           {
             method: 'POST',
             headers: {

@@ -73,7 +73,7 @@ const DashboardTable = () => {
   }
   const router = useRouter()
   const { namespace, subjectarea, entity, id, type, popup, enId } = router.query
-  const { isActive, resetForm, openNamespace, setSelectedCellId, tableData, setTableData, setTabData, tabData, columns, setColumns } = usePageContext()
+  const { RestURL, isActive, resetForm, openNamespace, setSelectedCellId, tableData, setTableData, setTabData, tabData, columns, setColumns } = usePageContext()
   const [value, setValue] = useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -82,7 +82,6 @@ const DashboardTable = () => {
     const tabFromQuery = parseInt(router.query.tab, 10) || 0
     setValue(tabFromQuery)
   }, [router.query.tab])
-  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const url1 = '#'
   const url2 = `/data/${namespace}/${subjectarea}?id=${id}&type=${type}`
   const url3 = `/data/${namespace}/${subjectarea}/${entity}`
@@ -159,7 +158,7 @@ const DashboardTable = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          `${apiUrl}/data/${namespace}/${subjectarea}/${entity}`
+          `${RestURL}/data/${namespace}/${subjectarea}/${entity}`
         )
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -232,7 +231,7 @@ const DashboardTable = () => {
   const handleCreateNewRow = async (values) => {
     try {
       const response = await fetch(
-        `${apiUrl}/data/${namespace}/${subjectarea}/${entity}/create_data`,
+        `${RestURL}/data/${namespace}/${subjectarea}/${entity}/create_data`,
         {
           method: 'POST',
           headers: {
@@ -326,7 +325,7 @@ const DashboardTable = () => {
 
     try {
       const response = await fetch(
-        `${apiUrl}/data/${namespace}/${subjectarea}/${entity}/update_data`,
+        `${RestURL}/data/${namespace}/${subjectarea}/${entity}/update_data`,
         {
           method: 'POST',
           headers: {
@@ -530,7 +529,7 @@ const DashboardTable = () => {
           source_filter: '.'
         }
       })
-      const url = `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/create_map`
+      const url = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_map`
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -568,7 +567,7 @@ const DashboardTable = () => {
       try {
         setIsLoadingDq(true)
         const response = await fetch(
-          `${apiUrl}/data/${namespace}/${subjectarea}/${entity}_dq`
+          `${RestURL}/data/${namespace}/${subjectarea}/${entity}_dq`
         )
         if (!response.ok) {
           throw new Error('Failed to fetch data')
