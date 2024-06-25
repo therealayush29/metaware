@@ -10,8 +10,7 @@ import {
   IconButton,
   Checkbox,
   Avatar,
-  Skeleton,
-  FormLabel
+  Skeleton
 } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
 import { MaterialReactTable } from 'material-react-table'
@@ -62,6 +61,7 @@ export default function GlossarySearchResults ({ data, loading }) {
     setDetailArr(DetailValue)
     setOpenMetaDetail(true)
   }
+  // eslint-disable-next-line no-lone-blocks
   { /* const handleEntityDetailclick = (id, name) => {
     const DetailValue = [
       { id, name }

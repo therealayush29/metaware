@@ -39,7 +39,6 @@ import TerminalIcon from '@/component/Icons/IconTerminal'
 import PropertiesIcon from '@/component/Icons/IconProperties'
 import SourceIcon from '@/component/Icons/IconSource'
 import DataIcon from '@/component/Icons/IconData'
-import { useEntries } from '@/Hooks/Entries'
 import { useMapSrcData } from '@/Hooks/MappingSrcData'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -259,12 +258,6 @@ const MappingScreen = ({ children }) => {
   ]
 
   const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId)
-  const { data, loading } = useEntries(
-    entity,
-    subjectarea,
-    type,
-    namespace
-  )
   useEffect(() => {
     if (!ruleLoading && ruleData) {
       setIsLoading(true)
