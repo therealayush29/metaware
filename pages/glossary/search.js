@@ -63,10 +63,14 @@ export default function Glossary () {
   const combinedItems = []
   if (data) {
     data.meta_namespace.forEach((namespace) => {
-      namespace.subjectareas.forEach((subjectarea) => {
-        combinedItems.push(...subjectarea.entities.map(entity => ({ type: 'entity', data: entity })))
-        combinedItems.push(...subjectarea.entities.flatMap(entity => entity.meta.map(metaItem => ({ type: 'meta', data: metaItem }))))
-      })
+      if (namespace.type === 'glossary') {
+        namespace.subjectareas?.forEach((subjectarea) => {
+          if (subjectarea.entities) {
+            combinedItems.push(...subjectarea.entities?.map(entity => ({ type: 'entity', data: entity })))
+            combinedItems.push(...subjectarea.entities.flatMap(entity => entity.metas?.map(metaItem => ({ type: 'meta', data: metaItem }))))
+          }
+        })
+      }
     })
   }
 
@@ -78,16 +82,20 @@ export default function Glossary () {
   let _totalMetaCount = 0
   if (search !== '' && data) { // Only calculate totalCount if search is not blank
     data.meta_namespace.forEach((namespace) => {
-      namespace.subjectareas.forEach((subjectarea) => {
-        totalCount += subjectarea.entities.filter((item) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        ).length
-        _totalMetaCount += subjectarea.entities
-          .flatMap((item) =>
-            item.meta
-              .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
-          ).length
-      })
+      if (namespace.type === 'glossary') {
+        namespace.subjectareas?.forEach((subjectarea) => {
+          if (subjectarea.entities) {
+            totalCount += subjectarea.entities?.filter((item) =>
+              item.name.toLowerCase().includes(search.toLowerCase())
+            ).length
+            _totalMetaCount += subjectarea.entities
+              ?.flatMap((item) =>
+                item.metas
+                  .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+              ).length
+          }
+        })
+      }
     })
   }
   return (

@@ -58,10 +58,10 @@ export default function subjectareas () {
 
   const [activeSubMenu, setActiveSubMenu] = useState('')
   useEffect(() => {
-    if (metaNamespace.length > 0) {
-      setActiveSubMenu(metaNamespace[0].namespace.name)
+    if (namespace) {
+      setActiveSubMenu(namespace)
     }
-  }, [metaNamespace])
+  }, [namespace])
 
   const handleClick = (entityName, entityId) => {
     router.push(`/data/${namespace}/${subjectarea}/${entityName}?id=${id}&type=${type}&enId=${entityId}`)
@@ -108,7 +108,7 @@ export default function subjectareas () {
               </Grid>
             </div>
             <Grid container spacing={3}>
-              {item.entities.map((entity) => (
+              {item.entities?.map((entity) => (
                 <Grid item key={entity.id} xs={12} sm={6} md={3}>
                   {Isloading
                     ? (

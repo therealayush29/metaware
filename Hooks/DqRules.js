@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client'
 import { DQRULES } from '../GraphQl/queries'
 
-const useDqRules = (enId) => {
+const useDqRules = (enId, type) => {
   const { loading, error, data, refetch } = useQuery(DQRULES, {
-    variables: { enId }
+    variables: { enId, type }
   })
 
   return {

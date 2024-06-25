@@ -82,7 +82,7 @@ export default function Meta () {
     name: 'Dashboard',
     namespace: 'Meta'
   }
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [isDockerValue, setDockerValue] = useState(false)
   const handleDockerClick = () => {
     setDockerValue((prevState) => !prevState)
@@ -94,7 +94,7 @@ export default function Meta () {
   const [autoDetectMeta, setAutodetectMeta] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [namespaceOptions, setNamespaceOptions] = useState([])
-  const { namespaceValue, nameSpaceType, subjectareaValue, entityValue } =
+  const { namespaceValue, nameSpaceType, subjectareaValue, entityValue, entityName } =
     state
   const entity = entityValue
   const subjectarea = subjectareaValue
@@ -127,6 +127,30 @@ export default function Meta () {
       {
         accessorKey: 'nullable',
         header: 'Nullable',
+        size: 150,
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        editVariant: 'select',
+        editSelectOptions: nullableOptions
+      },
+      {
+        accessorKey: 'is_primary',
+        header: 'is_primary',
+        size: 150,
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        editVariant: 'select',
+        editSelectOptions: nullableOptions
+      },
+      {
+        accessorKey: 'is_secondary',
+        header: 'is_secondary',
+        size: 150,
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        editVariant: 'select',
+        editSelectOptions: nullableOptions
+      },
+      {
+        accessorKey: 'is_tertiary',
+        header: 'is_tertiary',
         size: 150,
         Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
@@ -193,13 +217,13 @@ export default function Meta () {
     error: enError
   } = useMetaEntity(entity, type)
 
-  // eslint-disable-next-line no-unused-vars
   const { data, loading, error, refetch } = useEntries(
-    entity,
-    subjectarea,
-    type,
-    namespace
+    entity
   )
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
+
   useEffect(() => {
     if (loading) {
       setIsLoading(true)
@@ -272,7 +296,7 @@ export default function Meta () {
 
         if (selectedNamespaceObj) {
           const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
-            sa.entities.map((en) => ({
+            sa.entities?.map((en) => ({
               name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
               value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
               id: sa.id
@@ -339,9 +363,13 @@ export default function Meta () {
     setSelectedSubjectArea(selectedSubjectAreaObj)
   }
   const handleEntityChange = (event) => {
+    const selectedEntity = selectedSubjectArea.entities.find(
+      (item) => item.id === event.target.value
+    )
     setState((prevState) => ({
       ...prevState,
-      entityValue: event.target.value
+      entityValue: event.target.value,
+      entityName: selectedEntity.name
     }))
   }
 
@@ -666,6 +694,7 @@ export default function Meta () {
                             name="namespace"
                             label="Select Namespace"
                             placeholder="Select Namespace"
+                            disabled={!namespaceOptions}
                             onChange={(newValue) => {
                               const group = namespaceOptions.find((option) =>
                                 option.items.some(
@@ -756,7 +785,7 @@ export default function Meta () {
                               <MenuItem
                                 disabled={!subjectareaValue}
                                 key={item.id}
-                                value={item.name}
+                                value={item.id}
                               >
                                 {item.name}
                               </MenuItem>
@@ -796,7 +825,7 @@ export default function Meta () {
                     <h3>
                       &nbsp;
                       <MetaIcon />{' '}
-                      {entity && entity.length > 0 ? entity : 'No Data'}
+                      {entityName && entityName.length > 0 ? entityName : 'No Data'}
                     </h3>
                   </div>
                 </Grid>

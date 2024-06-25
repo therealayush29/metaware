@@ -1,10 +1,8 @@
 import { useQuery } from '@apollo/client'
 import { METADETAILSASSO } from '../GraphQl/queries'
 
-const useMetaDetailsAsso = (id) => {
-  const { loading, error, data } = useQuery(METADETAILSASSO, {
-    variables: { id }
-  })
+const useMetaDetailsAsso = () => {
+  const { loading, error, data } = useQuery(METADETAILSASSO)
   return {
     loading,
     error,

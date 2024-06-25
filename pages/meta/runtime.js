@@ -28,7 +28,7 @@ import { useMetaRunTime } from '../../Hooks/MetaRunTime'
 
 export default function MetaRuntime () {
   const router = useRouter()
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
 
   const { type, namespace, subjectarea, entity, enId } = router.query
 

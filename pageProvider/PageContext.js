@@ -66,6 +66,9 @@ export const PageProvider = ({ children }) => {
   const [updatedCells, setUpdatedCells] = useState([])
   const [clicked, setClicked] = useState(false)
   const [activeCardId, setActiveCardId] = useState(null)
+  const [columns, setColumns] = useState([])
+  const [tableData, setTableData] = useState([])
+  const [tabData, setTabData] = useState([])
   useEffect(() => {
     localStorage.setItem('metaNspace', JSON.stringify(metaNspace))
     localStorage.setItem('checkRules', JSON.stringify(checkRules))
@@ -160,6 +163,12 @@ export const PageProvider = ({ children }) => {
     // eslint-disable-next-line react/react-in-jsx-scope
     <PageContext.Provider
       value={{
+        columns,
+        setColumns,
+        tabData,
+        setTabData,
+        tableData,
+        setTableData,
         activeCardId,
         setActiveCardId,
         clicked,

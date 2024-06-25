@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import { Box, Dialog, DialogActions, DialogContent, Grid, IconButton, Stack, Tab, Tabs, Accordion, AccordionSummary, AccordionDetails, Skeleton } from '@mui/material'
 import { Close as CloseIcon, ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import { MaterialReactTable } from 'material-react-table'
 import CardHeadingItem from '@/component/CardHeading'
 import MetaIcon from '@/component/Icons/IconMeta'
+import ModelIcon from '@/component/Icons/IconModel'
 import layoutStyle from '@/assets/css/layout.module.css'
 import { useMetaDetails } from '../../Hooks/MetaDetails'
 import { useMetaDetailsAsso } from '../../Hooks/MetaDetailsAsso'
@@ -64,7 +66,7 @@ const SearchMetaDetail = ({
   const order = data?.meta_meta.map(item => item.order)
   const [value, setValue] = useState(0)
 
-  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso(id)
+  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso()
   if (errorAss) {
     return <div>Error: {errorAss.message}</div>
   }
@@ -76,6 +78,7 @@ const SearchMetaDetail = ({
     const associatedIds = entry.metum.glossary_associations.map(assoc => assoc.associated_id)
     return { id, glossaryId, assoType, associatedMeta, associatedIds }
   })
+  const filteredData = data1?.filter(item => item.glossaryId === id)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -150,7 +153,7 @@ const SearchMetaDetail = ({
                 </Box>
                 <CustomTabPanel value={value} index={0}>
                   <Grid container spacing={2}>
-                    <Grid item xs={9}>
+                    <Grid item xs={6}>
                       <div className='srchAccrdn'>
                         <Accordion defaultExpanded>
                           <AccordionSummary
@@ -166,7 +169,7 @@ const SearchMetaDetail = ({
                               <p><Skeleton variant="rounded" width={610}/></p>
                                 )
                               : (
-                              <p>{description}</p>
+                              <p><b>{description}</b> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 )}
                           </AccordionDetails>
                         </Accordion>
@@ -178,13 +181,37 @@ const SearchMetaDetail = ({
                             aria-controls="panel2-content"
                             id="panel2-header"
                           >
-                            Association Relation
+                            Association Relationships
                           </AccordionSummary>
                           <AccordionDetails>
-                            <div className={'commonTable commonMetaHeightTable hideTblFilters'}>
+                            <div className='assRltnList'>
+                              <div className='assRltnCol'>
+                                <p>Association Type</p>
+                                <div className='assRltnData'>
+                                  <Link href="">
+                                    <i>
+                                      <MetaIcon />
+                                    </i>
+                                    <span>Exact Match</span>
+                                  </Link>
+                                </div>
+                              </div>
+                              <div className='assRltnCol'>
+                                <p>Associated Meta Name</p>
+                                <div className='assRltnData'>
+                                  <Link href="">
+                                    <i>
+                                      <MetaIcon />
+                                    </i>
+                                    <span>company_name</span>
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                            {/*<div className={'commonTable commonMetaHeightTable hideTblFilters'}>
                               <MaterialReactTable
                                 columns={columns}
-                                data={data1 || []}
+                                data={filteredData || []}
                                 state={loadingAss}
                                 enableGrouping={false}
                                 muiTableContainerProps={{ sx: { maxHeight: '460px' } }}
@@ -200,20 +227,49 @@ const SearchMetaDetail = ({
                                   }
                                 })}
                               />
+                              </div>*/}
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                      <div className='srchAccrdn'>
+                        <Accordion defaultExpanded>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2-content"
+                            id="panel2-header"
+                          >
+                            Linked Relationships
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className='assRltnList'>
+                              <div className='assRltnCol'>
+                                <p>Table</p>
+                                <div className='assRltnData'>
+                                  <Link href="">
+                                    <span>Exact Match</span>
+                                  </Link>
+                                  <i>
+                                    <ModelIcon />
+                                  </i>
+                                  <Link href="">
+                                    <span>company_name</span>
+                                  </Link>
+                                </div>
+                              </div>
                             </div>
                           </AccordionDetails>
                         </Accordion>
                       </div>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                       <div className='srchAccrdn'>
                         <Accordion defaultExpanded>
                           <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel3-content"
-                            id="panel3-header"
+                            aria-controls="panel4-content"
+                            id="panel4-header"
                           >
-                            Meta Info
+                            Meta Properties
                           </AccordionSummary>
                           <AccordionDetails>
                             <div className='srchMetaInfo'>
@@ -228,11 +284,12 @@ const SearchMetaDetail = ({
                                   )
                                 : (
                                 <>
-                                  <li><span>Type</span><i>:</i><em>{type}</em></li>
-                                  <li><span>Alias</span><i>:</i><em>{alias}</em></li>
-                                  <li><span>Length</span><i>:</i><em>{length}</em></li>
-                                  <li><span>Default</span><i>:</i><em>{defaults}</em></li>
-                                  <li><span>Tags</span><i>:</i><em>{tags}</em></li>
+                                  <li><span>Title</span><i>:</i><em>{detail.map((val) => val.name)}</em></li>
+                                  <li><span>Type</span><i>:</i><em>Text{type}</em></li>
+                                  <li><span>Alias</span><i>:</i><em>{alias}OrgName</em></li>
+                                  <li><span>Length</span><i>:</i><em>{length}5</em></li>
+                                  <li><span>Default</span><i>:</i><em>{defaults}None</em></li>
+                                  <li><span>Tags</span><i>:</i><em>{tags}Green</em></li>
                                   <li><span>Order</span><i>:</i><em>{order}</em></li>
                                 </>
                                   )}

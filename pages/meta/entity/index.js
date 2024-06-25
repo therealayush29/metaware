@@ -32,7 +32,7 @@ const MetaEntity = () => {
     router.push('/meta')
   }
   const { enNewRow, entityData, setEntityData, updatedCells, setUpdatedCells, setenNewRow } = usePageContext()
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [modeEntity, setModeEntity] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
@@ -98,6 +98,21 @@ const MetaEntity = () => {
           size: 100
         },
         {
+          accessorKey: 'primary_grain',
+          header: 'primary_grain',
+          size: 180
+        },
+        {
+          accessorKey: 'secondary_grain',
+          header: 'secondary_grain',
+          size: 180
+        },
+        {
+          accessorKey: 'tertiary_grain',
+          header: 'tertiary_grain',
+          size: 180
+        },
+        {
           accessorKey: 'is_delta',
           header: 'Is delta',
           Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
@@ -122,12 +137,12 @@ const MetaEntity = () => {
           (namespaceType === nsType) && (namespaceName === ns)
 
         if (isMatchingNamespace || (!nsType && !ns && !sa)) {
-          return namespace.subjectareas.flatMap((subjectarea) => {
+          return (namespace.subjectareas || []).flatMap((subjectarea) => {
             const subjectareaName = subjectarea.name
             const isMatchingSubjectArea = !sa || subjectareaName === sa
 
             if (isMatchingSubjectArea) {
-              return subjectarea.entities.flatMap((entity) => ({
+              return (subjectarea.entities || []).flatMap((entity) => ({
                 namespace: `${namespaceType} > ${namespaceName}`,
                 subjectarea: subjectareaName,
                 id: entity.id,
@@ -136,7 +151,7 @@ const MetaEntity = () => {
                 subtype: entity.subtype,
                 type: entity.type,
                 is_delta: entity.is_delta
-              }))
+              })) || []
             } else {
               return []
             }

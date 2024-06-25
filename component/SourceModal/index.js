@@ -47,9 +47,9 @@ const SourceModal = ({ customClass, open, onClose }) => {
   const stagingData = dataNamespace.filter((item) => item.type === 'staging')
   const sourceOptions = stagingData.flatMap((namespace) => {
     const { name: namespaceName } = namespace
-    return namespace.subjectareas.flatMap((subjectArea) => {
+    return namespace.subjectareas?.flatMap((subjectArea) => {
       const { name: subjectAreaName } = subjectArea
-      return subjectArea.entities.map((entity) => {
+      return subjectArea.entities?.map((entity) => {
         const { name: entityName } = entity
         const optionName = `${namespaceName} > ${subjectAreaName} > ${entityName}`
         const optionValue = optionName

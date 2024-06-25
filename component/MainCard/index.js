@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { useTour } from '@reactour/tour'
 import ContrastIcon from '@mui/icons-material/Contrast'
-import Sidebar from '@/component/Sidebar'
+import dynamic from 'next/dynamic'
 import Header from '@/component/Header'
 import {
   InfoOutlined as InfoIcon
@@ -14,6 +14,9 @@ import ArrowLeftIcon from '@/component/Icons/IconArrowLeft'
 import ArrowRightIcon from '@/component/Icons/IconArrowRight'
 
 import layoutStyle from '@/assets/css/layout.module.css'
+const Sidebar = dynamic(() => import('@/component/Sidebar'), {
+  ssr: true
+});
 
 export default function MainCard (props) {
   const { customClass, pageIcon, pageHeading, activeMenu, activeSubMenu, children } = props

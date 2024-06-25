@@ -28,35 +28,22 @@ const META = gql`
 `
 
 const ENTITY = gql`
-  query meta_subjectarea($id: String!) {
-    meta_subjectarea(where: { id: { _eq: $id } }) {
+query meta_subjectarea($id: String!) {
+  meta_subjectarea(id: $id) {
+    id
+    name
+    entities {
       id
       name
-      entities {
-        id
-        name
-        description
-      }
-      namespace {
-        name
-    }
+      description
     }
   }
+}
 `
 
 const ENTRIES = gql`
-query Meta_meta($name: String!, $subjectarea: String!, $type: String!, $namespace: String!,) {
-  meta_meta(
-      where: {
-          entity: {
-              name: { _eq: $name }
-              subjectarea: {
-                  name: { _eq: $subjectarea }
-                  namespace: { type: { _eq: $type }, name: { _eq: $namespace } }
-              }
-          }
-      }
-  ) {
+   query Meta_meta($entity: String!) {
+    meta_meta (enid: $entity ) {
       id
       name
       type
@@ -67,9 +54,8 @@ query Meta_meta($name: String!, $subjectarea: String!, $type: String!, $namespac
       default
       is_unique
       order
+    }
   }
-}
-
 `
 
 const DATAENTRIES = gql`
@@ -94,26 +80,41 @@ const RuleSet = gql`
     }
   }
 `
-
-const MappingData = gql`
-query MyQuery {
-  meta_map {
+const MAPDETAILS = gql`
+  query mapdetails($enId: String!) {
+  meta_ruleset(targetEnId: $enId) {
     id
-    map_status
     name
-    type
-    _created_when
-    map_sources {
-      entity {
-        id
-        name
-        subjectarea {
+    map {
+      id
+      name
+    }
+  }
+}
+`
+const MappingData = gql`
+query mapData($enId: String!) {
+  meta_ruleset(targetEnId: $enId) {
+    id
+    name
+    map {
+      id
+      name
+      map_source {
+        source_entity {
           name
-          namespace {
+          id
+          subjectarea {
+            id
             name
+            namespace {
+              id
+              name
+            }
           }
         }
       }
+      map_status
     }
   }
 }
@@ -137,63 +138,61 @@ const MappingEntData = gql`
 }
 `
 const MappingSrcData = gql`
-query Meta_ruleset($mapId: String!) {
-  meta_ruleset(where: { map_id: { _eq: $mapId } }) {
+query map_src_data($mapId: String!) {
+  map_ruleset(mapId: $mapId) {
+    id
+    name
+    map {
       id
-      ruleset_rules {
-          id
-          meta_id
-          metum {
-              name
-          }
-          rule {
-              id
-              language
-              name
-              rule_category
-              rule_expression
-          }
-          ruleset {
-              view_name
-          }
-      }
-      entity {
-        entityNaturalKeysByTargetEnId {
-          source_natural_key
-           target_meta_id
-          source_natural_key_order
-        }
+      name
+      map_status
+      type
+    }
+    rules {
       id
+      language
+      name
+      rule_expression
+      type
+      subtype
+      meta {
+        id
+        name
+        subtype
+        type
       }
+    }
   }
 }`
 
 const DQRULES = gql`
-query Meta_ruleset_rules($enId: String!) {
-  meta_ruleset_rules(
-      where: { ruleset: { target_en_id: { _eq: $enId } } }
-  ) {
+  query dq_ruleset($enId: String!, $type: String) {
+  meta_ruleset (targetEnId: $enId, type: $type) {
+    id
+    type
+    name
+    target_en_id
+    view_name
+    rules {
       id
+      type
+      subtype
+      name
+      alias
+      rule_expression
+      rule_status
+      description
+      is_shared
+      language
       meta_id
-      rule_id
-      ruleset_id
-      rule {
-          color
-          description
-          fn_name
-          id
-          is_shared
-          language
-          name
-          rule_category
-          rule_expression
-          rule_status
-          rule_tags
-          subtype
-          type
+      meta {
+        id
+        name
       }
+    }
   }
-}`
+}
+`
 
 const METANAME = gql`
 query Meta_entity($enId: String!, $columnId: String!) {
@@ -238,7 +237,7 @@ query Meta_namespace($search: String!) {
 `
 const ENTITYSEARCHRESULT = gql`
 query Meta_namespace {
-  meta_namespace(where: { type: { _eq: "glossary" } }) {
+  meta_namespace {
       id
       name
       type
@@ -251,15 +250,12 @@ query Meta_namespace {
               id
               name
               type
-              tags
-              meta {
+              metas {
                   description
-                  en_id
                   id
                   is_unique
                   name
                   nullable
-                  tags
               }
           }
       }
@@ -283,8 +279,8 @@ const METADETAILS = gql`
   }`
 
 const METADETAILSASSO = gql`
-query Meta_glossary_association($id: String!) {
-  meta_glossary_association(where: { glossary_id: { _eq: $id } }) {
+query Meta_glossary_association {
+  meta_glossary_association{
       glossary_id
       id
       glossary_association_type {
@@ -303,4 +299,4 @@ query Meta_glossary_association($id: String!) {
 }
 `
 
-export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH, METADETAILS, METADETAILSASSO }
+export { META, ENTITY, ENTRIES, DATAENTRIES, RuleSet, MappingData, MappingEntData, MappingSrcData, DQRULES, METANAME, METARUNTIME, ENTITYSEARCHRESULT, METAENTITYSEARCH, METADETAILS, METADETAILSASSO, MAPDETAILS }

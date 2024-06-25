@@ -19,6 +19,7 @@
   --mute6: #e8eaf5;
   --mute7: #fafafa;
   --gray: #323130;
+  --gray1: #66686a;
   --red: #d32f2f;
 }
 
@@ -320,6 +321,7 @@ img {
 .commonTable .Mui-TableHeadCell-Content-Wrapper {
   font-size: 14px;
   text-transform: capitalize;
+  white-space: nowrap;
 }
 .commonTable thead tr {
   box-shadow: 0 0 4px 0 rgba(0,0,0,.1);
@@ -571,21 +573,30 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   color: var(--primary);
   font-weight: 500;
 }
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper{
+  width: 400px!important;
+}
 .fieldLabel {
   color: var(--secondary) !important;
 }
 .fieldRequired {
   color: red;
 }
+
+.ruleEditorForm {
+  margin: 36px 0;
+}
+
 .headingColor {
   font-weight: 600;
   font-size: 1.25rem;
   color: var(--secondary) !important;
-  text-transform: capitalize
 }
 
 .headingColor span {
   font-weight: 400;
+  word-break: break-all
 }
 
 .mb-2 {
@@ -1750,21 +1761,27 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   min-width: 60px;
 }
 
+.srchAccrdn + .srchAccrdn {
+  margin-top: 16px;
+}
+
 .srchAccrdn .MuiAccordion-rounded {
   background-color: transparent;
-  box-shadow: none;
-  border-radius: 0;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
 }
 
 .srchAccrdn .MuiAccordionSummary-root {
   position: relative;
   background-color: var(--whiteBg);
   padding: 10px 16px;
-  border-radius: 6px;
+  border-radius: 0;
   box-sizing: border-box;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+  box-shadow: none;
   min-height: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .srchAccrdn .MuiAccordionSummary-root.Mui-expanded {
@@ -1774,17 +1791,18 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 }
 
 .srchAccrdn .MuiAccordionSummary-content {
+  text-transform: uppercase;
   margin: 0 !important;
 }
 
 .srchAccrdn .MuiAccordionDetails-root {
   background-color: var(--whiteBg);
-  padding: 16px;
-  border-radius: 6px;
+  padding: 6px 16px 16px 16px;
+  border-radius: 0;
   box-sizing: border-box;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1);
+  box-shadow: none;
   min-height: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .srchAccrdn:last-child .MuiAccordionDetails-root {
@@ -1792,6 +1810,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 }
 
 .srchAccrdn .MuiAccordionDetails-root p {
+  color: var(--gray1);
   margin: 0;
 }
 
@@ -1831,11 +1850,12 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 }
 
 .srchMetaInfo li span {
-  background-color: var(--menuHover3);
-  font-weight: 600;
-  width: 20%;
-  padding: 4px 8px;
-  border: 1px solid var(--primary);
+  /* background-color: var(--mute3); */
+  color: var(--gray1);
+  /*font-weight: 600;*/
+  width: 5%;
+  /*padding: 4px 8px;*/
+  /* border: 1px solid var(--border); */
   border-radius: 6px;
 }
 
@@ -1847,8 +1867,9 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 
 .srchMetaInfo li i {
   font-style: normal;
-  width: 10%;
+  width: 5%;
   text-align: center;
+  color: #fff;
 }
 
 .srchMetaInfo1 li i {
@@ -1856,8 +1877,51 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 }
 
 .srchMetaInfo li em {
-  color: var(--black);
+  color: var(--secondary);
   font-style: normal;
   font-weight: 600;
   width: 40%;
+}
+
+.assRltnCol + .assRltnCol {
+  margin-top: 12px;
+}
+
+.assRltnCol p {
+  color: var(--gray1);
+  margin-bottom: 6px !important;
+}
+
+.assRltnData {
+  background-color: var(--mute5);
+  /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, .1); */
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  height: 36px;
+}
+
+.assRltnData a {
+  padding: 5px 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.assRltnData a i svg {
+  width: 20px;
+  height: 20px;
+}
+
+.assRltnData i {
+  color: var(--primary);
+}
+
+.assRltnData i svg {
+  width: 20px;
+  height: 20px;
 }

@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/client'
 import { ENTRIES } from '../GraphQl/queries'
 
-const useEntries = (name, subjectarea, type, namespace) => {
-  const { isLoading, error, data, refetch } = useQuery(ENTRIES, {
-    variables: { name, type, subjectarea, namespace }
+const useEntries = (entity) => {
+  const { loading, error, data, refetch } = useQuery(ENTRIES, {
+    variables: { entity },
+    skip: !entity
   })
 
   return {
-    isLoading,
+    loading,
     error,
     data,
     refetch

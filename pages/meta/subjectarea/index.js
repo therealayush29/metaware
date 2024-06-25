@@ -27,7 +27,7 @@ const MetaSubjectarea = () => {
   const goToPrevPage = () => {
     router.push('/meta')
   }
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [modeSubjectarea, setModeSubjectarea] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
@@ -37,7 +37,7 @@ const MetaSubjectarea = () => {
 
   const { loading, data, refetch } = useMeta()
   const [subjectareaoptions, setSubjectAreaOptions] = useState([])
-
+  console.log('nsType', nsType)
   useEffect(() => {
     if (loading) {
       setIsLoading(true)
@@ -47,22 +47,22 @@ const MetaSubjectarea = () => {
         const namespaceNameType = `${namespace.type} > ${namespace.name}`
         if (nsType && ns) {
           if (namespaceNameType === `${nsType} > ${ns}`) {
-            return namespace.subjectareas.map(subjectarea => ({
+            return namespace.subjectareas?.map(subjectarea => ({
               namespace: namespaceNameType,
               id: subjectarea.id,
               type: subjectarea.type,
               name: subjectarea.name
-            }))
+            })) || []
           } else {
             return []
           }
         } else {
-          return namespace.subjectareas.map(subjectarea => ({
+          return namespace.subjectareas?.map(subjectarea => ({
             namespace: namespaceNameType,
-            id: subjectarea.id,
-            type: subjectarea.type,
-            name: subjectarea.name
-          }))
+            id: subjectarea?.id,
+            type: subjectarea?.type,
+            name: subjectarea?.name
+          })) || []
         }
       })
 

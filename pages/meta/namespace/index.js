@@ -34,7 +34,7 @@ const MetaNamespace = () => {
     router.push('/meta')
   }
 
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const [mode, setMode] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
   const [namespaceType, setNamespaceType] = useState([])

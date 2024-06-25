@@ -35,7 +35,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { usePageContext } from '../../pageProvider/PageContext'
 import DeleteConfirmationDialog from '@/component/DeleteConfirmationDialog'
 import { useDqRules } from '../../Hooks/DqRules'
-import { useMetaName } from '../../Hooks/MetaName'
 function CustomTabPanel (props) {
   const {
     children, value, index, checkRules: localCheckRules,
@@ -85,7 +84,7 @@ const DrawerContent = ({
     namespace: PropTypes.string.isRequired,
     subjectarea: PropTypes.string.isRequired,
     entity: PropTypes.string.isRequired,
-    columnId: PropTypes.string.isRequired,
+    columnId: PropTypes.string,
     enId: PropTypes.string.isRequired
   }
   const menuItemsData = {
@@ -105,47 +104,39 @@ const DrawerContent = ({
   const [checkedRules, setCheckedRules] = useState([])
   const [actionedRules, setActionedRules] = useState([])
   const [dataRules, setDataRules] = useState([])
-  const [dataNameRules, setDataNameRules] = useState(null)
   const [error, setError] = useState(null)
   const { isApplying, setIsApplying, resetForm, checkRules, setCheckRules, actionRules, setActionRules, valueTab, handleTabChange, handleInputChange, handleRadioChange, formData, setFormData, errorMsgName, setErrorMsgName, errorMsgRule, setErrorMsgRule } = usePageContext()
-  const filteredCheckRules = checkRules.filter(rule => rule.meta && rule.meta.includes(columnId))
-  const filteredActionRules = actionRules.filter(rule => rule.meta && rule.meta.includes(columnId))
+  const filteredCheckRules = checkRules?.filter(rule => rule.meta && rule.meta.includes(columnId))
+  const filteredActionRules = actionRules?.filter(rule => rule.meta && rule.meta.includes(columnId))
 
-  const { loading: metaLoading, data: metaName } = useMetaName(enId, columnId)
-  const { loading, data, refetch } = useDqRules(enId)
-
+  const { loading, data, refetch } = useDqRules(enId, 'dq')
   useEffect(() => {
-    if (!loading && data && data.meta_ruleset_rules) {
-      setDataRules(data.meta_ruleset_rules)
+    if (!loading && data && data.meta_ruleset) {
+      setDataRules(data.meta_ruleset)
     }
-  }, [loading, data, setDataRules])
+  }, [loading, data])
 
   useEffect(() => {
-    if (!metaLoading && metaName && metaName.meta_entity) {
-      const metaRule = metaName.meta_entity.map(rule => rule.meta).flat()
-      setDataNameRules(metaRule)
-    }
-  }, [metaLoading, metaName, setDataNameRules])
-
-  useEffect(() => {
-    if (dataNameRules && dataRules) {
-      const finalRule = dataRules
-        .filter(rule => dataNameRules.some(dataNameRule => dataNameRule.id === rule.meta_id))
-        .map(rule => {
-          const { rule: { ...restRule }, ...restDataNameRule } = rule
-          const { name: metaName, ...restDataName } = dataNameRules.find(dataNameRule => dataNameRule.id === rule.meta_id)
-          return { ...restRule, meta: metaName, ...restDataName, ...restDataNameRule }
-        })
-      const checkRulesToAdd = finalRule.filter(rule => rule.subtype === 'check')
-      const actionRulesToAdd = finalRule.filter(rule => rule.subtype === 'action')
-      const activeCheckRules = checkRulesToAdd.filter(rule => rule.rule_status === 'active')
-      const activeActionRules = checkRulesToAdd.filter(rule => rule.rule_status === 'active')
+    if (dataRules) {
+      let finalRule
+      if (dataRules && Array.isArray(dataRules)) {
+        finalRule = dataRules.flatMap(rule =>
+          rule.rules.map(ru => ({
+            ...ru,
+            meta: ru.meta.name
+          }))
+        )
+      }
+      const checkRulesToAdd = finalRule?.filter(rule => rule.subtype === 'check')
+      const actionRulesToAdd = finalRule?.filter(rule => rule.subtype === 'action')
+      const activeCheckRules = checkRulesToAdd?.filter(rule => rule.rule_status === 'active')
+      const activeActionRules = checkRulesToAdd?.filter(rule => rule.rule_status === 'active')
       setCheckRules(checkRulesToAdd)
       setCheckedRules(activeCheckRules)
       setActionRules(actionRulesToAdd)
       setActionedRules(activeActionRules)
     }
-  }, [dataRules, dataNameRules])
+  }, [dataRules])
 
   const handleCheckboxChange = (rule) => (event) => {
     const { checked } = event.target
@@ -541,8 +532,8 @@ const DrawerContent = ({
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {filteredCheckRules.length > 0 &&
-                            filteredCheckRules.map((rule) => (
+                          {filteredCheckRules?.length > 0 &&
+                            filteredCheckRules?.map((rule) => (
                               <TableRow key={rule.id}>
                                 <TableCell>{rule.name}</TableCell>
                                 <TableCell align="center">
@@ -589,8 +580,8 @@ const DrawerContent = ({
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {filteredActionRules.length > 0 &&
-                            filteredActionRules.map((rule) => (
+                          {filteredActionRules?.length > 0 &&
+                            filteredActionRules?.map((rule) => (
                               <TableRow key={rule.id}>
                                 <TableCell>{rule.name}</TableCell>
                                 <TableCell align="center">

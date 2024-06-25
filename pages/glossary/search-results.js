@@ -6,10 +6,15 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  Box,
+  IconButton,
   Checkbox,
   Avatar,
-  Skeleton
+  Skeleton,
+  FormLabel
 } from '@mui/material'
+import { Close as CloseIcon } from '@mui/icons-material'
+import { MaterialReactTable } from 'material-react-table'
 
 import MainCard from '@/component/MainCard'
 import CardHeadingItem from '@/component/CardHeading'
@@ -41,8 +46,14 @@ export default function GlossarySearchResults ({ data, loading }) {
   const [checkTags, setTagsCheck] = useState(false)
   const [openMetaDetail, setOpenMetaDetail] = useState(false)
   const [openEntityDetail, setOpenEntityDetail] = useState(false)
+  const [openEntityNewDetail, setOpenEntityNewDetail] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const [detailArr, setDetailArr] = useState([])
+  const [activeCardId, setActiveCardId] = useState(null)
+
+  const goToSearchPage = () => {
+    router.push('/glossary/search')
+  }
 
   const handleMetaDetailclick = (id, name) => {
     const DetailValue = [
@@ -51,13 +62,38 @@ export default function GlossarySearchResults ({ data, loading }) {
     setDetailArr(DetailValue)
     setOpenMetaDetail(true)
   }
-  const handleEntityDetailclick = (id, name) => {
+  { /* const handleEntityDetailclick = (id, name) => {
     const DetailValue = [
       { id, name }
     ]
     setDetailArr(DetailValue)
     setOpenEntityDetail(true)
+  } */ }
+
+  const handleEntityDetailNewClick = (id) => {
+    if (activeCardId === id) {
+      setOpenEntityNewDetail(!openEntityNewDetail)
+    } else {
+      setActiveCardId(id)
+      setOpenEntityNewDetail(true)
+    }
   }
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        size: 120
+      },
+      {
+        accessorKey: 'description',
+        header: 'Description',
+        size: 120
+      }
+    ],
+    []
+  )
 
   const handleAllCheckChange = (event) => {
     const isChecked = event.target.checked
@@ -139,6 +175,11 @@ export default function GlossarySearchResults ({ data, loading }) {
     })
   // eslint-disable-next-line camelcase
   }, [meta_namespace])
+  let entityData = []
+  entityData = entitiesAndMeta.filter((metaId) =>
+    metaId.id === activeCardId)
+    .flatMap((meta) =>
+      meta.meta)
 
   useEffect(() => {
     if (!query || !entitiesAndMeta.length) {
@@ -190,7 +231,20 @@ export default function GlossarySearchResults ({ data, loading }) {
                       title={`${queryString ? `${queryString} Search Results` : 'Search Results'}`}
                     />
                   </Grid>
-                  <Grid item xs="auto"></Grid>
+                  <Grid item xs="auto">
+                    <IconButton
+                      aria-label="close"
+                      onClick={goToSearchPage}
+                      sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 4,
+                        color: (theme) => theme.palette.grey[500]
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Grid>
                 </Grid>
               </div>
               <div className={`${layoutStyle.srchResultBlock}`}>
@@ -215,54 +269,111 @@ export default function GlossarySearchResults ({ data, loading }) {
                             }
                           />
                         </FormControl>
-                        <FormControl fullWidth>
-                          <FormControlLabel
-                            label='Name(entity)'
-                            control={
-                              <Checkbox
-                                onChange={handleEntityCheckChange}
-                                color="primary"
-                                value={checkEntity}
-                              />
-                            }
-                          />
-                        </FormControl>
-                        <FormControl fullWidth>
-                          <FormControlLabel
-                            label='Name(meta)'
-                            control={
-                              <Checkbox
-                                onChange={handleMetaCheckChange}
-                                color="primary"
-                                value={checkMeta}
-                              />
-                            }
-                          />
-                        </FormControl>
-                        <FormControl fullWidth>
-                          <FormControlLabel
-                            label='Type'
-                            control={
-                              <Checkbox
-                                onChange={handleTypeCheckChange}
-                                color="primary"
-                                value={checkType}
-                              />
-                            }
-                          />
-                        </FormControl>
-                        <FormControl fullWidth>
-                          <FormControlLabel
-                            label='Tags'
-                            control={
-                              <Checkbox
-                                onChange={handleTagsCheckChange}
-                                color="primary"
-                                value={checkTags}
-                              />
-                            }
-                          />
-                        </FormControl>
+                        <div className='filtrGrp'>
+                            <h4>Name</h4>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='entity'
+                              control={
+                                <Checkbox
+                                  onChange={handleEntityCheckChange}
+                                  color="primary"
+                                  value={checkEntity}
+                                />
+                              }
+                            />
+                          </FormControl>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='meta'
+                              control={
+                                <Checkbox
+                                  onChange={handleMetaCheckChange}
+                                  color="primary"
+                                  value={checkMeta}
+                                />
+                              }
+                            />
+                          </FormControl>
+                        </div>
+                        <div className='filtrGrp'>
+                            <h4>Type</h4>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='model'
+                              control={
+                                <Checkbox
+                                  onChange={handleTypeCheckChange}
+                                  color="primary"
+                                  value={checkType}
+                                />
+                              }
+                            />
+                          </FormControl>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='staging'
+                              control={
+                                <Checkbox
+                                  onChange={handleTypeCheckChange}
+                                  color="primary"
+                                  value={checkType}
+                                />
+                              }
+                            />
+                          </FormControl>
+                        </div>
+                        <div className='filtrGrp'>
+                            <h4>Tags</h4>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='black'
+                              control={
+                                <Checkbox
+                                  onChange={handleTagsCheckChange}
+                                  color="primary"
+                                  value={checkTags}
+                                />
+                              }
+                            />
+                          </FormControl>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='yellow'
+                              control={
+                                <Checkbox
+                                  onChange={handleTagsCheckChange}
+                                  color="primary"
+                                  value={checkTags}
+                                />
+                              }
+                            />
+                          </FormControl>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='Blue'
+                              control={
+                                <Checkbox
+                                  onChange={handleTagsCheckChange}
+                                  color="primary"
+                                  value={checkTags}
+                                />
+                              }
+                            />
+                          </FormControl>
+                          <FormControl fullWidth>
+                            <FormControlLabel
+                              label='green'
+                              control={
+                                <Checkbox
+                                  onChange={handleTagsCheckChange}
+                                  color="primary"
+                                  value={checkTags}
+                                />
+                              }
+                            />
+                          </FormControl>
+                        </div>
                       </div>
                     </div>
                   </Grid>
@@ -303,7 +414,7 @@ export default function GlossarySearchResults ({ data, loading }) {
                               ((checkTags || checkAll) && entity.tags?.includes(queryString)) ||
                               ((checkType || checkAll) && entity.type?.includes(queryString)))
                             .map(result => (
-                              <div key={result.id} className={`${layoutStyle.srchResultCol}`} onClick={() => handleEntityDetailclick(result.id, result.name)}>
+                              <div key={result.id} className={`${layoutStyle.srchResultCol} ${openEntityNewDetail && activeCardId === result.id ? layoutStyle.active : ''}`} onClick={() => handleEntityDetailNewClick(result.id)}>
                                 <div className={`${layoutStyle.srchRsltIcon}`}>
                                   <i>{<EntityIcon />}</i>
                                 </div>
@@ -314,7 +425,6 @@ export default function GlossarySearchResults ({ data, loading }) {
                                 </div>
                               </div>
                             ))}
-
                           {searchResults.flatMap((sa) => {
                             const entity = sa.name
                             const subjectarea = sa.subjectarea
@@ -352,6 +462,80 @@ export default function GlossarySearchResults ({ data, loading }) {
                       )}
                     </div>
                   </Grid>
+                  {openEntityNewDetail
+                    ? (
+                    <Grid item xs="auto">
+                      <div className='srchRsltEntityCol'>
+                        <div className='srchRsltEntityHdng'>
+                          <h4>party</h4>
+                          <IconButton
+                            aria-label="close"
+                            onClick={() => setOpenEntityNewDetail(!openEntityNewDetail)}
+                            sx={{
+                              position: 'absolute',
+                              right: 8,
+                              top: 4,
+                              color: (theme) => theme.palette.grey[500]
+                            }}
+                          >
+                            <CloseIcon />
+                          </IconButton>
+                        </div>
+                        <Box className='srchMetaInfo' sx={{ marginBottom: 2 }}>
+                        {searchResults
+                          .filter(entity =>
+                            entity.id === activeCardId &&
+                            (((checkEntity || checkAll) && entity.name?.includes(queryString)) ||
+                              ((checkTags || checkAll) && entity.tags?.includes(queryString)) ||
+                              ((checkType || checkAll) && entity.type?.includes(queryString))))
+                          .map(result => (
+                              <ul key={result.id}>
+                                <li><span>Type</span><i>:</i><em>{result.type}</em></li>
+                                <li><span>Alias</span><i>:</i><em>{result.alias}</em></li>
+                                <li><span>Length</span><i>:</i><em>{result.length}</em></li>
+                                <li><span>Default</span><i>:</i><em>{result.default}</em></li>
+                                <li><span>Tags</span><i>:</i><em>{result.tags}</em></li>
+                              </ul>
+                          ))}
+                        </Box>
+                      </div>
+                      <div className='srchRsltEntityCol srchRsltMetaCol'>
+                        <div className='srchRsltEntityHdng'>
+                          <h4 style={{ margin: 0 }}>Meta Table</h4>
+                        </div>
+                        <div className='srchRsltEntityTbl'>
+                          <MaterialReactTable
+                            columns={columns}
+                            data={entityData}
+                            enableGrouping={false}
+                            muiTableContainerProps={{ sx: { maxHeight: '460px' } }}
+                            enableColumnResizing={false}
+                            enableColumnOrdering={false}
+                            muiTableBodyCellProps={({ column, row }) => ({
+                              onClick: (event) => {
+                                if (event && column.id === 'name') {
+                                  handleMetaDetailclick(row.original.id, row.original.name)
+                                }
+                              },
+                              sx: {
+                                cursor: 'pointer',
+                                ...(column.id === 'name' && {
+                                  color: 'var(--primary)'
+                                })
+                              }
+                            })}
+                            enableStickyHeader
+                            enableStickyFooter
+                            enablePagination
+                            enableFilters={false}
+                          />
+                        </div>
+                      </div>
+                    </Grid>
+                      )
+                    : (
+                        null
+                      )}
                 </Grid>
               </div>
             </>

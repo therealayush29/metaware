@@ -42,10 +42,7 @@ const ComboBox = ({
   const [isLoading, setILoading] = useState(false)
   const [metaNamespace, setMetaNamespace] = useState([])
   const { data, loading, error } = useEntries(
-    entity,
-    subjectarea,
-    type,
-    namespace
+    entity
   )
   useEffect(() => {
     if (loading) {
@@ -55,6 +52,7 @@ const ComboBox = ({
       setMetaNamespace(data.meta_meta)
     }
   }, [loading, data])
+  console.log('metaNamespace', metaNamespace)
 
   useEffect(() => {
     setInputValue(valueSrc)

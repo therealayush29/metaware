@@ -27,7 +27,7 @@ const CreateNewMapRowModal = ({ customClass, open, refetch, onClose }) => {
     onClose: PropTypes.func
   }
   const { metaNspace } = usePageContext()
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const initialState = {
     name: '',
     namespace: '',

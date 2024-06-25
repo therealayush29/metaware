@@ -73,7 +73,7 @@ const DashboardTable = () => {
   }
   const router = useRouter()
   const { namespace, subjectarea, entity, id, type, popup, enId } = router.query
-  const { isActive, resetForm, openNamespace, setSelectedCellId } = usePageContext()
+  const { isActive, resetForm, openNamespace, setSelectedCellId, tableData, setTableData, setTabData, tabData, columns, setColumns } = usePageContext()
   const [value, setValue] = useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -82,7 +82,7 @@ const DashboardTable = () => {
     const tabFromQuery = parseInt(router.query.tab, 10) || 0
     setValue(tabFromQuery)
   }, [router.query.tab])
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const url1 = '#'
   const url2 = `/data/${namespace}/${subjectarea}?id=${id}&type=${type}`
   const url3 = `/data/${namespace}/${subjectarea}/${entity}`
@@ -98,8 +98,6 @@ const DashboardTable = () => {
   }
   const dynamicQueryName = `${subjectarea}_${entity}`
   const [exportCsv, setExportCsv] = useState(null)
-  const [tabData, setTabData] = useState([])
-  const [columns, setColumns] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   // eslint-disable-next-line no-unused-vars
   const [metaNamespace, setMetaNamespace] = useState([])
@@ -115,7 +113,6 @@ const DashboardTable = () => {
 
   const [modeMapping, setModeMapping] = useState(false)
   const [createMapModalOpen, setCreateMapModalOpen] = useState(false)
-  const [tableData, setTableData] = useState([])
   const [isLoadingMap, setIsLoadingMap] = useState(true)
 
   const [tableDqData, setTableDqData] = useState([])
@@ -142,7 +139,7 @@ const DashboardTable = () => {
     : ''
 
   const toggleDrawer = (event, columnId) => {
-    setDrawerState((prevState) => !prevState)
+    setDrawerState(!drawerState)
     setSelectedColumnId(columnId)
 
     if (drawerState) {
@@ -160,6 +157,7 @@ const DashboardTable = () => {
   ) => {
     if (namespace && subjectarea && entity) {
       try {
+        setIsLoading(true)
         const response = await fetch(
           `${apiUrl}/data/${namespace}/${subjectarea}/${entity}`
         )
@@ -438,12 +436,6 @@ const DashboardTable = () => {
           size: 80,
           editVariant: 'select',
           editSelectOptions: status
-        },
-        {
-          accessorKey: '_created_when',
-          header: 'Date Created',
-          size: 100,
-          enableEditing: false
         }
       ]
     },
@@ -453,20 +445,21 @@ const DashboardTable = () => {
     goToMappingPage()
     setSelectedCellId(row)
   }
-  const { loading, data, refetch } = useMapData()
+  const { loading, data, refetch } = useMapData(enId)
   useEffect(() => {
     if (loading) {
       setIsLoadingMap(true)
     } else if (data) {
       setIsLoadingMap(false)
-      const formattedNamespaces = data.meta_map.flatMap(item => {
-        return item.map_sources.map(source => ({
-          map_sources: `${source.entity.subjectarea.namespace.name} > ${source.entity.subjectarea.name} > ${source.entity.name}`,
-          id: item.id,
-          name: item.name,
-          map_status: item.map_status,
-          _created_when: item._created_when
-        }))
+      const formattedNamespaces = data.meta_ruleset.map(item => {
+        const mapItem = item.map // Since map is an object, not an array
+        const mapSource = (mapItem || []).map_source // Access map_source directly
+        return {
+          map_sources: `${mapSource?.source_entity?.subjectarea?.namespace?.name || ''} > ${mapSource?.source_entity?.subjectarea?.name || ''} > ${mapSource?.source_entity?.name || ''}`,
+          id: (mapItem || []).id,
+          name: (mapItem || []).name,
+          map_status: (mapItem || []).map_status
+        }
       })
       setTableData(formattedNamespaces.flat())
     }
@@ -560,7 +553,7 @@ const DashboardTable = () => {
   const handleDeleteRowsMap = (selectedRows) => {}
 
   const goToMappingPage = () => {
-    router.push(`/data/${namespace}/${subjectarea}/${entity}/mapping?type=${type}`)
+    router.push(`/data/${namespace}/${subjectarea}/${entity}/mapping?type=${type}&enId=${enId}`)
   }
 
   const fetchDqData = async (
@@ -573,6 +566,7 @@ const DashboardTable = () => {
   ) => {
     if (namespace && subjectarea && entity) {
       try {
+        setIsLoadingDq(true)
         const response = await fetch(
           `${apiUrl}/data/${namespace}/${subjectarea}/${entity}_dq`
         )
@@ -655,7 +649,7 @@ const DashboardTable = () => {
             <Grid item xs>
               <CardHeadingItem
                 icon={<DataIcon />}
-                title={subjectarea}
+                title={entity}
               />
             </Grid>
             <Grid item xs="auto">

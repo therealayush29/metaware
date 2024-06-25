@@ -109,7 +109,7 @@ const MappingScreen = ({ children }) => {
     cell: PropTypes.string
   }
   const router = useRouter()
-  const { namespace, subjectarea, entity, type } = router.query
+  const { namespace, subjectarea, entity, type, enId } = router.query
 
   const BootstrapTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} arrow classes={{ popper: className }} />
@@ -129,20 +129,19 @@ const MappingScreen = ({ children }) => {
 
   const goToPrevPage = (value) => {
     router.push(
-      `/data/${namespace}/${subjectarea}/${entity}?type=${type}&tab=${value}`
+      `/data/${namespace}/${subjectarea}/${entity}?type=${type}&tab=${value}&enId=${enId}`
     )
   }
 
   const goToDataPage = (value) => {
     router.push(
-      `/data/${namespace}/${subjectarea}/${entity}?type=${type}&popup=${value}`
+      `/data/${namespace}/${subjectarea}/${entity}?type=${type}&popup=${value}&enId=${enId}`
     )
   }
 
-  const apiUrl = 'https://mw-app-zk5t2.ondigitalocean.app'
+  const apiUrl = 'https://mw-bqfztwl5za-ue.a.run.app'
   const { sourceData, selectedCellId, isActive, resetForm, openNamespace } =
     usePageContext()
-  console.log('selectedCellId', selectedCellId)
   const sourceValues = selectedCellId && selectedCellId.map_sources ? selectedCellId.map_sources.split(' > ') : []
   const [sourceNs, sourceSa, sourceEn] = sourceValues
   const ns =
@@ -233,7 +232,7 @@ const MappingScreen = ({ children }) => {
       editable: true,
       Edit: ({ cell }) => (
         <ComboBox
-          entity={en}
+          entity={enId}
           subjectarea={sa}
           type={SourceType}
           namespace={ns}
@@ -260,44 +259,59 @@ const MappingScreen = ({ children }) => {
   ]
 
   const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId)
-
   const { data, loading } = useEntries(
     entity,
     subjectarea,
     type,
     namespace
   )
-
   useEffect(() => {
-    if (!loading && !ruleLoading && data && ruleData) {
+    if (!ruleLoading && ruleData) {
       setIsLoading(true)
-      const metaMeta = data.meta_meta.map((meta) => ({
-        id: meta.id,
-        name: meta.name,
-        type: meta.type
-      }))
-      const metaRuleset = ruleData.meta_ruleset.flatMap((ruleset) =>
-        ruleset.ruleset_rules.map((rule) => ({
-          metaId: rule.meta_id,
-          ruleExpression: rule.rule.rule_expression
+      const metaRuleset = ruleData.map_ruleset.flatMap(ruleset =>
+        ruleset.rules.map(rule => ({
+          id: rule.id,
+          rule: rule.rule_expression,
+          name: rule.meta.name,
+          type: rule.meta.type
         }))
       )
-      const entityNaturalKeys = ruleData.meta_ruleset.flatMap((ruleset) =>
-        ruleset.entity.entityNaturalKeysByTargetEnId.map((naturalKey) => naturalKey?.source_natural_key)
-      )
-      const newData = metaMeta.map((meta) => ({
-        id: meta.id,
-        name: meta.name,
-        type: meta.type,
-        rule:
-          meta.type === 'id'
-            ? entityNaturalKeys || null
-            : metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression || null
-      }))
-      setMetaNamespace(newData)
+
+      setMetaNamespace(metaRuleset)
       setIsLoading(false)
     }
-  }, [loading, ruleLoading, data, ruleData])
+  }, [ruleLoading, ruleData])
+
+  // useEffect(() => {
+  //   if (!loading && !ruleLoading && data && ruleData) {
+  //     setIsLoading(true)
+  //     const metaMeta = data.meta_meta.map((meta) => ({
+  //       id: meta.id,
+  //       name: meta.name,
+  //       type: meta.type
+  //     }))
+  //     const metaRuleset = ruleData.meta_ruleset.flatMap((ruleset) =>
+  //       ruleset.ruleset_rules.map((rule) => ({
+  //         metaId: rule.meta_id,
+  //         ruleExpression: rule.rule.rule_expression
+  //       }))
+  //     )
+  //     const entityNaturalKeys = ruleData.meta_ruleset.flatMap((ruleset) =>
+  //       ruleset.entity.entityNaturalKeysByTargetEnId.map((naturalKey) => naturalKey?.source_natural_key)
+  //     )
+  //     const newData = metaMeta.map((meta) => ({
+  //       id: meta.id,
+  //       name: meta.name,
+  //       type: meta.type,
+  //       rule:
+  //         meta.type === 'id'
+  //           ? entityNaturalKeys || null
+  //           : metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression || null
+  //     }))
+  //     setMetaNamespace(newData)
+  //     setIsLoading(false)
+  //   }
+  // }, [loading, ruleLoading, data, ruleData])
 
   const isCellUpdated = (rowIndex, columnId) => {
     return updatedCells.some(
