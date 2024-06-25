@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client'
 import { MappingData } from '../GraphQl/queries'
 
-const useMapData = (enId) => {
+const useMapData = (enId, type) => {
   const { loading, error, data, refetch } = useQuery(MappingData, {
-    variables: { enId }
+    variables: { enId, type }
   })
   return {
     loading,

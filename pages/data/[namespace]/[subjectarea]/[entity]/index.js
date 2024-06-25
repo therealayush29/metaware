@@ -444,7 +444,7 @@ const DashboardTable = () => {
     goToMappingPage()
     setSelectedCellId(row)
   }
-  const { loading, data, refetch } = useMapData(enId)
+  const { loading, data, refetch } = useMapData(enId, 'map')
   useEffect(() => {
     if (loading) {
       setIsLoadingMap(true)

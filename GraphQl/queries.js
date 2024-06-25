@@ -93,8 +93,8 @@ const MAPDETAILS = gql`
 }
 `
 const MappingData = gql`
-query mapData($enId: String!) {
-  meta_ruleset(targetEnId: $enId) {
+query mapData($enId: String!, $type: String!) {
+  meta_ruleset(targetEnId: $enId, type: $type) {
     id
     name
     map {

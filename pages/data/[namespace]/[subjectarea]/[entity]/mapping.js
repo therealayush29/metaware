@@ -343,7 +343,8 @@ const MappingScreen = ({ children }) => {
     setUpdatedCells([...updatedCells])
   }
 
-  const handleApplySourceChanges = async () => {
+  // eslint-disable-next-line no-lone-blocks
+  { /* const handleApplySourceChanges = async () => {
     try {
       // Iterate over updatedCells and update metaNamespace accordingly
       const filteredMetaNamespace = metaNamespace.filter(
@@ -458,6 +459,91 @@ const MappingScreen = ({ children }) => {
         setIsRunBtnEnabled(true)
       } else {
         throw new Error('Failed to make natural key')
+      }
+    } catch (error) {
+      setIsSaving(false)
+      toast.warning(error.message)
+    }
+  } */ }
+
+  const handleApplySourceChanges = async () => {
+    try {
+      // Iterate over updatedCells and update metaNamespace accordingly
+      const filteredMetaNamespace = metaNamespace.filter(
+        (row) => row.name !== '' && row.name !== 'nk'
+      )
+      const nonNullableRowsWithBlankRules = filteredMetaNamespace.filter(
+        (row) =>
+          (row.rule === undefined || row.rule === 'null') &&
+          row.nullable === false
+      )
+
+      if (nonNullableRowsWithBlankRules.length > 0) {
+        const errorCellNames = nonNullableRowsWithBlankRules
+          .map((row) => row.name)
+          .join(', ')
+        setErrorCell(errorCellNames)
+        throw new Error(
+          `Rule cannot be blank for non-nullable rows: ${errorCellNames}`
+        )
+      }
+
+      await Promise.all(
+        updatedCells.map(async (cell) => {
+          const metaItem = filteredMetaNamespace.find(
+            (item) => item.name === cell.columnId
+          )
+          if (metaItem) {
+            metaItem.rule = cell.value
+          }
+        })
+      )
+
+      setIsSaving(true)
+
+      const updatedArray = {
+        map_id: mapId,
+        map_name: mapName,
+        map_source: {
+          source_entity: {
+            sa,
+            en,
+            ns
+          }
+        },
+        map_transform: {
+          type: 'passive'
+        },
+        map_rules: {
+          name: `${mapId}_rules`,
+          type: '.',
+          rule_requests: filteredMetaNamespace.filter(
+            (row) => row.name !== 'id').map((item) => ({
+            meta: item.name,
+            rule_expression: item.rule || '.',
+            name: `${item.name}_map_rule`,
+            description: `${item.name}_map_rule`,
+            language: 'sql',
+            rule_status: 'active',
+            subtype: '.',
+            type: 'map'
+          }))
+        }
+      }
+      const url = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/{map_id}/save_map`
+      const mapResponse = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedArray)
+      })
+
+      // Handle response
+      if (mapResponse.ok) {
+        toast.success('Mapping saved')
+      } else {
+        throw new Error('Failed to save data')
       }
     } catch (error) {
       setIsSaving(false)
