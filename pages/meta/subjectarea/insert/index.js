@@ -89,7 +89,6 @@ const InsertMetaSubjectarea = () => {
         cross: 'client'
       }
       setsaNewRow(newNameSpace)
-      console.log(newNameSpace)
       toast.info('new row added')
       goToPrevPage()
     }

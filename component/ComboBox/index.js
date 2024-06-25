@@ -52,7 +52,6 @@ const ComboBox = ({
       setMetaNamespace(data.meta_meta)
     }
   }, [loading, data])
-  console.log('metaNamespace', metaNamespace)
 
   useEffect(() => {
     setInputValue(valueSrc)

@@ -115,7 +115,16 @@ const MetaEntity = () => {
         {
           accessorKey: 'is_delta',
           header: 'Is delta',
-          Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+          Cell: ({ cell }) => {
+            const value = cell.getValue()
+            if (value === true) {
+              return <span>true</span>
+            } else if (value === false) {
+              return <span>false</span>
+            } else {
+              return <span>{value}</span>
+            }
+          },
           size: 100,
           editVariant: 'select',
           editSelectOptions: IsDeltaOptions
@@ -304,7 +313,10 @@ const MetaEntity = () => {
           is_delta: Boolean(item.is_delta),
           tags: {},
           custom_props: {},
-          ns_type: item.type
+          ns_type: item.type,
+          primary_grain: item.primary_grain,
+          secondary_grain: item.secondary_grain,
+          tertiary_grain: item.tertiary_grain
         }
       })
 

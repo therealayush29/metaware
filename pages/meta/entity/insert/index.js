@@ -49,6 +49,9 @@ const InsertMetaEntity = () => {
   const [errorMsgNamespaceType, setErrorMsgNamespaceType] = useState(false)
   const [errorMsgType, setErrorMsgType] = useState(false)
   const [errorMsgIsDelta, setErrorMsgIsDelta] = useState(false)
+  const [errorMsgPrimaryGrain, setErrorMsgPrimaryGrain] = useState(false)
+  const [errorMsgSecondaryGrain, setErrorMsgSecondaryGrain] = useState(false)
+  const [errorMsgTertiaryGrain, setErrorMsgTertiaryGrain] = useState(false)
 
   useEffect(() => {
     if (metaNspace && metaNspace) {
@@ -91,15 +94,18 @@ const InsertMetaEntity = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { name, namespace, subjectarea, groupName, description, isDelta, type, subtype } = formData
+    const { name, namespace, subjectarea, groupName, description, isDelta, type, subtype, primaryGrain, secondaryGrain, tertiaryGrain } = formData
     let hasError = false
-    if (!name || !namespace || !subjectarea || !description || !isDelta || !type) {
+    if (!name || !namespace || !subjectarea || !description || !isDelta || !type || !primaryGrain || !secondaryGrain || !tertiaryGrain) {
       setErrorMsgName(name ? '' : 'Enity Name is required')
       setErrorMsgNamespaceType(namespace ? '' : 'Namespace is required')
       setErrorMsgSubjectarea(subjectarea ? '' : 'Subjectarea is required')
       setErrorMsgDescription(description ? '' : 'Description is required')
       setErrorMsgType(type ? '' : 'Type is required')
       setErrorMsgIsDelta(isDelta ? '' : 'Is_Delta is required')
+      setErrorMsgPrimaryGrain(primaryGrain ? '' : 'primary_grain is required')
+      setErrorMsgSecondaryGrain(secondaryGrain ? '' : 'secondary_grain is required')
+      setErrorMsgTertiaryGrain(tertiaryGrain ? '' : 'tertiary_grain is required')
       hasError = true
     } else {
       setErrorMsgName('')
@@ -120,7 +126,10 @@ const InsertMetaEntity = () => {
         type,
         subtype: subtype || '.',
         is_delta: isDelta,
-        cross: 'client'
+        cross: 'client',
+        primary_grain: primaryGrain,
+        secondary_grain: secondaryGrain,
+        tertiary_grain: tertiaryGrain
       }
       setenNewRow(newNameSpace)
       toast.info('new row added')
@@ -312,6 +321,57 @@ const InsertMetaEntity = () => {
                       />
                     </RadioGroup>
                     <FormHelperText>{errorMsgIsDelta}</FormHelperText>
+                  </Grid>
+                </Grid>
+              </FormControl>
+              <FormControl fullWidth>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <FormLabel className="fieldLabel">primary_grain <span className="fieldRequired">*</span></FormLabel>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                    id="primaryGrain"
+                    name="primaryGrain"
+                    onChange={handleEntityTypeChange}
+                    value={formData.primaryGrain}
+                    error={Boolean(errorMsgPrimaryGrain)}
+                    helperText={errorMsgPrimaryGrain}
+                    />
+                  </Grid>
+                </Grid>
+              </FormControl>
+              <FormControl fullWidth>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <FormLabel className="fieldLabel">secondary_grain <span className="fieldRequired">*</span></FormLabel>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                    id="secondaryGrain"
+                    name="secondaryGrain"
+                    onChange={handleEntityTypeChange}
+                    value={formData.secondaryGrain}
+                    error={Boolean(errorMsgSecondaryGrain)}
+                    helperText={errorMsgSecondaryGrain}
+                    />
+                  </Grid>
+                </Grid>
+              </FormControl>
+              <FormControl fullWidth>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <FormLabel className="fieldLabel">tertiary_grain <span className="fieldRequired">*</span></FormLabel>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                    id="tertiaryGrain"
+                    name="tertiaryGrain"
+                    onChange={handleEntityTypeChange}
+                    value={formData.tertiaryGrain}
+                    error={Boolean(errorMsgTertiaryGrain)}
+                    helperText={errorMsgTertiaryGrain}
+                    />
                   </Grid>
                 </Grid>
               </FormControl>

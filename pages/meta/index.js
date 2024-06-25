@@ -128,7 +128,16 @@ export default function Meta () {
         accessorKey: 'nullable',
         header: 'Nullable',
         size: 150,
-        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        Cell: ({ cell }) => {
+          const value = cell.getValue()
+          if (value === true) {
+            return <span>true</span>
+          } else if (value === false) {
+            return <span>false</span>
+          } else {
+            return <span>{value}</span>
+          }
+        },
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -136,7 +145,16 @@ export default function Meta () {
         accessorKey: 'is_primary',
         header: 'is_primary',
         size: 150,
-        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        Cell: ({ cell }) => {
+          const value = cell.getValue()
+          if (value === true) {
+            return <span>true</span>
+          } else if (value === false) {
+            return <span>false</span>
+          } else {
+            return <span>{value}</span>
+          }
+        },
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -144,7 +162,16 @@ export default function Meta () {
         accessorKey: 'is_secondary',
         header: 'is_secondary',
         size: 150,
-        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        Cell: ({ cell }) => {
+          const value = cell.getValue()
+          if (value === true) {
+            return <span>true</span>
+          } else if (value === false) {
+            return <span>false</span>
+          } else {
+            return <span>{value}</span>
+          }
+        },
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -152,7 +179,16 @@ export default function Meta () {
         accessorKey: 'is_tertiary',
         header: 'is_tertiary',
         size: 150,
-        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        Cell: ({ cell }) => {
+          const value = cell.getValue()
+          if (value === true) {
+            return <span>true</span>
+          } else if (value === false) {
+            return <span>false</span>
+          } else {
+            return <span>{value}</span>
+          }
+        },
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -175,7 +211,16 @@ export default function Meta () {
         accessorKey: 'is_unique',
         header: 'Is Unique',
         size: 150,
-        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
+        Cell: ({ cell }) => {
+          const value = cell.getValue()
+          if (value === true) {
+            return <span>true</span>
+          } else if (value === false) {
+            return <span>false</span>
+          } else {
+            return <span>{value}</span>
+          }
+        },
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -500,7 +545,6 @@ export default function Meta () {
             association_type_code: 'link'
           }
         }).find(() => true)
-        console.log('assoArray', assoArray)
         const urlAsso = `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/create_meta_association`
         const response = await fetch(urlAsso, {
           method: 'POST',

@@ -37,7 +37,6 @@ const MetaSubjectarea = () => {
 
   const { loading, data, refetch } = useMeta()
   const [subjectareaoptions, setSubjectAreaOptions] = useState([])
-  console.log('nsType', nsType)
   useEffect(() => {
     if (loading) {
       setIsLoading(true)

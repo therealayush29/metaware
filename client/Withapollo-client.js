@@ -18,7 +18,6 @@ export function withApollo (PageComponent) {
   }
 
   WithApollo.getInitialProps = async (ctx) => {
-    console.log('Running getInitialProps on server:', typeof window === 'undefined')
     const { AppTree } = ctx
     const apolloClient = (ctx.apolloClient = createApolloClient())
 

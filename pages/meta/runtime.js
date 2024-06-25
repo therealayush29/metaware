@@ -65,7 +65,6 @@ export default function MetaRuntime () {
       }))
     }
   }, [data])
-  console.log('runtimeData', formData)
   const goToPrevPage = () => {
     window.history.back()
   }
@@ -213,7 +212,6 @@ export default function MetaRuntime () {
       //     checkedAdvance === true) || (formData.runtime === 'fixedwidth' && checkedAdvance === true)) && { parserType }),
       //     ...(type === 'model' && checkedAdvance === true && { requiresMastering })
       //   }
-      console.log('newRunOptions', newRunOptions)
       const response = await fetch(
         `${apiUrl}/meta/${namespace}/${subjectarea}/${entity}/update_entity_runtime?en_id=${enId}`,
         {
