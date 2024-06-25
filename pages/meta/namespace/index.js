@@ -26,7 +26,6 @@ import PopupHeader from '@/component/Popup/PopupHeader'
 import PopupBody from '@/component/Popup/PopupBody'
 import DeleteConfirmationDialog from '@/component/DeleteConfirmationDialog'
 import MetaIcon from '@/component/Icons/IconMeta'
-import { usePageContext } from '@/pageProvider/PageContext'
 
 const MetaNamespace = () => {
   const router = useRouter()
@@ -34,15 +33,13 @@ const MetaNamespace = () => {
   const goToPrevPage = () => {
     router.push('/meta')
   }
-
-  const { RestURL } = usePageContext()
   const [mode, setMode] = useState(false)
   const [isApplyButtonEnabled, setIsApplyButtonEnabled] = useState(false)
   const [namespaceType, setNamespaceType] = useState([])
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { nsNewRow, metaNspace, namSpaceMeta, setNamSpaceMeta, updatedCells, setUpdatedCells, setNsNewRow } = usePageContext()
+  const { RestURL, nsNewRow, metaNspace, namSpaceMeta, setNamSpaceMeta, updatedCells, setUpdatedCells, setNsNewRow } = usePageContext()
 
   const { loading, data, refetch } = useMeta()
 
