@@ -35,17 +35,17 @@ const ExpandedRuleEditor = ({
   columnId
 }) => {
   ExpandedRuleEditor.propTypes = {
-    customClass: PropTypes.string,
-    openPopup: PropTypes.string,
+    customClass: PropTypes.any,
+    openPopup: PropTypes.any,
     handleClosePopup: PropTypes.func,
-    columnId: PropTypes.string.isRequired
+    columnId: PropTypes.any
   }
   const [selectedLanguage, setSelectedLanguage] = useState('')
   const [selectedLangCategory, setSelectedLangCategory] = useState('')
   const [categoryOptions, setCategoryOptions] = useState([])
   const [functionOptions, setFunctionOptions] = useState([])
   const [parameters, setParameters] = useState([''])
-  const [colorValue, setColorValue] = useState('#3f51b5')
+  const [colorValue, setColorValue] = useState('#78327e')
   const [checkSharedRule, setCheckSharedRule] = useState(false)
   const { loading, error, data } = useRuleLang()
   const { checkRules, setCheckRules, resetForm, actionRules, setActionRules, functionValue, setFunctionValue, handleInputChange, errorMsgDescription, setErrorMsgDescription, handleRadioChange, formData, setFormData, errorMsgName, setErrorMsgName, errorMsgRule, setErrorMsgRule } = usePageContext()

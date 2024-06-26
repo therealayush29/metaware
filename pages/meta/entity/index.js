@@ -158,7 +158,10 @@ const MetaEntity = () => {
                 description: entity.description,
                 subtype: entity.subtype,
                 type: entity.type,
-                is_delta: entity.is_delta
+                is_delta: entity.is_delta,
+                primary_grain: entity.primary_grain,
+                secondary_grain: entity.secondary_grain,
+                tertiary_grain: entity.tertiary_grain
               })) || []
             } else {
               return []

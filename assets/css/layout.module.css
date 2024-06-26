@@ -164,7 +164,7 @@
 }
 
 .dashSubMenuOpen .dashMainCard {
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
 }
 
 .dashOuterSmall .dashMainCard,
@@ -843,6 +843,8 @@
 
 .srchRsltFltrWdgt {
     padding: 0;
+    height: calc(100vh - 219px);
+    overflow: auto;
 }
 
 .srchResultList {

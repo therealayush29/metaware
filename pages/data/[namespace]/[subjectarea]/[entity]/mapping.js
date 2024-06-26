@@ -49,6 +49,7 @@ import GranularityModal from '@/component/GranularityModal'
 import MetaIcon from '@/component/Icons/IconMeta'
 
 import layoutStyle from '@/assets/css/layout.module.css'
+import { isEqualType } from 'graphql'
 
 const tidBitOptions = {
   label: [<MoreVertTwoToneIcon key="vertIcon" />],
@@ -152,8 +153,7 @@ const MappingScreen = ({ children }) => {
     sourceData && Object.keys(sourceData).length > 0 ? 'staging' : 'staging'
   const mapId = selectedCellId?.id
   const mapName = selectedCellId?.name
-  const [isLoading, setIsLoading] = useState(false)
-  const [metaNamespace, setMetaNamespace] = useState([])
+  const [mappingData, setMappingData] = useState([])
   const [isCellEditing, setIsCellEditing] = useState(false)
   const [updatedCells, setUpdatedCells] = useState([])
   const [isSaving, setIsSaving] = useState(false)
@@ -259,11 +259,10 @@ const MappingScreen = ({ children }) => {
     []
   )
 
-  const { data: ruleData, loading: ruleLoading } = useMapSrcData(mapId)
+  const { data, loading } = useMapSrcData(mapId)
   useEffect(() => {
-    if (!ruleLoading && ruleData) {
-      setIsLoading(true)
-      const metaRuleset = ruleData.map_ruleset.flatMap(ruleset =>
+    if (!loading && data) {
+      const metaRuleset = data.map_ruleset.flatMap(ruleset =>
         ruleset.rules.map(rule => ({
           id: rule.id,
           rule: rule.rule_expression,
@@ -272,11 +271,11 @@ const MappingScreen = ({ children }) => {
         }))
       )
 
-      setMetaNamespace(metaRuleset)
-      setIsLoading(false)
+      if (!isEqualType(metaRuleset, mappingData)) {
+        setMappingData(metaRuleset) // Update only if changed
+      }
     }
-  }, [ruleLoading, ruleData])
-  console.log('metaNamespace', metaNamespace)
+  }, [loading, data])
 
   // useEffect(() => {
   //   if (!loading && !ruleLoading && data && ruleData) {
@@ -304,7 +303,7 @@ const MappingScreen = ({ children }) => {
   //           ? entityNaturalKeys || null
   //           : metaRuleset.find((rule) => rule.metaId === meta.id)?.ruleExpression || null
   //     }))
-  //     setMetaNamespace(newData)
+  //     setMappingData(newData)
   //     setIsLoading(false)
   //   }
   // }, [loading, ruleLoading, data, ruleData])
@@ -320,11 +319,11 @@ const MappingScreen = ({ children }) => {
     const rowIndex = cell.row.index
     const columnId = cell.column.id
 
-    // Update the metaNamespace directly
-    const updatedTabData = metaNamespace.map((row, index) =>
+    // Update the mappingData directly
+    const updatedTabData = mappingData.map((row, index) =>
       index === rowIndex ? { ...row, [columnId]: newValue } : row
     )
-    setMetaNamespace(updatedTabData)
+    setMappingData(updatedTabData)
 
     // Update the updatedCells array
     const cellIndexToUpdate = updatedCells.findIndex(
@@ -346,11 +345,11 @@ const MappingScreen = ({ children }) => {
   // eslint-disable-next-line no-lone-blocks
   { /* const handleApplySourceChanges = async () => {
     try {
-      // Iterate over updatedCells and update metaNamespace accordingly
-      const filteredMetaNamespace = metaNamespace.filter(
+      // Iterate over updatedCells and update mappingData accordingly
+      const filteredmappingData = mappingData.filter(
         (row) => row.name !== '' && row.name !== 'nk'
       )
-      const nonNullableRowsWithBlankRules = filteredMetaNamespace.filter(
+      const nonNullableRowsWithBlankRules = filteredmappingData.filter(
         (row) =>
           (row.rule === undefined || row.rule === 'null') &&
           row.nullable === false
@@ -368,7 +367,7 @@ const MappingScreen = ({ children }) => {
 
       await Promise.all(
         updatedCells.map(async (cell) => {
-          const metaItem = filteredMetaNamespace.find(
+          const metaItem = filteredmappingData.find(
             (item) => item.name === cell.columnId
           )
           if (metaItem) {
@@ -386,7 +385,7 @@ const MappingScreen = ({ children }) => {
         source_ns: ns,
         source_sa: sa,
         source_en: en,
-        natural_keys: filteredMetaNamespace
+        natural_keys: filteredmappingData
           .filter(row => row.type === 'id') // Filter out only rows where the name is 'id'
           .map((item) => {
             return item.rule.map((rule, index) => (
@@ -414,7 +413,7 @@ const MappingScreen = ({ children }) => {
         map_rules: {
           name: `${mapId}_rules`,
           type: '.',
-          rule_requests: filteredMetaNamespace.filter(
+          rule_requests: filteredmappingData.filter(
             (row) => row.name !== 'id').map((item) => ({
             meta: item.name,
             rule_expression: item.rule || '.',
@@ -468,11 +467,11 @@ const MappingScreen = ({ children }) => {
 
   const handleApplySourceChanges = async () => {
     try {
-      // Iterate over updatedCells and update metaNamespace accordingly
-      const filteredMetaNamespace = metaNamespace.filter(
+      // Iterate over updatedCells and update mappingData accordingly
+      const filteredmappingData = mappingData.filter(
         (row) => row.name !== '' && row.name !== 'nk'
       )
-      const nonNullableRowsWithBlankRules = filteredMetaNamespace.filter(
+      const nonNullableRowsWithBlankRules = filteredmappingData.filter(
         (row) =>
           (row.rule === undefined || row.rule === 'null') &&
           row.nullable === false
@@ -490,7 +489,7 @@ const MappingScreen = ({ children }) => {
 
       await Promise.all(
         updatedCells.map(async (cell) => {
-          const metaItem = filteredMetaNamespace.find(
+          const metaItem = filteredmappingData.find(
             (item) => item.name === cell.columnId
           )
           if (metaItem) {
@@ -517,7 +516,7 @@ const MappingScreen = ({ children }) => {
         map_rules: {
           name: `${mapId}_rules`,
           type: '.',
-          rule_requests: filteredMetaNamespace.filter(
+          rule_requests: filteredmappingData.filter(
             (row) => row.name !== 'id').map((item) => ({
             meta: item.name,
             rule_expression: item.rule || '.',
@@ -929,8 +928,8 @@ const MappingScreen = ({ children }) => {
                     <div className={'commonTable tidBitTblBody'}>
                       <MaterialReactTable
                         columns={columns}
-                        data={metaNamespace}
-                        state={{ isLoading }}
+                        data={mappingData}
+                        state={{ loading }}
                         enableRowVirtualization
                         enableBottomToolbar={false}
                         enableGlobalFilterModes

@@ -38,10 +38,11 @@ export default function Glossary () {
   }, [searchResultsRef])
   const handleSubmit = async (e) => {
     e.preventDefault()
-    router.push(`/glossary/search-results?query=${search.toLowerCase()}`)
+    router.push(`/glossary/search-results?query=${search}`)
   }
 
   const { loading, error, data } = useEntityResult()
+
   if (error) {
     return <div>Error: {error.message}</div>
   }
@@ -67,7 +68,7 @@ export default function Glossary () {
         namespace.subjectareas?.forEach((subjectarea) => {
           if (subjectarea.entities) {
             combinedItems.push(...subjectarea.entities?.map(entity => ({ type: 'entity', data: entity })))
-            combinedItems.push(...subjectarea.entities.flatMap(entity => entity.metas?.map(metaItem => ({ type: 'meta', data: metaItem }))))
+            combinedItems.push(...subjectarea.entities?.flatMap(entity => entity.metas?.map(metaItem => ({ type: 'meta', data: metaItem }))))
           }
         })
       }

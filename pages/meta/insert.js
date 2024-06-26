@@ -104,9 +104,9 @@ export default function InsertMeta () {
         is_unique: isUnique,
         alias: name,
         order,
-        is_primary: isPrimary,
-        is_secondary: isSecondary,
-        is_tertiary: isTertiary
+        is_primary_grain: isPrimary,
+        is_secondary_grain: isSecondary,
+        is_tertiary_grain: isTertiary
       }
       setmetaNewRow(newNameSpace)
       toast.success('new row added')
@@ -298,7 +298,7 @@ export default function InsertMeta () {
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
-                    is_primary <span className="fieldRequired">*</span>
+                    is_primary_grain <span className="fieldRequired">*</span>
                     </FormLabel>
                   </Grid>
                   <Grid item xs={8}>
@@ -328,7 +328,7 @@ export default function InsertMeta () {
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
-                    is_secondary <span className="fieldRequired">*</span>
+                    is_secondary_grain <span className="fieldRequired">*</span>
                     </FormLabel>
                   </Grid>
                   <Grid item xs={8}>
@@ -358,7 +358,7 @@ export default function InsertMeta () {
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
-                    is_tertiary <span className="fieldRequired">*</span>
+                    is_tertiary_grain <span className="fieldRequired">*</span>
                     </FormLabel>
                   </Grid>
                   <Grid item xs={8}>

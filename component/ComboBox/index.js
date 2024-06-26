@@ -28,7 +28,7 @@ const ComboBox = ({
   valueSrc
 }) => {
   ComboBox.propTypes = {
-    onInputChange: PropTypes.node,
+    onInputChange: PropTypes.any,
     entity: PropTypes.string,
     subjectarea: PropTypes.string,
     type: PropTypes.string,

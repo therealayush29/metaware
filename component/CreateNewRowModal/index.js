@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close'
 const CreateNewRowModal = ({ customClass, open, columns, onClose, onSubmit }) => {
   CreateNewRowModal.propTypes = {
     customClass: PropTypes.string,
-    open: PropTypes.string,
+    open: PropTypes.bool,
     refetch: PropTypes.func,
     onClose: PropTypes.func,
     columns: PropTypes.array,

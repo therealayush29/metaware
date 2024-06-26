@@ -32,7 +32,7 @@ import PropTypes from 'prop-types'
 
 export default function GlossarySearchResults ({ data, loading }) {
   GlossarySearchResults.propTypes = {
-    data: PropTypes.Array,
+    data: PropTypes.any,
     loading: PropTypes.bool
   }
   const router = useRouter()
@@ -164,23 +164,22 @@ export default function GlossarySearchResults ({ data, loading }) {
     // eslint-disable-next-line camelcase
     return meta_namespace.flatMap((ns) => {
       const namespace = ns.name
-      return ns.subjectareas.flatMap((sa) => {
+      return ns.subjectareas?.flatMap((sa) => {
         const subjectarea = sa.name
         return (sa.entities ?? []).map(entity => ({
           ...entity,
           namespace,
           subjectarea
-        })).concat(sa.meta ?? [])
+        })).concat(sa.metas ?? [])
       })
     })
   // eslint-disable-next-line camelcase
   }, [meta_namespace])
   let entityData = []
   entityData = entitiesAndMeta.filter((metaId) =>
-    metaId.id === activeCardId)
+    metaId?.id === activeCardId)
     .flatMap((meta) =>
-      meta.meta)
-
+      meta.metas)
   useEffect(() => {
     if (!query || !entitiesAndMeta.length) {
       setSearchResults([])
@@ -191,20 +190,20 @@ export default function GlossarySearchResults ({ data, loading }) {
 
     filteredResults = entitiesAndMeta.filter((item) => {
       if (checkEntity) {
-        return item.name?.includes(queryString)
+        return item?.name?.includes(queryString)
       } else if (checkMeta) {
-        return item.meta.map((me) => me.name?.includes(queryString))
+        return item?.metas.map((me) => me.name?.includes(queryString))
       } else if (checkTags) {
-        return item.tags?.includes(queryString)
+        return item?.tags?.includes(queryString)
       } else if (checkTags) {
-        return item.meta.map((me) => me.tags?.includes(queryString))
+        return item?.metas.map((me) => me.tags?.includes(queryString))
       } else if (checkType) {
-        return item.type?.includes(queryString)
+        return item?.type?.includes(queryString)
       } else if (checkType) {
-        return item.meta.map((me) => me.type?.includes(queryString))
+        return item?.metas.map((me) => me.type?.includes(queryString))
       } else {
         // If none of the checkboxes are checked, use default logic
-        return item.name?.includes(queryString) || item.meta.map((me) => me.tags?.includes(queryString)) || item.meta.map((me) => me.type?.includes(queryString)) || item.meta.map((me) => me.name?.includes(queryString)) || item.type?.includes(queryString) || item.tags?.includes(queryString)
+        return item?.name?.includes(queryString) || item?.metas.map((me) => me?.tags?.includes(queryString)) || item?.metas.map((me) => me?.type?.includes(queryString)) || item?.metas.map((me) => me?.name?.includes(queryString)) || item?.type?.includes(queryString) || item?.tags?.includes(queryString)
       }
     })
     setSearchResults(filteredResults)

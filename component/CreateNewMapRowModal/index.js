@@ -22,7 +22,7 @@ import { ToastContainer, toast } from 'react-toastify'
 const CreateNewMapRowModal = ({ customClass, open, refetch, onClose }) => {
   CreateNewMapRowModal.propTypes = {
     customClass: PropTypes.string,
-    open: PropTypes.string,
+    open: PropTypes.bool,
     refetch: PropTypes.func,
     onClose: PropTypes.func
   }

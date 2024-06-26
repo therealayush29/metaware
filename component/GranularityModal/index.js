@@ -18,9 +18,9 @@ import PropTypes from 'prop-types'
 
 const GranularityModal = ({ customClass, open, onClose }) => {
   GranularityModal.propTypes = {
-    customClass: PropTypes.string,
-    open: PropTypes.string,
-    onClose: PropTypes.string
+    customClass: PropTypes.any,
+    open: PropTypes.any,
+    onClose: PropTypes.any
   }
   const infoText = '<describe text> Select granularity from the list of available options below.'
 

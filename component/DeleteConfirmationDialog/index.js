@@ -16,7 +16,7 @@ const DeleteConfirmationDialog = ({
   rule
 }) => {
   DeleteConfirmationDialog.propTypes = {
-    open: PropTypes.string,
+    open: PropTypes.bool,
     handleClick: PropTypes.func,
     onClose: PropTypes.func,
     id: PropTypes.any,

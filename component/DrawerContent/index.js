@@ -49,9 +49,7 @@ function CustomTabPanel (props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Box sx={{ py: 3 }}>{children}</Box>
       )}
     </div>
   )
@@ -79,13 +77,13 @@ const DrawerContent = ({
   enId
 }) => {
   DrawerContent.propTypes = {
-    handleOpenPopup: PropTypes.func,
-    handleDrawerClick: PropTypes.func,
-    namespace: PropTypes.string.isRequired,
-    subjectarea: PropTypes.string.isRequired,
-    entity: PropTypes.string.isRequired,
+    handleOpenPopup: PropTypes.any,
+    handleDrawerClick: PropTypes.any,
+    namespace: PropTypes.string,
+    subjectarea: PropTypes.string,
+    entity: PropTypes.string,
     columnId: PropTypes.string,
-    enId: PropTypes.string.isRequired
+    enId: PropTypes.string
   }
   const menuItemsData = {
     label: [<MoreVertTwoToneIcon key="vertIcon" />],
@@ -438,6 +436,7 @@ const DrawerContent = ({
                   <Grid item xs>
                     <TextField
                       id="name"
+                      name='name'
                       value={formData.name}
                       onChange={handleInputChange}
                       variant="outlined"
@@ -457,6 +456,7 @@ const DrawerContent = ({
                     <div className='ruleFieldDiv'>
                       <TextField
                         id="rule_expression"
+                        name='rule_expression'
                         value={formData.rule_expression}
                         onChange={handleInputChange}
                         InputProps={{
@@ -487,11 +487,12 @@ const DrawerContent = ({
                   </Grid>
                   <Grid item xs>
                     <RadioGroup
+                      id="subtype"
+                      name="subtype"
                       row
                       value={formData.subtype}
                       onChange={handleRadioChange}
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="subtype"
+                      aria-labelledby="Type"
                     >
                       <FormControlLabel value="check" control={<Radio />} label="Check" />
                       <FormControlLabel value="action" control={<Radio />} label="Action" />
@@ -513,7 +514,7 @@ const DrawerContent = ({
             <Stack>
               <div className='ruleTabs'>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <Tabs value={valueTab} onChange={handleTabChange} aria-label="basic tabs example">
+                  <Tabs value={valueTab} onChange={handleTabChange} aria-label="rulesTab">
                     <Tab label="Check Rules" {...a11yProps(0)} />
                     <Tab label="Action Rules" {...a11yProps(1)} />
                   </Tabs>
@@ -522,7 +523,7 @@ const DrawerContent = ({
                   <h3 className="headingColor">Check's Rule List</h3>
                   <div className='ruleTableList'>
                     <TableContainer>
-                      <Table aria-label="simple table">
+                      <Table aria-label="checkTab">
                         <TableHead>
                           <TableRow>
                             <TableCell>Name</TableCell>
@@ -570,7 +571,7 @@ const DrawerContent = ({
                   <h3 className="headingColor">Action's Rule List</h3>
                   <div className='ruleTableList'>
                     <TableContainer >
-                      <Table aria-label="simple table">
+                      <Table aria-label="actionTab">
                         <TableHead>
                           <TableRow>
                             <TableCell>Name</TableCell>

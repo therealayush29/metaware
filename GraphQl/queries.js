@@ -21,6 +21,9 @@ const META = gql`
           description
           type
           subtype
+          primary_grain
+          secondary_grain
+          tertiary_grain
         }
       }
     }
@@ -54,6 +57,9 @@ const ENTRIES = gql`
       default
       is_unique
       order
+      is_primary_grain
+      is_secondary_grain
+      is_tertiary_grain
     }
   }
 `
@@ -236,29 +242,32 @@ query Meta_namespace($search: String!) {
 }
 `
 const ENTITYSEARCHRESULT = gql`
-query Meta_namespace {
-  meta_namespace {
+query meta_glossary {
+  meta_namespace (type: "glossary") {
+    id
+    name
+    type
+    tags
+    subjectareas {
       id
       name
       type
-      subjectareas {
+      ns_id
+      tags
+      entities {
+        id
+        name
+        is_delta
+        runtime
+        description
+        type
+        subtype
+        metas {
           id
           name
-          type
-          entities {
-              description
-              id
-              name
-              type
-              metas {
-                  description
-                  id
-                  is_unique
-                  name
-                  nullable
-              }
-          }
+        }
       }
+    }
   }
 }
 `

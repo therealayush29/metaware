@@ -256,6 +256,7 @@ img {
 .MuiButton-containedPrimary {
   background-color: var(--primary)!important;
   font-size: 14px!important;
+  color: var(--whiteText) !important;
   padding: 0!important;
   box-sizing: border-box!important;
   line-height: 32px!important;
@@ -1935,4 +1936,12 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 .assRltnData i svg {
   width: 20px;
   height: 20px;
+}
+
+.MuiLinearProgress-root.MuiLinearProgress-colorPrimary {
+  background-color: var(--primary) !important;
+}
+
+.MuiLinearProgress-bar.MuiLinearProgress-barColorPrimary {
+  background-color: var(--menuHover2) !important;
 }

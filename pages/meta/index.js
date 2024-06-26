@@ -142,8 +142,8 @@ export default function Meta () {
         editSelectOptions: nullableOptions
       },
       {
-        accessorKey: 'is_primary',
-        header: 'is_primary',
+        accessorKey: 'is_primary_grain',
+        header: 'is_primary_grain',
         size: 150,
         Cell: ({ cell }) => {
           const value = cell.getValue()
@@ -159,8 +159,8 @@ export default function Meta () {
         editSelectOptions: nullableOptions
       },
       {
-        accessorKey: 'is_secondary',
-        header: 'is_secondary',
+        accessorKey: 'is_secondary_grain',
+        header: 'is_secondary_grain',
         size: 150,
         Cell: ({ cell }) => {
           const value = cell.getValue()
@@ -176,8 +176,8 @@ export default function Meta () {
         editSelectOptions: nullableOptions
       },
       {
-        accessorKey: 'is_tertiary',
-        header: 'is_tertiary',
+        accessorKey: 'is_tertiary_grain',
+        header: 'is_tertiary_grain',
         size: 150,
         Cell: ({ cell }) => {
           const value = cell.getValue()
@@ -507,7 +507,10 @@ export default function Meta () {
             order: parseInt(item.order),
             nullable: Boolean(item.nullable),
             alias: item.name,
-            is_unique: Boolean(item.is_unique)
+            is_unique: Boolean(item.is_unique),
+            is_primary_grain: Boolean(item.is_primary_grain),
+            is_secondary_grain: Boolean(item.is_secondary_grain),
+            is_tertiary_grain: Boolean(item.is_tertiary_grain)
           }))
         }
 

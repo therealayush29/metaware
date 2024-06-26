@@ -170,7 +170,7 @@ const DashboardTable = () => {
           (headerKey) => ({
             accessorKey: headerKey,
             header: headerKey.replace(/_/g, ' '),
-            ...(headerKey === 'id' && { size: 100, enableEditing: false })
+            // ...(headerKey === 'id' && { size: 100, enableEditing: false })
             // ...(headerKey === 'link' && { enableClickToCopy: true })
           })
         )
