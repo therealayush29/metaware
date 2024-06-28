@@ -54,9 +54,7 @@ const SearchMetaDetail = ({
   }
   const id = detail[0].id
   const { loading, error, data } = useMetaDetails(id)
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
+
   const description = data?.meta_meta.map(item => item.description)
   const type = data?.meta_meta.map(item => item.type)
   const length = data?.meta_meta.map(item => item.length)
@@ -66,7 +64,7 @@ const SearchMetaDetail = ({
   const order = data?.meta_meta.map(item => item.order)
   const [value, setValue] = useState(0)
 
-  const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso()
+ {/*} const { loading: loadingAss, error: errorAss, data: dataAss } = useMetaDetailsAsso()
   if (errorAss) {
     return <div>Error: {errorAss.message}</div>
   }
@@ -78,7 +76,7 @@ const SearchMetaDetail = ({
     const associatedIds = entry.metum.glossary_associations.map(assoc => assoc.associated_id)
     return { id, glossaryId, assoType, associatedMeta, associatedIds }
   })
-  const filteredData = data1?.filter(item => item.glossaryId === id)
+  const filteredData = data1?.filter(item => item.glossaryId === id)*/}
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -153,7 +151,7 @@ const SearchMetaDetail = ({
                 </Box>
                 <CustomTabPanel value={value} index={0}>
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <div className='srchAccrdn'>
                         <Accordion defaultExpanded>
                           <AccordionSummary
@@ -174,6 +172,47 @@ const SearchMetaDetail = ({
                           </AccordionDetails>
                         </Accordion>
                       </div>
+                      <div className='srchAccrdn'>
+                        <Accordion defaultExpanded>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel4-content"
+                            id="panel4-header"
+                          >
+                            Meta Properties
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className='srchMetaInfo'>
+                              <ul>
+                              {loading
+                                ? (
+                                  <>
+                                    {[...Array(6)].map((_, index) => (
+                                      <li key={index}><Skeleton variant="rounded" width={100}/></li>
+                                    ))}
+                                  </>
+                                  )
+                                : (
+                                <>
+                                  <li><span>Title</span><i>:</i><em>{detail.map((val) => val.name)}</em></li>
+                                  <li><span>Type</span><i>:</i><em>Text{type}</em></li>
+                                  <li><span>Alias</span><i>:</i><em>{alias}OrgName</em></li>
+                                  <li><span>Length</span><i>:</i><em>{length}5</em></li>
+                                  <li><span>Default</span><i>:</i><em>{defaults}None</em></li>
+                                  <li><span>Tags</span><i>:</i><em>{tags}Green</em></li>
+                                  <li><span>Order</span><i>:</i><em>{order}</em></li>
+                                </>
+                                  )}
+                              </ul>
+                            </div>
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                    </Grid>
+                    <Grid item xs={6}></Grid>
+                  </Grid>
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
                       <div className='srchAccrdn'>
                         <Accordion defaultExpanded>
                           <AccordionSummary
@@ -255,54 +294,33 @@ const SearchMetaDetail = ({
                                     <span>company_name</span>
                                   </Link>
                                 </div>
+                                <div className='assRltnData'>
+                                  <Link href="">
+                                    <span>Exact Match</span>
+                                  </Link>
+                                  <i>
+                                    <ModelIcon />
+                                  </i>
+                                  <Link href="">
+                                    <span>company_name</span>
+                                  </Link>
+                                </div>
+                                <div className='assRltnData'>
+                                  <Link href="">
+                                    <span>Exact Match</span>
+                                  </Link>
+                                  <i>
+                                    <ModelIcon />
+                                  </i>
+                                  <Link href="">
+                                    <span>company_name</span>
+                                  </Link>
+                                </div>
                               </div>
                             </div>
                           </AccordionDetails>
                         </Accordion>
                       </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <div className='srchAccrdn'>
-                        <Accordion defaultExpanded>
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel4-content"
-                            id="panel4-header"
-                          >
-                            Meta Properties
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <div className='srchMetaInfo'>
-                              <ul>
-                              {loading
-                                ? (
-                                  <>
-                                    {[...Array(6)].map((_, index) => (
-                                      <li key={index}><Skeleton variant="rounded" width={610}/></li>
-                                    ))}
-                                  </>
-                                  )
-                                : (
-                                <>
-                                  <li><span>Title</span><i>:</i><em>{detail.map((val) => val.name)}</em></li>
-                                  <li><span>Type</span><i>:</i><em>Text{type}</em></li>
-                                  <li><span>Alias</span><i>:</i><em>{alias}OrgName</em></li>
-                                  <li><span>Length</span><i>:</i><em>{length}5</em></li>
-                                  <li><span>Default</span><i>:</i><em>{defaults}None</em></li>
-                                  <li><span>Tags</span><i>:</i><em>{tags}Green</em></li>
-                                  <li><span>Order</span><i>:</i><em>{order}</em></li>
-                                </>
-                                  )}
-                              </ul>
-                            </div>
-                          </AccordionDetails>
-                        </Accordion>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={1}>
-                  Relationship
                 </CustomTabPanel>
               </Box>
             </Stack>

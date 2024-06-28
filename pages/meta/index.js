@@ -55,6 +55,13 @@ export default function Meta () {
   Meta.propTypes = {
     cell: PropTypes.any
   }
+  const url1 = '#'
+  const links = {
+    link: '/',
+    nLink: url1,
+    name: 'Dashboard',
+    namespace: 'Meta'
+  }
   const router = useRouter()
   const {
     RestURL,
@@ -76,13 +83,6 @@ export default function Meta () {
     assOption,
     setAssOption
   } = usePageContext()
-  const url1 = '#'
-  const links = {
-    link: '/',
-    nLink: url1,
-    name: 'Dashboard',
-    namespace: 'Meta'
-  }
   const [isDockerValue, setDockerValue] = useState(false)
   const handleDockerClick = () => {
     setDockerValue((prevState) => !prevState)
@@ -128,16 +128,7 @@ export default function Meta () {
         accessorKey: 'nullable',
         header: 'Nullable',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -145,16 +136,7 @@ export default function Meta () {
         accessorKey: 'is_primary_grain',
         header: 'is_primary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -162,16 +144,7 @@ export default function Meta () {
         accessorKey: 'is_secondary_grain',
         header: 'is_secondary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -179,16 +152,7 @@ export default function Meta () {
         accessorKey: 'is_tertiary_grain',
         header: 'is_tertiary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -211,16 +175,7 @@ export default function Meta () {
         accessorKey: 'is_unique',
         header: 'Is Unique',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -254,13 +209,13 @@ export default function Meta () {
     [nullableOptions, assOption]
   )
 
-  const {
-    data: enData,
-    // eslint-disable-next-line no-unused-vars
-    loading: enLoading,
-    // eslint-disable-next-line no-unused-vars
-    error: enError
-  } = useMetaEntity(entity, type)
+  // const {
+  //   data: enData,
+  //   // eslint-disable-next-line no-unused-vars
+  //   loading: enLoading,
+  //   // eslint-disable-next-line no-unused-vars
+  //   error: enError
+  // } = useMetaEntity(entity, type)
 
   const { data, loading, error, refetch } = useEntries(
     entity
@@ -953,11 +908,11 @@ export default function Meta () {
                 })}
                 enableGrouping
                 muiTableContainerProps={{ sx: { maxHeight: '360px' } }}
+                enablePagination={false}
                 enableColumnResizing
                 enableColumnOrdering
                 enableStickyHeader
                 enableStickyFooter
-                enablePagination
                 autoResetPageIndex={false}
                 muiTableBodyCellProps={({ column }) => ({
                   sx: {

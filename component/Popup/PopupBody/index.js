@@ -8,7 +8,7 @@ import layoutPopupStyle from '@/assets/css/layoutPopup.module.css'
 export default function PopupBody (props) {
   const { isFullWidth, children } = props
   PopupBody.propTypes = {
-    isFullWidth: PropTypes.bool,
+    isFullWidth: PropTypes.any,
     children: PropTypes.node
   }
   return (

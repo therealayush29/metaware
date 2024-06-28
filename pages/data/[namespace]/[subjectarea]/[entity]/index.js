@@ -169,7 +169,7 @@ const DashboardTable = () => {
         const sanitizedHeaders = Object.keys(columnHeaders).map(
           (headerKey) => ({
             accessorKey: headerKey,
-            header: headerKey.replace(/_/g, ' '),
+            header: headerKey.replace(/_/g, ' ')
             // ...(headerKey === 'id' && { size: 100, enableEditing: false })
             // ...(headerKey === 'link' && { enableClickToCopy: true })
           })
@@ -220,7 +220,7 @@ const DashboardTable = () => {
   const handleExportData = () => {
     const transformedData = tabData.map((row) => {
       const obj = {}
-      row.forEach((value, index) => {
+      Object.values(row).forEach((value, index) => {
         const header = columns[index].accessorKey
         obj[header] = value
       })
@@ -228,6 +228,7 @@ const DashboardTable = () => {
     })
     csvExporter.generateCsv(transformedData)
   }
+
   const handleCreateNewRow = async (values) => {
     try {
       const response = await fetch(

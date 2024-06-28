@@ -243,7 +243,7 @@ query Meta_namespace($search: String!) {
 `
 const ENTITYSEARCHRESULT = gql`
 query meta_glossary {
-  meta_namespace (type: "glossary") {
+  meta_namespace(type: "glossary") {
     id
     name
     type
@@ -265,6 +265,8 @@ query meta_glossary {
         metas {
           id
           name
+          type
+          subtype
         }
       }
     }
@@ -273,16 +275,14 @@ query meta_glossary {
 `
 const METADETAILS = gql`
   query Meta_meta($id: String!) {
-    meta_meta(where: { id: { _eq: $id } }) {
+    meta_meta(id: $id) {
       alias
       default
       description
       id
-      length
       name
       order
       subtype
-      tags
       type
     }
   }`

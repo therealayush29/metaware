@@ -604,6 +604,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   font-weight: 600;
   font-size: 1.25rem;
   color: var(--secondary) !important;
+  text-transform: capitalize
 }
 
 .headingColor span {
@@ -1914,6 +1915,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   justify-content: space-between;
   gap: 0.5rem;
   height: 36px;
+  margin-bottom: 8px;
 }
 
 .assRltnData a {
@@ -1936,6 +1938,83 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
 .assRltnData i svg {
   width: 20px;
   height: 20px;
+}
+
+.srchRsltEntityCol {
+  background-color: var(--whiteBg);
+  width: 320px;
+  height: auto;
+  padding: 16px;
+  overflow: auto;
+  border-radius: 5px;
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+}
+
+.srchRsltMetaCol {
+  height: calc(100vh - 412px);
+  margin-top: 16px;
+}
+
+.srchRsltEntityHdng {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.srchRsltEntityHdng h4 {
+  font-size: 16px;
+  color: var(--secondary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.srchRsltEntityHdng button {
+  top: -10px;
+  right: 0;
+}
+
+.srchRsltEntityTbl {
+  margin: 0 -16px;
+}
+
+.srchRsltEntityTbl > div {
+  box-shadow: none;
+}
+
+.srchRsltEntityTbl .MuiToolbar-gutters.MuiToolbar-dense {
+  display: none;
+}
+
+.srchRsltEntityTbl .MuiTableCell-root {
+  line-height: 20px;
+  padding: 0.5rem 16px;
+}
+
+.filtrGrp {
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.filtrGrp h4 {
+  font-size: 14px;
+  color: var(--secondary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin: 0 0 12px 0;
+}
+
+.filtrGrp .MuiFormControl-root {
+  padding: 0 9px;
+}
+
+.filtrGrp .MuiFormControl-root label span {
+  padding: 5px;
 }
 
 .MuiLinearProgress-root.MuiLinearProgress-colorPrimary {

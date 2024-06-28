@@ -37,11 +37,11 @@ export default function GlossarySearchResults ({ data, loading }) {
   }
   const router = useRouter()
   const { query } = router
-  const queryString = query.query
+  const queryString = query.query.toLowerCase()
   const [checkAll, setAllCheck] = useState(true)
   const [checkEntity, setEntityCheck] = useState(false)
   const [checkMeta, setMetaCheck] = useState(false)
-  const [checkType, setTypeCheck] = useState(false)
+  const [checkType, setTypeCheck] = useState({})
   const [checkTags, setTagsCheck] = useState(false)
   const [openMetaDetail, setOpenMetaDetail] = useState(false)
   const [openEntityDetail, setOpenEntityDetail] = useState(false)
@@ -49,6 +49,7 @@ export default function GlossarySearchResults ({ data, loading }) {
   const [searchResults, setSearchResults] = useState([])
   const [detailArr, setDetailArr] = useState([])
   const [activeCardId, setActiveCardId] = useState(null)
+  const [typeName, setTypeName] = useState(null)
 
   const goToSearchPage = () => {
     router.push('/glossary/search')
@@ -131,11 +132,13 @@ export default function GlossarySearchResults ({ data, loading }) {
   }
 
   const handleTypeCheckChange = (event) => {
-    const isChecked = event.target.checked
-    setTypeCheck(isChecked)
-    if (!isChecked && !checkEntity && !checkMeta && !checkTags) {
+    const { name, checked } = event.target
+    setTypeCheck(checked)
+    setTypeName(name)
+
+    if (!checked === true && !checkEntity && !checkMeta && !checkTags) {
       setAllCheck(true)
-    } else if (isChecked && checkEntity && checkMeta && checkTags) {
+    } else if (checked === false && checkEntity && checkMeta && checkTags) {
       setAllCheck(false)
     } else {
       setAllCheck(false)
@@ -180,34 +183,42 @@ export default function GlossarySearchResults ({ data, loading }) {
     metaId?.id === activeCardId)
     .flatMap((meta) =>
       meta.metas)
+
   useEffect(() => {
     if (!query || !entitiesAndMeta.length) {
       setSearchResults([])
       return
     }
 
-    let filteredResults = []
+    let typeTagsdata = []
 
-    filteredResults = entitiesAndMeta.filter((item) => {
+    const filteredResults = entitiesAndMeta.filter((item) => {
       if (checkEntity) {
-        return item?.name?.includes(queryString)
+        return item?.name?.toLowerCase().includes(queryString)
       } else if (checkMeta) {
-        return item?.metas.map((me) => me.name?.includes(queryString))
-      } else if (checkTags) {
-        return item?.tags?.includes(queryString)
-      } else if (checkTags) {
-        return item?.metas.map((me) => me.tags?.includes(queryString))
-      } else if (checkType) {
-        return item?.type?.includes(queryString)
-      } else if (checkType) {
-        return item?.metas.map((me) => me.type?.includes(queryString))
+        return item?.metas.some((me) => me.name?.toLowerCase().includes(queryString))
       } else {
-        // If none of the checkboxes are checked, use default logic
-        return item?.name?.includes(queryString) || item?.metas.map((me) => me?.tags?.includes(queryString)) || item?.metas.map((me) => me?.type?.includes(queryString)) || item?.metas.map((me) => me?.name?.includes(queryString)) || item?.type?.includes(queryString) || item?.tags?.includes(queryString)
+        return item?.name?.toLowerCase().includes(queryString) || item?.metas.map((me) => me?.name?.toLowerCase().includes(queryString))
       }
     })
+    typeTagsdata = filteredResults.filter((type) => {
+      if (checkTags) {
+        return type?.tags?.toLowerCase().includes(queryString)
+      } else if (checkTags) {
+        return type?.metas.some((me) => me.tags?.toLowerCase().includes(queryString))
+      } else if (checkType && typeName) {
+        return type?.type?.toLowerCase().includes(typeName.toLowerCase())
+      } else if (checkType && !typeName) {
+        return type?.metas.some((me) => me.type?.toLowerCase().includes(typeName?.toLowerCase()))
+      } else {
+        return type
+      }
+    })
+    console.log('checkType', typeTagsdata)
     setSearchResults(filteredResults)
   }, [query, entitiesAndMeta, checkEntity, checkMeta, checkTags, checkType])
+
+  const uniqueTypes = [...new Set(searchResults.map(item => item?.type))]
 
   return (
     <>
@@ -297,30 +308,23 @@ export default function GlossarySearchResults ({ data, loading }) {
                         </div>
                         <div className='filtrGrp'>
                             <h4>Type</h4>
-                          <FormControl fullWidth>
-                            <FormControlLabel
-                              label='model'
-                              control={
-                                <Checkbox
-                                  onChange={handleTypeCheckChange}
-                                  color="primary"
-                                  value={checkType}
-                                />
-                              }
-                            />
-                          </FormControl>
-                          <FormControl fullWidth>
-                            <FormControlLabel
-                              label='staging'
-                              control={
-                                <Checkbox
-                                  onChange={handleTypeCheckChange}
-                                  color="primary"
-                                  value={checkType}
-                                />
-                              }
-                            />
-                          </FormControl>
+                            {uniqueTypes.map((type, index) => (
+                              <>
+                                <FormControl fullWidth key={index}>
+                                  <FormControlLabel
+                                    label={type}
+                                    control={
+                                      <Checkbox
+                                        name={type}
+                                        onChange={handleTypeCheckChange}
+                                        color="primary"
+                                        value={checkType[type] || false}
+                                      />
+                                    }
+                                  />
+                                </FormControl>
+                              </>
+                            ))}
                         </div>
                         <div className='filtrGrp'>
                             <h4>Tags</h4>
@@ -409,9 +413,7 @@ export default function GlossarySearchResults ({ data, loading }) {
                         <>
                           {searchResults
                             .filter(entity =>
-                              ((checkEntity || checkAll) && entity.name?.includes(queryString)) ||
-                              ((checkTags || checkAll) && entity.tags?.includes(queryString)) ||
-                              ((checkType || checkAll) && entity.type?.includes(queryString)))
+                              ((checkEntity || checkAll) && entity.name?.toLowerCase().includes(queryString)))
                             .map(result => (
                               <div key={result.id} className={`${layoutStyle.srchResultCol} ${openEntityNewDetail && activeCardId === result.id ? layoutStyle.active : ''}`} onClick={() => handleEntityDetailNewClick(result.id)}>
                                 <div className={`${layoutStyle.srchRsltIcon}`}>
@@ -428,11 +430,9 @@ export default function GlossarySearchResults ({ data, loading }) {
                             const entity = sa.name
                             const subjectarea = sa.subjectarea
                             const namespace = sa.namespace
-                            return sa.meta
+                            return sa.metas
                               ?.filter(meta =>
-                                ((checkMeta || checkAll) && meta.name?.includes(queryString)) ||
-                                ((checkTags || checkAll) && meta.tags?.includes(queryString)) ||
-                                ((checkType || checkAll) && meta.type?.includes(queryString)))
+                                ((checkMeta || checkAll) && meta.name?.toLowerCase().includes(queryString)))
                               .map((result) => (
                                 <div key={result.id} className={`${layoutStyle.srchResultCol}`} onClick={() => handleMetaDetailclick(result.id, result.name)}>
                                   <div className={`${layoutStyle.srchRsltIcon}`}>
@@ -447,11 +447,9 @@ export default function GlossarySearchResults ({ data, loading }) {
                               ))
                           })}
                           {searchResults.filter(entity =>
-                            ((checkEntity || checkAll) && entity.name?.includes(queryString)) ||
-                          ((checkTags || checkAll) && entity.tags?.includes(queryString)) ||
-                          ((checkType || checkAll) && entity.type?.includes(queryString))).length === 0 &&
-                            searchResults.flatMap((sa) => sa.meta)
-                              .filter(meta => meta?.name.includes(queryString)).length === 0 && (
+                            ((checkEntity || checkAll) && entity.name?.toLowerCase().includes(queryString))).length === 0 &&
+                            searchResults.flatMap((sa) => sa.metas)
+                              .filter(meta => meta?.name.toLowerCase().includes(queryString)).length === 0 && (
                               <div>No results found.</div>
                           )}
                         </>
@@ -484,9 +482,9 @@ export default function GlossarySearchResults ({ data, loading }) {
                         {searchResults
                           .filter(entity =>
                             entity.id === activeCardId &&
-                            (((checkEntity || checkAll) && entity.name?.includes(queryString)) ||
-                              ((checkTags || checkAll) && entity.tags?.includes(queryString)) ||
-                              ((checkType || checkAll) && entity.type?.includes(queryString))))
+                            (((checkEntity || checkAll) && entity.name?.toLowerCase().includes(queryString)) ||
+                              ((checkTags || checkAll) && entity.tags?.toLowerCase().includes(queryString)) ||
+                              ((checkType || checkAll) && entity.type?.toLowerCase().includes(queryString))))
                           .map(result => (
                               <ul key={result.id}>
                                 <li><span>Type</span><i>:</i><em>{result.type}</em></li>

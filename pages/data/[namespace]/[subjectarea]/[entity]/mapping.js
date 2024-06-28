@@ -544,6 +544,7 @@ const MappingScreen = ({ children }) => {
       } else {
         throw new Error('Failed to save data')
       }
+      setIsSaving(false)
     } catch (error) {
       setIsSaving(false)
       toast.warning(error.message)
@@ -1050,13 +1051,11 @@ const MappingScreen = ({ children }) => {
           </div>
         </div>
         <SourceModal
-          columns={columns}
           open={sourceModalOpen}
           onClose={() => {
             setSourceModalOpen(false)
             resetForm()
           }}
-          onSubmit={'df'}
           customClass={`${isActive ? 'pageViewPopupFull' : ''}`}
         />
         <GranularityModal
