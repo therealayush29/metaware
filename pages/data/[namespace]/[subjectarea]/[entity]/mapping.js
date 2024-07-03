@@ -246,7 +246,7 @@ const MappingScreen = ({ children }) => {
           }
           hasError={errorCell.includes(cell.row.original.name)}
           isDisabledRow={
-            cell.row.original.name === '' || cell.row.original.name === 'nk'
+            cell.row.original.type === 'id' || cell.row.original.name === 'nk'
           }
           onInputChange={(newValue) => {
             handleCellChange(cell, newValue)

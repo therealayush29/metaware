@@ -195,13 +195,13 @@ const ComboBox = ({
           : (
           <FormControl fullWidth>
             <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
+              id="subTypeID"
               multiple
               value={Array.isArray(personName) ? personName : []}
               onChange={handleChange}
               renderValue={(selected) => selected.join(', ')}
               MenuProps={MenuProps}
+              disabled={isDisabledRow}
             >
               {dropdownValues
                 .sort((a, b) => (a.startsWith(inputValue) ? -1 : 1)) // Sort based on whether the item starts with the input value
