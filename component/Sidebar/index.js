@@ -51,8 +51,9 @@ export default function Sidebar (props) {
   useEffect(() => {
     if (!loading && data && data.meta_namespace) {
       setMetaNspace(data.meta_namespace)
+      console.log('data.meta_namespace', data.meta_namespace)
     }
-  }, [loading, data, setMetaNspace])
+  }, [loading, data])
 
   // eslint-disable-next-line no-unused-vars
   const groupedMetaNamespace = metaNspace.reduce((acc, item) => {

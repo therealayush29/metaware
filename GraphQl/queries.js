@@ -127,21 +127,18 @@ query mapData($enId: String!, $type: String!) {
 `
 
 const MappingEntData = gql`
-  query Meta_entity($entity: String!, $type: String!) {
-    meta_entity(where: { name: { _eq: $entity }, type: { _eq: $type } }) {
-        custom_props
-        dependency
-        description
-        id
-        is_delta
-        name
-        runtime
-        sa_id
-        subtype
-        tags
-        type
+  query Meta_entity($entity: String!) {
+    meta_entity(id: $entity) {
+      description
+      id
+      is_delta
+      name
+      runtime
+      sa_id
+      subtype
+      type
     }
-}
+  }
 `
 const MappingSrcData = gql`
 query map_src_data($mapId: String!) {

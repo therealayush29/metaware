@@ -49,7 +49,6 @@ import GranularityModal from '@/component/GranularityModal'
 import MetaIcon from '@/component/Icons/IconMeta'
 
 import layoutStyle from '@/assets/css/layout.module.css'
-import { isEqualType } from 'graphql'
 
 const tidBitOptions = {
   label: [<MoreVertTwoToneIcon key="vertIcon" />],
@@ -271,9 +270,7 @@ const MappingScreen = ({ children }) => {
         }))
       )
 
-      if (!isEqualType(metaRuleset, mappingData)) {
-        setMappingData(metaRuleset) // Update only if changed
-      }
+      setMappingData(metaRuleset)
     }
   }, [loading, data])
 
@@ -314,16 +311,22 @@ const MappingScreen = ({ children }) => {
         updated.rowIndex === rowIndex && updated.columnId === columnId
     )
   }
+  useEffect(() => {
+    console.log('mappingData on mount/update:', mappingData)
+    console.log('updatedCells on mount/update:', updatedCells)
+  }, [mappingData, updatedCells])
 
   const handleCellChange = (cell, newValue) => {
     const rowIndex = cell.row.index
     const columnId = cell.column.id
 
     // Update the mappingData directly
-    const updatedTabData = mappingData.map((row, index) =>
-      index === rowIndex ? { ...row, [columnId]: newValue } : row
-    )
-    setMappingData(updatedTabData)
+    setMappingData((prevMappingData) => {
+      const updatedTabData = prevMappingData.map((row, index) =>
+        index === rowIndex ? { ...row, [columnId]: newValue } : row
+      )
+      return updatedTabData
+    })
 
     // Create a new array for updatedCells to avoid direct mutation
     const updatedCellsCopy = [...updatedCells]

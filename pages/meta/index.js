@@ -47,9 +47,9 @@ import ArrowRightIcon from '@/component/Icons/IconArrowRight'
 import SelectSearch from 'react-select-search'
 import 'react-select-search/style.css'
 import { useEntries } from '@/Hooks/Entries'
-import { useMetaEntity } from '@/Hooks/metaEntity'
 
 import layoutStyle from '@/assets/css/layout.module.css'
+import { useMetaEntity } from '@/Hooks/metaEntity'
 
 export default function Meta () {
   Meta.propTypes = {
@@ -188,34 +188,32 @@ export default function Meta () {
         accessorKey: 'association',
         header: 'Association',
         size: 100,
-        muiTableBodyCellEditTextFieldProps: ({ row }) => ({
-          select: true,
-          disabled: !(
-            row.original.subtype === 'association' && row.original.type === 'id'
-          ),
-          children:
-            row.original.subtype === 'association' &&
-            row.original.type === 'id' &&
-            assOption
+        muiTableBodyCellEditTextFieldProps: ({ row }) => {
+          const isAssociationId = row.original.subtype === 'association' && row.original.type === 'id'
+          return {
+            select: true,
+            disabled: !isAssociationId,
+            children: isAssociationId && assOption
               ? assOption.map((assoc) => (
-                  <MenuItem key={assoc.id} value={assoc.value}>
-                    {assoc.name}
+                  <MenuItem key={assoc?.id} value={assoc?.value}>
+                    {assoc?.name}
                   </MenuItem>
               ))
               : null
-        })
+          }
+        }
       }
     ],
     [nullableOptions, assOption]
   )
 
-  // const {
-  //   data: enData,
-  //   // eslint-disable-next-line no-unused-vars
-  //   loading: enLoading,
-  //   // eslint-disable-next-line no-unused-vars
-  //   error: enError
-  // } = useMetaEntity(entity, type)
+  const {
+    data: enData,
+    // eslint-disable-next-line no-unused-vars
+    loading: enLoading,
+    // eslint-disable-next-line no-unused-vars
+    error: enError
+  } = useMetaEntity(entity)
 
   const { data, loading, error, refetch } = useEntries(
     entity
@@ -296,12 +294,18 @@ export default function Meta () {
 
         if (selectedNamespaceObj) {
           const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
-            sa.entities?.map((en) => ({
-              name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-              value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-              id: sa.id
-            }))
-          )
+            sa.entities?.map((en) => {
+              if (selectedNamespaceObj.name && sa.name && en.name) {
+                return {
+                  name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                  value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                  id: en.id
+                }
+              }
+              return null // Keep nulls to filter out later
+            })
+          ).filter(item => item !== null)
+
           setAssOption(associationOpt)
         }
       }
@@ -317,6 +321,8 @@ export default function Meta () {
 
     // Specify dependencies for the useEffect hook
   }, [metaNspace, namespaceValue, nameSpaceType, selectedNamespace, subjectareaValue])
+
+  console.log('associationOpt', assOption)
 
   const addNullFieldsToTable = () => {
     const existingNullFields = metaNamespace.some(
