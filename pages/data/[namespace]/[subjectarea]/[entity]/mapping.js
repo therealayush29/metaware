@@ -325,21 +325,24 @@ const MappingScreen = ({ children }) => {
     )
     setMappingData(updatedTabData)
 
+    // Create a new array for updatedCells to avoid direct mutation
+    const updatedCellsCopy = [...updatedCells]
+
     // Update the updatedCells array
-    const cellIndexToUpdate = updatedCells.findIndex(
+    const cellIndexToUpdate = updatedCellsCopy.findIndex(
       (updated) =>
         updated.rowIndex === rowIndex && updated.columnId === columnId
     )
 
     if (cellIndexToUpdate !== -1) {
       // If cell is already in the updatedCells array, update it
-      updatedCells[cellIndexToUpdate] = { rowIndex, columnId, value: newValue }
+      updatedCellsCopy[cellIndexToUpdate] = { rowIndex, columnId, value: newValue }
     } else {
       // Otherwise, add it to the array
-      updatedCells.push({ rowIndex, columnId, value: newValue })
+      updatedCellsCopy.push({ rowIndex, columnId, value: newValue })
     }
 
-    setUpdatedCells([...updatedCells])
+    setUpdatedCells(updatedCellsCopy)
   }
 
   // eslint-disable-next-line no-lone-blocks

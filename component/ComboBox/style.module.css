@@ -9,7 +9,7 @@
 .comboTextarea {
     background-color: transparent;
     width: 100%;
-    height: 40px;
+    height: 40px!important;
     padding: 6px 10px;
     box-sizing: border-box;
     font-size: 14px;
