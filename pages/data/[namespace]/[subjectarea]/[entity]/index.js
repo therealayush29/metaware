@@ -1144,7 +1144,7 @@ const DashboardTable = () => {
                         return [
                           ...internalColumnMenuItems,
                           ...metaAssociationArray.map((item, index) => {
-                            const groupKeys = Array.from(new Set(item[Object.keys(item)[0]].map(subItem => subItem.name)));
+                            const groupKeys = Array.from(new Set(item[Object.keys(item)[0]].map(subItem => subItem.name)))
                             return (
                               <MenuItem
                                 key={`custom-menu-item-${index}`}
