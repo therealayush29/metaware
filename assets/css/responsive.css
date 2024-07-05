@@ -1,25 +1,25 @@
 @media (min-width:992px) and (max-width:1199px) {
     .breadCrumbsDiv {
-      right: 16px;
-      top: 52px;
+      right: 16px!important;
+      top: 52px!important;
     }
     .pageViewPopup {
-        top: 60px;
-        left: 20px;
-        right: 20px;
-        bottom: 20px;
+        top: 60px!important;
+        left: 20px!important;
+        right: 20px!important;
+        bottom: 20px!important;
     }
 }
   
 @media (max-width:991px) {
     .breadCrumbsDiv {
-        right: 16px;
-        top: 52px;
+        right: 16px!important;
+        top: 52px!important;
     }
     .pageViewPopup {
-        top: 104px;
-        left: 16px;
-        right: 16px;
-        bottom: 56px;
+        top: 104px!important;
+        left: 16px!important;
+        right: 16px!important;
+        bottom: 56px!important;
     }
 }
