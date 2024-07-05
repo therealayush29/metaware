@@ -109,6 +109,8 @@ const DashboardTable = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [openPopup, setOpenPopup] = useState(false)
+  const [groupings, setGroupings] = useState([])
+  const [metaAssociationArray, setMetaAssociationArray] = useState([])
 
   const [modeMapping, setModeMapping] = useState(false)
   const [createMapModalOpen, setCreateMapModalOpen] = useState(false)
@@ -169,7 +171,7 @@ const DashboardTable = () => {
         const sanitizedHeaders = Object.keys(columnHeaders).map(
           (headerKey) => ({
             accessorKey: headerKey,
-            header: headerKey.replace(/_/g, ' '),
+            header: headerKey.replace(/_/g, ' ')
             // ...(headerKey === 'id' && { size: 100, enableEditing: false })
             // ...(headerKey === 'link' && { enableClickToCopy: true })
           })
@@ -220,7 +222,7 @@ const DashboardTable = () => {
   const handleExportData = () => {
     const transformedData = tabData.map((row) => {
       const obj = {}
-      row.forEach((value, index) => {
+      Object.values(row).forEach((value, index) => {
         const header = columns[index].accessorKey
         obj[header] = value
       })
@@ -228,6 +230,7 @@ const DashboardTable = () => {
     })
     csvExporter.generateCsv(transformedData)
   }
+
   const handleCreateNewRow = async (values) => {
     try {
       const response = await fetch(
@@ -563,7 +566,7 @@ const DashboardTable = () => {
     setTableDqData,
     setIsLoadingDq
   ) => {
-    if (namespace && subjectarea && entity) {
+    if (namespace && subjectarea && entity && type === 'staging') {
       try {
         setIsLoadingDq(true)
         const response = await fetch(
@@ -586,8 +589,8 @@ const DashboardTable = () => {
             })
           )
         setColumnsDq(sanitizedHeaders)
-        const formattedData = tableDqData.map((rowData) =>
-          rowData.slice(0, -1).reduce((formattedRow, value, index) => { // Adjusted here
+        const formattedData = tableDqData.map((rowData) => {
+          const rowObject = rowData.slice(0, -1).reduce((formattedRow, value, index) => { // Adjusted here
             const headerKey = sanitizedHeaders[index].accessorKey
             if (columnHeaders[headerKey] === 'BOOLEAN') {
               formattedRow[headerKey] = value ? 'true' : 'false'
@@ -596,7 +599,23 @@ const DashboardTable = () => {
             }
             return formattedRow
           }, {})
-        )
+          rowObject._meta_association = rowData[rowData.length - 1] // Include _meta_association
+          return rowObject
+        })
+        const metaAssociationArray = []
+        formattedData.forEach(row => {
+          const meta = row._meta_association
+          Object.entries(meta).forEach(([key, value]) => {
+            let entry = metaAssociationArray.find(item => item[value])
+            if (!entry) {
+              entry = { [value]: [] }
+              metaAssociationArray.push(entry)
+            }
+            entry[value].push({ name: key })
+          })
+        })
+
+        setMetaAssociationArray(metaAssociationArray)
         setTableDqData(formattedData)
       } catch (error) {
       } finally {
@@ -613,7 +632,8 @@ const DashboardTable = () => {
         entity,
         setColumnsDq,
         setTableDqData,
-        setIsLoadingDq
+        setIsLoadingDq,
+        setMetaAssociationArray
       )
     }
   }, [namespace, subjectarea, entity])
@@ -1116,7 +1136,25 @@ const DashboardTable = () => {
                       initialState={{
                         density: 'compact',
                         sorting: [{ id: 'id', desc: true }],
-                        columnVisibility: { id: false }
+                        columnVisibility: { id: false },
+                        grouping: groupings,
+                        expanded: true
+                      }}
+                      renderColumnActionsMenuItems={({ internalColumnMenuItems }) => {
+                        return [
+                          ...internalColumnMenuItems,
+                          ...metaAssociationArray.map((item, index) => {
+                            const groupKeys = Array.from(new Set(item[Object.keys(item)[0]].map(subItem => subItem.name)))
+                            return (
+                              <MenuItem
+                                key={`custom-menu-item-${index}`}
+                                onClick={() => setGroupings(groupKeys)}
+                              >
+                                {Object.keys(item)[0]}
+                              </MenuItem>
+                            )
+                          })
+                        ]
                       }}
                       enableGrouping
                       muiTableContainerProps={{ sx: { maxHeight: '650px' } }}

@@ -25,7 +25,7 @@ const SourceModal = ({ customClass, open, onClose }) => {
   SourceModal.propTypes = {
     customClass: PropTypes.string,
     open: PropTypes.bool,
-    onClose: PropTypes.string
+    onClose: PropTypes.any
   }
   const {
     selectedSource,
@@ -39,24 +39,34 @@ const SourceModal = ({ customClass, open, onClose }) => {
   const [checkAdvanced, setCheckAdvanced] = useState(false)
   const [errorMsgSource, setErrorMsgSource] = useState(false)
   const { error, loading, data } = useMeta()
+
   useEffect(() => {
-    if (data && data.meta_namespace) {
+    if (!loading && data) {
       setDataNamespace(data.meta_namespace)
     }
-  }, [data])
-  const stagingData = dataNamespace.filter((item) => item.type === 'staging')
+  }, [loading, data])
+  const stagingData = dataNamespace.filter((item) => item?.type === 'staging')
+
   const sourceOptions = stagingData.flatMap((namespace) => {
-    const { name: namespaceName } = namespace
-    return namespace.subjectareas?.flatMap((subjectArea) => {
-      const { name: subjectAreaName } = subjectArea
-      return subjectArea.entities?.map((entity) => {
-        const { name: entityName } = entity
+    const namespaceName = namespace?.name
+    if (!namespaceName) return []
+
+    return namespace?.subjectareas?.flatMap((subjectArea) => {
+      const subjectAreaName = subjectArea?.name
+      if (!subjectAreaName) return []
+
+      return subjectArea?.entities?.map((entity) => {
+        const entityName = entity?.name
+        if (!entityName) return null
+
         const optionName = `${namespaceName} > ${subjectAreaName} > ${entityName}`
         const optionValue = optionName
         return { name: optionName, value: optionValue }
-      })
-    })
-  })
+      }).filter(Boolean)
+    }).filter(Boolean)
+  }).filter(Boolean)
+
+  console.log('sourceOptions', sourceOptions)
 
   const handleChangeSource = (newValue) => {
     setSelectedSource(newValue)

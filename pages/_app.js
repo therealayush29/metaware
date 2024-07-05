@@ -72,7 +72,7 @@ function App ({ Component, pageProps }) {
   )
 }
 App.propTypes = {
-  pageProps: PropTypes.object,
-  Component: PropTypes.func.isRequired
+  pageProps: PropTypes.any,
+  Component: PropTypes.any
 }
 export default withApollo(App)

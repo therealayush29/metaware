@@ -67,7 +67,7 @@ const MetaEntity = () => {
             select: true,
             children: data.meta_namespace.map((namespace) =>
               row.original.namespace === `${namespace.type} > ${namespace.name}`
-                ? namespace.subjectareas.map((subjectarea) => (
+                ? namespace.subjectareas?.map((subjectarea) => (
                   <MenuItem key={subjectarea.id} value={subjectarea.name}>
                     {subjectarea.name}
                   </MenuItem>
@@ -213,7 +213,7 @@ const MetaEntity = () => {
     if (data && data.meta_namespace && entityData.length > 0) {
       const rowSubOptions = entityData.map((entity) => {
         const currentNamespace = data.meta_namespace.find((namespace) => `${namespace.type} > ${namespace.name}` === entity.namespace)
-        return currentNamespace ? currentNamespace.subjectareas.map((subjectarea) => subjectarea.name) : []
+        return currentNamespace ? currentNamespace.subjectareas?.map((subjectarea) => subjectarea.name) : []
       })
       setEntityOptions(rowSubOptions)
     }

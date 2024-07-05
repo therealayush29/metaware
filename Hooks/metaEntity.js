@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client'
 import { MappingEntData } from '../GraphQl/queries'
 
-const useMetaEntity = (entity, type) => {
+const useMetaEntity = (entity) => {
   const { loading, error, data } = useQuery(MappingEntData, {
-    variables: { entity, type }
+    variables: { entity }
   })
   return {
     loading,

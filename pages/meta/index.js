@@ -47,13 +47,20 @@ import ArrowRightIcon from '@/component/Icons/IconArrowRight'
 import SelectSearch from 'react-select-search'
 import 'react-select-search/style.css'
 import { useEntries } from '@/Hooks/Entries'
-import { useMetaEntity } from '@/Hooks/metaEntity'
 
 import layoutStyle from '@/assets/css/layout.module.css'
+import { useMetaEntity } from '@/Hooks/metaEntity'
 
 export default function Meta () {
   Meta.propTypes = {
     cell: PropTypes.any
+  }
+  const url1 = '#'
+  const links = {
+    link: '/',
+    nLink: url1,
+    name: 'Dashboard',
+    namespace: 'Meta'
   }
   const router = useRouter()
   const {
@@ -76,13 +83,6 @@ export default function Meta () {
     assOption,
     setAssOption
   } = usePageContext()
-  const url1 = '#'
-  const links = {
-    link: '/',
-    nLink: url1,
-    name: 'Dashboard',
-    namespace: 'Meta'
-  }
   const [isDockerValue, setDockerValue] = useState(false)
   const handleDockerClick = () => {
     setDockerValue((prevState) => !prevState)
@@ -128,16 +128,7 @@ export default function Meta () {
         accessorKey: 'nullable',
         header: 'Nullable',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -145,16 +136,7 @@ export default function Meta () {
         accessorKey: 'is_primary_grain',
         header: 'is_primary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -162,16 +144,7 @@ export default function Meta () {
         accessorKey: 'is_secondary_grain',
         header: 'is_secondary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -179,16 +152,7 @@ export default function Meta () {
         accessorKey: 'is_tertiary_grain',
         header: 'is_tertiary_grain',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -211,16 +175,7 @@ export default function Meta () {
         accessorKey: 'is_unique',
         header: 'Is Unique',
         size: 150,
-        Cell: ({ cell }) => {
-          const value = cell.getValue()
-          if (value === true) {
-            return <span>true</span>
-          } else if (value === false) {
-            return <span>false</span>
-          } else {
-            return <span>{value}</span>
-          }
-        },
+        Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
         editVariant: 'select',
         editSelectOptions: nullableOptions
       },
@@ -233,22 +188,20 @@ export default function Meta () {
         accessorKey: 'association',
         header: 'Association',
         size: 100,
-        muiTableBodyCellEditTextFieldProps: ({ row }) => ({
-          select: true,
-          disabled: !(
-            row.original.subtype === 'association' && row.original.type === 'id'
-          ),
-          children:
-            row.original.subtype === 'association' &&
-            row.original.type === 'id' &&
-            assOption
+        muiTableBodyCellEditTextFieldProps: ({ row }) => {
+          const isAssociationId = row.original.subtype === 'association' && row.original.type === 'id'
+          return {
+            select: true,
+            disabled: !isAssociationId,
+            children: isAssociationId && assOption
               ? assOption.map((assoc) => (
-                  <MenuItem key={assoc.id} value={assoc.value}>
-                    {assoc.name}
+                  <MenuItem key={assoc?.id} value={assoc?.value}>
+                    {assoc?.name}
                   </MenuItem>
               ))
               : null
-        })
+          }
+        }
       }
     ],
     [nullableOptions, assOption]
@@ -260,7 +213,7 @@ export default function Meta () {
     loading: enLoading,
     // eslint-disable-next-line no-unused-vars
     error: enError
-  } = useMetaEntity(entity, type)
+  } = useMetaEntity(entity)
 
   const { data, loading, error, refetch } = useEntries(
     entity
@@ -338,15 +291,17 @@ export default function Meta () {
         ) {
           setSelectedSubjectArea([])
         }
-
         if (selectedNamespaceObj) {
           const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
-            sa.entities?.map((en) => ({
-              name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-              value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-              id: sa.id
-            }))
-          )
+            sa.entities && sa.entities.map((en) => {
+              return {
+                name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                id: en.id
+              }
+            })
+          ).filter(item => item !== null)
+
           setAssOption(associationOpt)
         }
       }
@@ -362,6 +317,8 @@ export default function Meta () {
 
     // Specify dependencies for the useEffect hook
   }, [metaNspace, namespaceValue, nameSpaceType, selectedNamespace, subjectareaValue])
+
+  console.log('associationOpt', assOption)
 
   const addNullFieldsToTable = () => {
     const existingNullFields = metaNamespace.some(
@@ -476,7 +433,7 @@ export default function Meta () {
         const rowIndex = parseInt(index, 10)
         return metaNamespace[rowIndex]
       })
-      const hasCrFlag = updatedRows.some(rows => rows.cross === 'client' || rows.id.startsWith('mt'))
+      const hasCrFlag = updatedRows.some(rows => rows.cross === 'client' || (rows.id.startsWith('mt') && !rows.association))
       if (hasCrFlag) {
         const newObject = {
           en_req: {
@@ -499,7 +456,7 @@ export default function Meta () {
             ...(item.cross !== 'client' && { meta_id: item.id }),
             ns: namespace,
             sa: subjectarea,
-            en: entity,
+            en: entityName,
             name: item.name,
             type: item.type,
             subtype: item.subtype,
@@ -514,7 +471,7 @@ export default function Meta () {
           }))
         }
 
-        const url = `${RestURL}/mw/${namespace}/${subjectarea}/${entity}/create_meta`
+        const url = `${RestURL}/mw/${namespace}/${subjectarea}/${entityName}/create_meta`
         const response = await fetch(url, {
           method: 'POST',
           headers: {
@@ -538,7 +495,7 @@ export default function Meta () {
             ...(item.cross !== 'client' && {
               ns: namespace,
               sa: subjectarea,
-              en: entity
+              en: entityName
             }),
             associated_ns: ns,
             associated_sa: sa,
@@ -548,7 +505,7 @@ export default function Meta () {
             association_type_code: 'link'
           }
         }).find(() => true)
-        const urlAsso = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_meta_association`
+        const urlAsso = `${RestURL}/meta/${namespace}/${subjectarea}/${entityName}/create_meta_association`
         const response = await fetch(urlAsso, {
           method: 'POST',
           headers: {
@@ -953,11 +910,11 @@ export default function Meta () {
                 })}
                 enableGrouping
                 muiTableContainerProps={{ sx: { maxHeight: '360px' } }}
+                enablePagination={false}
                 enableColumnResizing
                 enableColumnOrdering
                 enableStickyHeader
                 enableStickyFooter
-                enablePagination
                 autoResetPageIndex={false}
                 muiTableBodyCellProps={({ column }) => ({
                   sx: {
@@ -1113,7 +1070,7 @@ export default function Meta () {
         onClose={closeCreateMeta}
         namespace={namespace}
         subjectarea={subjectarea}
-        entity={entity}
+        entity={entityName}
         RestURL={RestURL}
         />
       </MainCard>
