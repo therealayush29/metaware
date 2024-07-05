@@ -65,24 +65,24 @@ const ENTRIES = gql`
 `
 
 const DATAENTRIES = gql`
-    query GetMeta($subjectarea: String!, $entity: String!) {
-      meta_meta(where: { entity: { name: { _eq: $entity }, subjectarea: { name: { _eq: $subjectarea } } } }) {
-        name
-        type
-      }
+  query GetMeta($subjectarea: String!, $entity: String!) {
+    meta_meta(where: { entity: { name: { _eq: $entity }, subjectarea: { name: { _eq: $subjectarea } } } }) {
+      name
+      type
     }
-  `
+  }
+`
 
 const RuleSet = gql`
   query MyQuery {
     function_help {
       category
-        description
-        example
-        function
-        id
-        lang
-        result
+      description
+      example
+      function
+      id
+      lang
+      result
     }
   }
 `

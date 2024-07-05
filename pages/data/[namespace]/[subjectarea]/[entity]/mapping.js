@@ -551,6 +551,7 @@ const MappingScreen = ({ children }) => {
         throw new Error('Failed to save data')
       }
       setIsSaving(false)
+      setIsRunBtnEnabled(true)
     } catch (error) {
       setIsSaving(false)
       toast.warning(error.message)

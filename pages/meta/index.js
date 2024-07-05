@@ -291,18 +291,14 @@ export default function Meta () {
         ) {
           setSelectedSubjectArea([])
         }
-
         if (selectedNamespaceObj) {
           const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
-            sa.entities?.map((en) => {
-              if (selectedNamespaceObj.name && sa.name && en.name) {
-                return {
-                  name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-                  value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
-                  id: en.id
-                }
+            sa.entities && sa.entities.map((en) => {
+              return {
+                name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                value: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
+                id: en.id
               }
-              return null // Keep nulls to filter out later
             })
           ).filter(item => item !== null)
 
@@ -437,7 +433,7 @@ export default function Meta () {
         const rowIndex = parseInt(index, 10)
         return metaNamespace[rowIndex]
       })
-      const hasCrFlag = updatedRows.some(rows => rows.cross === 'client' || rows.id.startsWith('mt'))
+      const hasCrFlag = updatedRows.some(rows => rows.cross === 'client' || (rows.id.startsWith('mt') && !rows.association))
       if (hasCrFlag) {
         const newObject = {
           en_req: {
@@ -460,7 +456,7 @@ export default function Meta () {
             ...(item.cross !== 'client' && { meta_id: item.id }),
             ns: namespace,
             sa: subjectarea,
-            en: entity,
+            en: entityName,
             name: item.name,
             type: item.type,
             subtype: item.subtype,
@@ -475,7 +471,7 @@ export default function Meta () {
           }))
         }
 
-        const url = `${RestURL}/mw/${namespace}/${subjectarea}/${entity}/create_meta`
+        const url = `${RestURL}/mw/${namespace}/${subjectarea}/${entityName}/create_meta`
         const response = await fetch(url, {
           method: 'POST',
           headers: {
@@ -499,7 +495,7 @@ export default function Meta () {
             ...(item.cross !== 'client' && {
               ns: namespace,
               sa: subjectarea,
-              en: entity
+              en: entityName
             }),
             associated_ns: ns,
             associated_sa: sa,
@@ -509,7 +505,7 @@ export default function Meta () {
             association_type_code: 'link'
           }
         }).find(() => true)
-        const urlAsso = `${RestURL}/meta/${namespace}/${subjectarea}/${entity}/create_meta_association`
+        const urlAsso = `${RestURL}/meta/${namespace}/${subjectarea}/${entityName}/create_meta_association`
         const response = await fetch(urlAsso, {
           method: 'POST',
           headers: {
@@ -1074,7 +1070,7 @@ export default function Meta () {
         onClose={closeCreateMeta}
         namespace={namespace}
         subjectarea={subjectarea}
-        entity={entity}
+        entity={entityName}
         RestURL={RestURL}
         />
       </MainCard>

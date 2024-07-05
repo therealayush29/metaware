@@ -51,7 +51,6 @@ export default function Sidebar (props) {
   useEffect(() => {
     if (!loading && data && data.meta_namespace) {
       setMetaNspace(data.meta_namespace)
-      console.log('data.meta_namespace', data.meta_namespace)
     }
   }, [loading, data])
 

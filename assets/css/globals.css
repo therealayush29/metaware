@@ -1849,6 +1849,7 @@ tr.Mui-selected:hover .MuiOutlinedInput-root.MuiInputBase-colorPrimary {
   font-size: 14px;
   color: var(--primary);
   display: flex;
+  justify-content: space-between
 }
 
 .srchMetaInfo1 li {
