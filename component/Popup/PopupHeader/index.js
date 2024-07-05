@@ -13,7 +13,7 @@ export default function PopupHeader (props) {
   const { title, onClick, children } = props
   PopupHeader.propTypes = {
     title: PropTypes.string,
-    onClick: PropTypes.node,
+    onClick: PropTypes.any,
     children: PropTypes.node
   }
   return (

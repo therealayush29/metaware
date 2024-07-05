@@ -52,7 +52,7 @@ export default function Sidebar (props) {
     if (!loading && data && data.meta_namespace) {
       setMetaNspace(data.meta_namespace)
     }
-  }, [loading, data, setMetaNspace])
+  }, [loading, data])
 
   // eslint-disable-next-line no-unused-vars
   const groupedMetaNamespace = metaNspace.reduce((acc, item) => {

@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 export default function PopupOuter (props) {
   const { isTableDesign, isFooter, children } = props
   PopupOuter.propTypes = {
-    isTableDesign: PropTypes.bool,
-    isFooter: PropTypes.bool,
+    isTableDesign: PropTypes.any,
+    isFooter: PropTypes.any,
     children: PropTypes.node
   }
   return (

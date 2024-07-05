@@ -49,7 +49,6 @@ import GranularityModal from '@/component/GranularityModal'
 import MetaIcon from '@/component/Icons/IconMeta'
 
 import layoutStyle from '@/assets/css/layout.module.css'
-import { isEqualType } from 'graphql'
 
 const tidBitOptions = {
   label: [<MoreVertTwoToneIcon key="vertIcon" />],
@@ -246,7 +245,7 @@ const MappingScreen = ({ children }) => {
           }
           hasError={errorCell.includes(cell.row.original.name)}
           isDisabledRow={
-            cell.row.original.name === '' || cell.row.original.name === 'nk'
+            cell.row.original.type === 'id' || cell.row.original.name === 'nk'
           }
           onInputChange={(newValue) => {
             handleCellChange(cell, newValue)
@@ -271,9 +270,7 @@ const MappingScreen = ({ children }) => {
         }))
       )
 
-      if (!isEqualType(metaRuleset, mappingData)) {
-        setMappingData(metaRuleset) // Update only if changed
-      }
+      setMappingData(metaRuleset)
     }
   }, [loading, data])
 
@@ -314,32 +311,41 @@ const MappingScreen = ({ children }) => {
         updated.rowIndex === rowIndex && updated.columnId === columnId
     )
   }
+  useEffect(() => {
+    console.log('mappingData on mount/update:', mappingData)
+    console.log('updatedCells on mount/update:', updatedCells)
+  }, [mappingData, updatedCells])
 
   const handleCellChange = (cell, newValue) => {
     const rowIndex = cell.row.index
     const columnId = cell.column.id
 
     // Update the mappingData directly
-    const updatedTabData = mappingData.map((row, index) =>
-      index === rowIndex ? { ...row, [columnId]: newValue } : row
-    )
-    setMappingData(updatedTabData)
+    setMappingData((prevMappingData) => {
+      const updatedTabData = prevMappingData.map((row, index) =>
+        index === rowIndex ? { ...row, [columnId]: newValue } : row
+      )
+      return updatedTabData
+    })
+
+    // Create a new array for updatedCells to avoid direct mutation
+    const updatedCellsCopy = [...updatedCells]
 
     // Update the updatedCells array
-    const cellIndexToUpdate = updatedCells.findIndex(
+    const cellIndexToUpdate = updatedCellsCopy.findIndex(
       (updated) =>
         updated.rowIndex === rowIndex && updated.columnId === columnId
     )
 
     if (cellIndexToUpdate !== -1) {
       // If cell is already in the updatedCells array, update it
-      updatedCells[cellIndexToUpdate] = { rowIndex, columnId, value: newValue }
+      updatedCellsCopy[cellIndexToUpdate] = { rowIndex, columnId, value: newValue }
     } else {
       // Otherwise, add it to the array
-      updatedCells.push({ rowIndex, columnId, value: newValue })
+      updatedCellsCopy.push({ rowIndex, columnId, value: newValue })
     }
 
-    setUpdatedCells([...updatedCells])
+    setUpdatedCells(updatedCellsCopy)
   }
 
   // eslint-disable-next-line no-lone-blocks
@@ -544,6 +550,8 @@ const MappingScreen = ({ children }) => {
       } else {
         throw new Error('Failed to save data')
       }
+      setIsSaving(false)
+      setIsRunBtnEnabled(true)
     } catch (error) {
       setIsSaving(false)
       toast.warning(error.message)
@@ -1050,13 +1058,11 @@ const MappingScreen = ({ children }) => {
           </div>
         </div>
         <SourceModal
-          columns={columns}
           open={sourceModalOpen}
           onClose={() => {
             setSourceModalOpen(false)
             resetForm()
           }}
-          onSubmit={'df'}
           customClass={`${isActive ? 'pageViewPopupFull' : ''}`}
         />
         <GranularityModal

@@ -65,24 +65,24 @@ const ENTRIES = gql`
 `
 
 const DATAENTRIES = gql`
-    query GetMeta($subjectarea: String!, $entity: String!) {
-      meta_meta(where: { entity: { name: { _eq: $entity }, subjectarea: { name: { _eq: $subjectarea } } } }) {
-        name
-        type
-      }
+  query GetMeta($subjectarea: String!, $entity: String!) {
+    meta_meta(where: { entity: { name: { _eq: $entity }, subjectarea: { name: { _eq: $subjectarea } } } }) {
+      name
+      type
     }
-  `
+  }
+`
 
 const RuleSet = gql`
   query MyQuery {
     function_help {
       category
-        description
-        example
-        function
-        id
-        lang
-        result
+      description
+      example
+      function
+      id
+      lang
+      result
     }
   }
 `
@@ -127,21 +127,18 @@ query mapData($enId: String!, $type: String!) {
 `
 
 const MappingEntData = gql`
-  query Meta_entity($entity: String!, $type: String!) {
-    meta_entity(where: { name: { _eq: $entity }, type: { _eq: $type } }) {
-        custom_props
-        dependency
-        description
-        id
-        is_delta
-        name
-        runtime
-        sa_id
-        subtype
-        tags
-        type
+  query Meta_entity($entity: String!) {
+    meta_entity(id: $entity) {
+      description
+      id
+      is_delta
+      name
+      runtime
+      sa_id
+      subtype
+      type
     }
-}
+  }
 `
 const MappingSrcData = gql`
 query map_src_data($mapId: String!) {
@@ -243,7 +240,7 @@ query Meta_namespace($search: String!) {
 `
 const ENTITYSEARCHRESULT = gql`
 query meta_glossary {
-  meta_namespace (type: "glossary") {
+  meta_namespace(type: "glossary") {
     id
     name
     type
@@ -265,6 +262,8 @@ query meta_glossary {
         metas {
           id
           name
+          type
+          subtype
         }
       }
     }
@@ -273,16 +272,14 @@ query meta_glossary {
 `
 const METADETAILS = gql`
   query Meta_meta($id: String!) {
-    meta_meta(where: { id: { _eq: $id } }) {
+    meta_meta(id: $id) {
       alias
       default
       description
       id
-      length
       name
       order
       subtype
-      tags
       type
     }
   }`
