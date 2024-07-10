@@ -201,7 +201,7 @@ export default function GlossarySearchResults ({ data, loading }) {
         return item?.name?.toLowerCase().includes(queryString) || item?.metas.map((me) => me?.name?.toLowerCase().includes(queryString))
       }
     })
-    typeTagsdata = filteredResults.filter((type) => {
+    filteredResults.filter((type) => {
       if (checkTags) {
         return type?.tags?.toLowerCase().includes(queryString)
       } else if (checkTags) {

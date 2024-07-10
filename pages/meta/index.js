@@ -215,6 +215,7 @@ export default function Meta () {
     error: enError
   } = useMetaEntity(entity)
 
+  // eslint-disable-next-line no-unused-vars
   const { data, loading, error, refetch } = useEntries(
     entity
   )
