@@ -303,7 +303,7 @@ const MetaEntity = () => {
       })
 
       const newObject = updatedRows.map((item) => {
-        const [ns] = item.namespace.split(' > ')
+        const [type, ns] = item.namespace.split(' > ')
         return {
           ...(item.cross !== 'client' && { entity_id: item.id }),
           name: item.name,

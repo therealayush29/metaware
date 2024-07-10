@@ -137,6 +137,9 @@ const MappingEntData = gql`
       sa_id
       subtype
       type
+      primary_grain
+      secondary_grain
+      tertiary_grain
     }
   }
 `

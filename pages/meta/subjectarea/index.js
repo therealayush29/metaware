@@ -214,7 +214,7 @@ const MetaSubjectarea = () => {
       })
 
       const newObject = updatedRows.map((item) => {
-        const [ns] = item.namespace.split(' > ')
+        const [type, ns] = item.namespace.split(' > ')
         return {
           ...(item.cross !== 'client' && { subjectarea_id: item.id }),
           name: item.name,

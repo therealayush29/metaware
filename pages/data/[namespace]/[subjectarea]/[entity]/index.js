@@ -109,8 +109,6 @@ const DashboardTable = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [openPopup, setOpenPopup] = useState(false)
-  const [groupings, setGroupings] = useState([])
-  const [metaAssociationArray, setMetaAssociationArray] = useState([])
 
   const [modeMapping, setModeMapping] = useState(false)
   const [createMapModalOpen, setCreateMapModalOpen] = useState(false)
@@ -602,20 +600,6 @@ const DashboardTable = () => {
           rowObject._meta_association = rowData[rowData.length - 1] // Include _meta_association
           return rowObject
         })
-        const metaAssociationArray = []
-        formattedData.forEach(row => {
-          const meta = row._meta_association
-          Object.entries(meta).forEach(([key, value]) => {
-            let entry = metaAssociationArray.find(item => item[value])
-            if (!entry) {
-              entry = { [value]: [] }
-              metaAssociationArray.push(entry)
-            }
-            entry[value].push({ name: key })
-          })
-        })
-
-        setMetaAssociationArray(metaAssociationArray)
         setTableDqData(formattedData)
       } catch (error) {
       } finally {
@@ -632,8 +616,7 @@ const DashboardTable = () => {
         entity,
         setColumnsDq,
         setTableDqData,
-        setIsLoadingDq,
-        setMetaAssociationArray
+        setIsLoadingDq
       )
     }
   }, [namespace, subjectarea, entity])
@@ -1136,25 +1119,7 @@ const DashboardTable = () => {
                       initialState={{
                         density: 'compact',
                         sorting: [{ id: 'id', desc: true }],
-                        columnVisibility: { id: false },
-                        grouping: groupings,
-                        expanded: true
-                      }}
-                      renderColumnActionsMenuItems={({ internalColumnMenuItems }) => {
-                        return [
-                          ...internalColumnMenuItems,
-                          ...metaAssociationArray.map((item, index) => {
-                            const groupKeys = Array.from(new Set(item[Object.keys(item)[0]].map(subItem => subItem.name)))
-                            return (
-                              <MenuItem
-                                key={`custom-menu-item-${index}`}
-                                onClick={() => setGroupings(groupKeys)}
-                              >
-                                {Object.keys(item)[0]}
-                              </MenuItem>
-                            )
-                          })
-                        ]
+                        columnVisibility: { id: false }
                       }}
                       enableGrouping
                       muiTableContainerProps={{ sx: { maxHeight: '650px' } }}

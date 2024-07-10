@@ -49,9 +49,6 @@ const InsertMetaEntity = () => {
   const [errorMsgNamespaceType, setErrorMsgNamespaceType] = useState(false)
   const [errorMsgType, setErrorMsgType] = useState(false)
   const [errorMsgIsDelta, setErrorMsgIsDelta] = useState(false)
-  const [errorMsgPrimaryGrain, setErrorMsgPrimaryGrain] = useState(false)
-  const [errorMsgSecondaryGrain, setErrorMsgSecondaryGrain] = useState(false)
-  const [errorMsgTertiaryGrain, setErrorMsgTertiaryGrain] = useState(false)
 
   useEffect(() => {
     if (metaNspace && metaNspace) {
@@ -96,16 +93,13 @@ const InsertMetaEntity = () => {
     e.preventDefault()
     const { name, namespace, subjectarea, groupName, description, isDelta, type, subtype, primaryGrain, secondaryGrain, tertiaryGrain } = formData
     let hasError = false
-    if (!name || !namespace || !subjectarea || !description || !isDelta || !type || !primaryGrain || !secondaryGrain || !tertiaryGrain) {
+    if (!name || !namespace || !subjectarea || !description || !isDelta || !type) {
       setErrorMsgName(name ? '' : 'Enity Name is required')
       setErrorMsgNamespaceType(namespace ? '' : 'Namespace is required')
       setErrorMsgSubjectarea(subjectarea ? '' : 'Subjectarea is required')
       setErrorMsgDescription(description ? '' : 'Description is required')
       setErrorMsgType(type ? '' : 'Type is required')
       setErrorMsgIsDelta(isDelta ? '' : 'Is_Delta is required')
-      setErrorMsgPrimaryGrain(primaryGrain ? '' : 'primary_grain is required')
-      setErrorMsgSecondaryGrain(secondaryGrain ? '' : 'secondary_grain is required')
-      setErrorMsgTertiaryGrain(tertiaryGrain ? '' : 'tertiary_grain is required')
       hasError = true
     } else {
       setErrorMsgName('')
@@ -335,8 +329,6 @@ const InsertMetaEntity = () => {
                     name="primaryGrain"
                     onChange={handleEntityTypeChange}
                     value={formData.primaryGrain}
-                    error={Boolean(errorMsgPrimaryGrain)}
-                    helperText={errorMsgPrimaryGrain}
                     />
                   </Grid>
                 </Grid>
@@ -352,8 +344,6 @@ const InsertMetaEntity = () => {
                     name="secondaryGrain"
                     onChange={handleEntityTypeChange}
                     value={formData.secondaryGrain}
-                    error={Boolean(errorMsgSecondaryGrain)}
-                    helperText={errorMsgSecondaryGrain}
                     />
                   </Grid>
                 </Grid>
@@ -369,8 +359,6 @@ const InsertMetaEntity = () => {
                     name="tertiaryGrain"
                     onChange={handleEntityTypeChange}
                     value={formData.tertiaryGrain}
-                    error={Boolean(errorMsgTertiaryGrain)}
-                    helperText={errorMsgTertiaryGrain}
                     />
                   </Grid>
                 </Grid>

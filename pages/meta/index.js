@@ -194,7 +194,7 @@ export default function Meta () {
             select: true,
             disabled: !isAssociationId,
             children: isAssociationId && assOption
-              ? assOption.map((assoc) => (
+              ? assOption?.map((assoc) => (
                   <MenuItem key={assoc?.id} value={assoc?.value}>
                     {assoc?.name}
                   </MenuItem>
@@ -218,16 +218,16 @@ export default function Meta () {
   const { data, loading, error, refetch } = useEntries(
     entity
   )
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
 
   useEffect(() => {
     if (loading) {
       setIsLoading(true)
-    } else if (data && data.meta_meta) {
+    } else if (data && data?.meta_meta) {
       setIsLoading(false)
-      setMetaNamespace(data.meta_meta)
+      setMetaNamespace(data?.meta_meta)
+    } else {
+      setIsLoading(false)
+      setMetaNamespace([])
     }
   }, [loading, data])
 
@@ -279,7 +279,7 @@ export default function Meta () {
     // Find function logic
     const findFunction = () => {
       if (metaNspace && namespaceValue && nameSpaceType) {
-        const selectedNamespaceObj = metaNspace.find(
+        const selectedNamespaceObj = metaNspace?.find(
           (ns) => ns.name === namespaceValue && ns.type === nameSpaceType
         )
         setSelectedNamespace(selectedNamespaceObj)
@@ -292,7 +292,7 @@ export default function Meta () {
           setSelectedSubjectArea([])
         }
         if (selectedNamespaceObj) {
-          const associationOpt = selectedNamespaceObj.subjectareas.flatMap((sa) =>
+          const associationOpt = selectedNamespaceObj.subjectareas?.flatMap((sa) =>
             sa.entities && sa.entities.map((en) => {
               return {
                 name: `${selectedNamespaceObj.name} > ${sa.name} > ${en.name}`,
@@ -306,7 +306,7 @@ export default function Meta () {
         }
       }
       if (selectedNamespace && subjectareaValue) {
-        const selectedSubjectAreaObj = selectedNamespace?.subjectareas.find(
+        const selectedSubjectAreaObj = selectedNamespace?.subjectareas?.find(
           (area) => area.name === subjectareaValue
         )
         setSelectedSubjectArea(selectedSubjectAreaObj)
@@ -317,8 +317,6 @@ export default function Meta () {
 
     // Specify dependencies for the useEffect hook
   }, [metaNspace, namespaceValue, nameSpaceType, selectedNamespace, subjectareaValue])
-
-  console.log('associationOpt', assOption)
 
   const addNullFieldsToTable = () => {
     const existingNullFields = metaNamespace.some(
@@ -359,13 +357,13 @@ export default function Meta () {
       ...prevState,
       subjectareaValue: event.target.value
     }))
-    const selectedSubjectAreaObj = selectedNamespace?.subjectareas.find(
+    const selectedSubjectAreaObj = selectedNamespace?.subjectareas?.find(
       (area) => area.name === event.target.value
     )
     setSelectedSubjectArea(selectedSubjectAreaObj)
   }
   const handleEntityChange = (event) => {
-    const selectedEntity = selectedSubjectArea.entities.find(
+    const selectedEntity = selectedSubjectArea.entities?.find(
       (item) => item.id === event.target.value
     )
     setState((prevState) => ({
@@ -450,7 +448,10 @@ export default function Meta () {
             tags: {},
             custom_props: {},
             ns_type: type,
-            entity_id: enData.meta_entity[0].id
+            entity_id: enData.meta_entity[0].id,
+            primary_grain: enData.meta_entity[0].primary_grain,
+            secondary_grain: enData.meta_entity[0].secondary_grain,
+            tertiary_grain: enData.meta_entity[0].tertiary_grain
           },
           meta_reqs: updatedRows.map((item) => ({
             ...(item.cross !== 'client' && { meta_id: item.id }),
@@ -565,7 +566,7 @@ export default function Meta () {
       return
     }
     const requestBody = { ids: idsToSend }
-    const url = `${RestURL}/mw/delete_ns`
+    const url = `${RestURL}/mw/delete_meta`
     try {
       const response = await fetch(url, {
         method: 'POST',

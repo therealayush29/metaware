@@ -16,7 +16,7 @@ import ArrowRightIcon from '@/component/Icons/IconArrowRight'
 import layoutStyle from '@/assets/css/layout.module.css'
 const Sidebar = dynamic(() => import('@/component/Sidebar'), {
   ssr: true
-});
+})
 
 export default function MainCard (props) {
   const { customClass, pageIcon, pageHeading, activeMenu, activeSubMenu, children } = props

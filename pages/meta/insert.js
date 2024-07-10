@@ -51,9 +51,6 @@ export default function InsertMeta () {
   const [errorMsgDescription, setErrorMsgDescription] = useState(false)
   const [errorMsgUnique, setErrorMsgUnique] = useState(false)
   const [errorMsgOrder, setErrorMsgOrder] = useState(false)
-  const [errorMsgisPrimary, setErrorMsgisPrimary] = useState(false)
-  const [errorMsgIsSecondary, setErrorMsgIsSecondary] = useState(false)
-  const [errorMsgIsTertiary, setErrorMsgIsTertiary] = useState(false)
 
   const handleMetaChange = (event) => {
     const { name, value } = event.target
@@ -67,7 +64,7 @@ export default function InsertMeta () {
     e.preventDefault()
     const { name, type, subtype, nullable, description, isUnique, order, isPrimary, isSecondary, isTertiary } = formData
     let hasError = false
-    if (!name || !type || !nullable || !description || !isUnique || !order || !subtype || !isPrimary || !isSecondary || !isTertiary) {
+    if (!name || !type || !nullable || !description || !isUnique || !order || !subtype) {
       setErrorMsgName(name ? '' : 'Name is required')
       setErrorMsgType(type ? '' : 'Type is required')
       setErrorMsgSubType(subtype ? '' : 'Sub-Type is required')
@@ -75,9 +72,6 @@ export default function InsertMeta () {
       setErrorMsgDescription(description ? '' : 'Description is required')
       setErrorMsgUnique(isUnique ? '' : 'Is_Unique is required')
       setErrorMsgOrder(order ? '' : 'Order is required')
-      setErrorMsgisPrimary(isPrimary ? '' : 'is_Primary is required')
-      setErrorMsgIsSecondary(isSecondary ? '' : 'is_secondary is required')
-      setErrorMsgIsTertiary(isTertiary ? '' : 'is_tertiary is required')
       hasError = true
     } else {
       setErrorMsgName('')
@@ -88,9 +82,6 @@ export default function InsertMeta () {
       setErrorMsgUnique('')
       setErrorMsgOrder('')
       setFormData(initialState)
-      setErrorMsgisPrimary('')
-      setErrorMsgIsSecondary('')
-      setErrorMsgIsTertiary('')
     }
     if (!hasError) {
       const newNameSpace = {
@@ -294,7 +285,7 @@ export default function InsertMeta () {
                   </Grid>
                 </Grid>
               </FormControl>
-              <FormControl fullWidth error={errorMsgisPrimary}>
+              <FormControl fullWidth>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
@@ -320,11 +311,10 @@ export default function InsertMeta () {
                         label="False"
                       />
                     </RadioGroup>
-                    <FormHelperText>{errorMsgisPrimary}</FormHelperText>
                   </Grid>
                 </Grid>
               </FormControl>
-              <FormControl fullWidth error={errorMsgIsSecondary}>
+              <FormControl fullWidth>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
@@ -350,11 +340,10 @@ export default function InsertMeta () {
                         label="False"
                       />
                     </RadioGroup>
-                    <FormHelperText>{errorMsgIsSecondary}</FormHelperText>
                   </Grid>
                 </Grid>
               </FormControl>
-              <FormControl fullWidth error={errorMsgIsTertiary}>
+              <FormControl fullWidth>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormLabel className="fieldLabel">
@@ -380,7 +369,6 @@ export default function InsertMeta () {
                         label="False"
                       />
                     </RadioGroup>
-                    <FormHelperText>{errorMsgIsTertiary}</FormHelperText>
                   </Grid>
                 </Grid>
               </FormControl>
