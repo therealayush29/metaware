@@ -190,8 +190,6 @@ export default function GlossarySearchResults ({ data, loading }) {
       return
     }
 
-    let typeTagsdata = []
-
     const filteredResults = entitiesAndMeta.filter((item) => {
       if (checkEntity) {
         return item?.name?.toLowerCase().includes(queryString)

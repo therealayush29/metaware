@@ -214,6 +214,7 @@ const MetaSubjectarea = () => {
       })
 
       const newObject = updatedRows.map((item) => {
+        // eslint-disable-next-line no-unused-vars
         const [type, ns] = item.namespace.split(' > ')
         return {
           ...(item.cross !== 'client' && { subjectarea_id: item.id }),
