@@ -66,8 +66,6 @@ const SourceModal = ({ customClass, open, onClose }) => {
     }).filter(Boolean)
   }).filter(Boolean)
 
-  console.log('sourceOptions', sourceOptions)
-
   const handleChangeSource = (newValue) => {
     setSelectedSource(newValue)
   }

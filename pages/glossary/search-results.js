@@ -214,7 +214,6 @@ export default function GlossarySearchResults ({ data, loading }) {
         return type
       }
     })
-    console.log('checkType', typeTagsdata)
     setSearchResults(filteredResults)
   }, [query, entitiesAndMeta, checkEntity, checkMeta, checkTags, checkType])
 

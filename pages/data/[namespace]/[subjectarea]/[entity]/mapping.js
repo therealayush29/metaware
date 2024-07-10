@@ -311,10 +311,6 @@ const MappingScreen = ({ children }) => {
         updated.rowIndex === rowIndex && updated.columnId === columnId
     )
   }
-  useEffect(() => {
-    console.log('mappingData on mount/update:', mappingData)
-    console.log('updatedCells on mount/update:', updatedCells)
-  }, [mappingData, updatedCells])
 
   const handleCellChange = (cell, newValue) => {
     const rowIndex = cell.row.index
