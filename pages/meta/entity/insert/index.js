@@ -212,7 +212,7 @@ const InsertMetaEntity = () => {
                       onChange={handleEntityTypeChange}
                       value={formData.subjectarea}
                     >
-                      {subjectareaOptions.map((item) => (
+                      {subjectareaOptions?.map((item) => (
                         <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
                       ))}
                     </Select>

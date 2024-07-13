@@ -6,8 +6,8 @@ import layoutPopupStyle from '@/assets/css/layoutPopup.module.css'
 export default function PopupFooter (props) {
   const { handleSubmit, onClick, children, isApply } = props
   PopupFooter.propTypes = {
-    handleSubmit: PropTypes.bool,
-    onClick: PropTypes.node,
+    handleSubmit: PropTypes.func,
+    onClick: PropTypes.any,
     children: PropTypes.node,
     isApply: PropTypes.bool
   }

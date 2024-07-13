@@ -85,19 +85,20 @@ export default function InsertMeta () {
     }
     if (!hasError) {
       const newNameSpace = {
-        id: new Date().getTime(),
+        id: `${new Date().getTime()}`,
         type,
         name,
         subtype,
-        nullable,
+        nullable: Boolean(nullable),
         description,
+        default: null,
         cross: 'client',
-        is_unique: isUnique,
+        is_unique: Boolean(isUnique),
         alias: name,
-        order,
-        is_primary_grain: isPrimary,
-        is_secondary_grain: isSecondary,
-        is_tertiary_grain: isTertiary
+        order: parseInt(order),
+        is_primary_grain: Boolean(isPrimary),
+        is_secondary_grain: Boolean(isSecondary),
+        is_tertiary_grain: Boolean(isTertiary)
       }
       setmetaNewRow(newNameSpace)
       toast.success('new row added')

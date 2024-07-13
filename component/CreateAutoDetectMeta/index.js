@@ -28,7 +28,7 @@ const CreateNewRowModal = ({
     entity: PropTypes.string,
     subjectarea: PropTypes.string,
     type: PropTypes.string,
-    namespace: PropTypes.array,
+    namespace: PropTypes.any,
     apiUrl: PropTypes.string,
     onClose: PropTypes.func
   }

@@ -114,16 +114,7 @@ const MetaEntity = () => {
         {
           accessorKey: 'is_delta',
           header: 'Is delta',
-          Cell: ({ cell }) => {
-            const value = cell.getValue()
-            if (value === true) {
-              return <span>true</span>
-            } else if (value === false) {
-              return <span>false</span>
-            } else {
-              return <span>{value}</span>
-            }
-          },
+          Cell: ({ cell }) => <span>{cell.getValue() ? 'true' : 'false'}</span>,
           size: 100,
           editVariant: 'select',
           editSelectOptions: IsDeltaOptions

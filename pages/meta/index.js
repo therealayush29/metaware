@@ -228,7 +228,6 @@ export default function Meta () {
       setMetaNamespace(data?.meta_meta)
     } else {
       setIsLoading(false)
-      setMetaNamespace([])
     }
   }, [loading, data])
 
@@ -236,12 +235,10 @@ export default function Meta () {
     if (metaNewRow) {
       const existingIndex = metaNamespace.findIndex(row => row.id === metaNewRow.id)
       if (existingIndex !== -1) {
-        // Entry with the same ID already exists, update its values
         const updatedMeta = [...metaNamespace]
         updatedMeta[existingIndex] = metaNewRow
         setMetaNamespace(updatedMeta)
       } else {
-        // Entry with the same ID doesn't exist, add the new row
         setMetaNamespace([metaNewRow, ...metaNamespace])
       }
       setIsApplyButtonEnabled(true)
@@ -251,6 +248,7 @@ export default function Meta () {
 
   useEffect(() => {
     if (metaNewRow && metaNamespace.length > 0) {
+      console.log('true', true)
       const rowIndex = metaNamespace.findIndex(
         (row) => row.id === metaNewRow.id
       )
@@ -266,6 +264,7 @@ export default function Meta () {
 
   useEffect(() => {
     if (metaNspace && metaNspace) {
+      console.log('tru660e', true)
       const groupedNamespaceOptions = metaNspace.map((item) => ({
         type: 'group',
         name: item.type,
@@ -279,6 +278,7 @@ export default function Meta () {
   useEffect(() => {
     // Find function logic
     const findFunction = () => {
+      console.log('tru3e', true)
       if (metaNspace && namespaceValue && nameSpaceType) {
         const selectedNamespaceObj = metaNspace?.find(
           (ns) => ns.name === namespaceValue && ns.type === nameSpaceType
